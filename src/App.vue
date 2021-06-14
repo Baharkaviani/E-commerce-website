@@ -1,20 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <div :key = index v-for="index in 10">
-      {{index}}<Menu/>
-    </div>
-
+    <website/>
   </div>
 </template>
 
 <script>
-import Menu from "@/components/Menu";
+import website from "@/components/website";
 
 export default {
   name: 'App',
   components: {
-    Menu
+    website
   }
 }
 </script>
