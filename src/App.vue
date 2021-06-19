@@ -1,28 +1,96 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+<!--    <nav_menu></nav_menu>-->
+    <sorter></sorter>
+<!--    <section class="products">-->
+<!--    <Product v-for="product in products"-->
+<!--             :key="product.title"-->
+<!--             :product="product"-->
+<!--    />-->
+<!--    </section>-->
+<!--    <cathegories property="cats"></cathegories>-->
   </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
+//import nav_menu from './components/nav_menu'
+ import sorter from "@/components/sorter";
+// import Product from "@/components/Product";
+//import Cathegories from "@/components/cathegories";
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    // Cathegories
+     //nav_menu
+    sorter
+    // Product
+  },
+  data (){
+    return{
+      products:[
+        {
+          title:'ماوس۱',
+          img:require('./assets/mouse.png'),
+          price:1000,
+          category:'no1'
+       },
+        {
+          title:'ماوس۲',
+          img:require('./assets/mouse.png'),
+          price:2000,
+          category:'دسته‌بندی یک'
+        },
+        {
+          title:'ماوس۳',
+          img:require('./assets/mouse.png'),
+          price:4000,
+          category:'no4'
+        },
+        {
+          title:'ماوس گیمینگ ریزر',
+          img:require('./assets/mouse.png'),
+          price:'۳۰,۰۰۰',
+          category:'دسته‌بندی یک'
+        }
+      ],
+      cats:[
+          'دسته‌بندی یک',
+        'دسته‌بندی دو',
+        'دسته‌بندی سه',
+        'دسته‌بندی چهار'
+      ]
+    }
   }
 }
 </script>
 
 <style>
+/** {*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*  box-sizing: border-box;*/
+/*}*/
+/*body {*/
+/*  font-family: 'montseratt', sans-serif;*/
+/*}*/
+/*#app {*/
+/*  width: 100vw;*/
+/*  min-height: 100vh;*/
+/*  overflow: hidden;*/
+/*  background-color: white;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*}*/
+/*.products {*/
+/*  display: flex;*/
+/*  max-width: 1280px;*/
+/*  padding: 25px;*/
+/*  margin: 0 auto;*/
+/*}*/
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
 }
 </style>
