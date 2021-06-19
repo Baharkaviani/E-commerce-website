@@ -1,14 +1,14 @@
 <template>
   <div id="app">
 <!--    <nav_menu></nav_menu>-->
-    <sorter></sorter>
+<!--    <sorter></sorter>-->
 <!--    <section class="products">-->
 <!--    <Product v-for="product in products"-->
 <!--             :key="product.title"-->
 <!--             :product="product"-->
 <!--    />-->
 <!--    </section>-->
-<!--    <cathegories property="cats"></cathegories>-->
+    <cathegories :cats="cats"></cathegories>
   </div>
 
 </template>
@@ -16,15 +16,15 @@
 <script>
 
 //import nav_menu from './components/nav_menu'
- import sorter from "@/components/sorter";
+// import sorter from "@/components/sorter";
 // import Product from "@/components/Product";
-//import Cathegories from "@/components/cathegories";
+import Cathegories from "@/components/cathegories";
 export default {
   name: 'App',
   components: {
-    // Cathegories
+    Cathegories
      //nav_menu
-    sorter
+    // sorter
     // Product
   },
   data (){
@@ -57,6 +57,18 @@ export default {
       ],
       cats:[
           'دسته‌بندی یک',
+        'دسته‌بندی دو',
+        'دسته‌بندی سه',
+        'دسته‌بندی یک',
+        'دسته‌بندی دو',
+        'دسته‌بندی سه',
+        'دسته‌بندی یک',
+        'دسته‌بندی دو',
+        'دسته‌بندی سه',
+        'دسته‌بندی یک',
+        'دسته‌بندی دو',
+        'دسته‌بندی سه',
+        'دسته‌بندی یک',
         'دسته‌بندی دو',
         'دسته‌بندی سه',
         'دسته‌بندی چهار'

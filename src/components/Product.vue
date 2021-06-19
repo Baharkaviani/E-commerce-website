@@ -80,7 +80,7 @@ export default {
 
 }
 .price{
-  color: #7a7a7a;
+  color: #585959;
   size: 18px;
   position: absolute;
   top: 50%;
