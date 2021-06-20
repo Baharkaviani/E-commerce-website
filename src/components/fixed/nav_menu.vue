@@ -56,13 +56,13 @@
 
     nav  .menu-item.store{
         font-size: 120%;
-        color: #00ffcc;
+        color: #00bec9;
         margin-right: 50px;
     }
 
     nav .menu-item:active,
     nav .menu-item:hover {
-        color: #00ffcc;
+        color: #00bec9;
     }
     nav .menu-item a {
         color: inherit;
