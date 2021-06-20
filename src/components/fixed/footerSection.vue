@@ -11,21 +11,15 @@
 </script>
 
 <style scoped>
-    *{
-        /*font-family: ;*/
-        /*width: 1280px;*/
-    }
-
     .footerSection{
         direction: rtl;
         display: flex;
         height: 65px;
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 1280px;
+        position: relative;
+        /*left: 0;*/
+        /*bottom: 0;*/
+        /*width: 1280px;*/
         background-color: #000000;
-        color: #FFFFFF;
         text-align: center;
     }
 
