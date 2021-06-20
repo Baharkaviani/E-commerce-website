@@ -42,6 +42,8 @@ nav {
   top: 50%;
   transform: translate(0, -50%);
   width: 1280px;
+  height: 50px;
+
 }
 
 nav .sort {
