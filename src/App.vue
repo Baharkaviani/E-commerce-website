@@ -8,24 +8,24 @@
 <!--             :product="product"-->
 <!--    />-->
 <!--    </section>-->
-<!--    <cathegories property="cats"></cathegories>-->
+<!--    <categories property="cats"></categories>-->
     <footer-section></footer-section>
-    <cathegories :cats="cats"></cathegories>
+    <categories :cats="cats"></categories>
   </div>
 </template>
 
 <script>
 
 //import nav_menu from './components/nav_menu'
-// import sorter from "@/components/sorter";
-// import Product from "@/components/Product";
-//import Cathegories from "@/components/cathegories";
+//import sorter from "@/components/sorter";
+//import Product from "@/components/Product";
+//import Categories from "@/components/categories";
 import footerSection from "@/components/footerSection";
-import Cathegories from "@/components/cathegories";
+import Categories from "@/components/categories";
 export default {
   name: 'App',
   components: {
-    Cathegories,
+    Categories,
      //nav_menu
     // sorter
     // Product

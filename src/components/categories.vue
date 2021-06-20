@@ -1,22 +1,19 @@
 <template>
   <div class="main-cat">
-
     <label class="cat-label">دسته بندی‌ها</label>
     <hr>
-  <div class="container">
-    <label v-for="(cat,index) in cats" :key="index" class="labels">{{cat}}
-      <input type="checkbox" :name="cat" :value="cat">
-      <span class="checkmark"></span>
-    </label>
-  </div>
-
-
+    <div class="container">
+      <label v-for="(cat,index) in cats" :key="index" class="labels">{{cat}}
+        <input type="checkbox" :name="cat" :value="cat">
+        <span class="checkmark"></span>
+      </label>
+    </div>
   </div>
 </template>
 
 <script>
     export default {
-      name: "cathegories",
+      name: "categories",
       props:['cats']
     }
 </script>
