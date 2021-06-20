@@ -9,7 +9,7 @@
         </nav>
 
         <div class="sign-in">
-            <a class="drop">  تارا</a>
+            <a class="drop">تارا</a>
             <i class="arrow"></i>
             <div class="dropdown-content">
                 <a class="first" href="#">پروفایل</a>
@@ -31,7 +31,7 @@
         border-color: #404040;
         height: 65px;
         position: relative;
-        width: 1280px;
+        width: 1278px;
         background-color: #FFFFFF;
     }
 
@@ -80,11 +80,12 @@
         border-color: #ffcc00;
         font-size: 16px;
         text-align: center;
-        min-width: 78px;
+        min-width: 90px;
+
     }
 
     .sign-in{
-        margin-left: 25px;
+        margin-left: 20px;
         position: relative;
         top: 50%;
         transform: translate(0, -50%);
@@ -95,11 +96,15 @@
     .dropdown-content {
         direction: rtl;
         display: none;
-        position: absolute;
+        position:absolute;
+        top: 0%;
+        left: 0%;
+        transform: translate(22%, 15%);
         background-color: #ddd;
         z-index: -1;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
+
     }
 
     .dropdown-content a {
@@ -108,7 +113,9 @@
         padding: 12px 16px;
         text-decoration: none;
         display: inline-block;
-        min-width: 90px;
+        text-align: right;
+        min-width: 103px;
+        font-size: 16px;
     }
     .first{
         margin-top: 25px;
@@ -120,7 +127,7 @@
         background-color: #f1f1f1;
     }
     .sign-in:hover  .dropdown-content {
-        display: block;
+        display: inline-block;
     }
     .sign-in:hover .drop{
         background-color: #ffcc00;
@@ -134,5 +141,6 @@
         transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
         margin-left: 12px;
+        margin-bottom: 5px;
     }
 </style>
