@@ -1,4 +1,4 @@
-# pro
+# e-commerce
 
 ## Project setup
 ```
