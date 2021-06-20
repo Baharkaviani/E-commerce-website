@@ -1,7 +1,7 @@
 <template>
   <div id="app">
 <!--    <nav_menu></nav_menu>-->
-    <sorter></sorter>
+<!--    <sorter></sorter>-->
 <!--    <section class="products">-->
 <!--    <Product v-for="product in products"-->
 <!--             :key="product.title"-->
@@ -10,6 +10,7 @@
 <!--    </section>-->
 <!--    <cathegories property="cats"></cathegories>-->
     <footer-section></footer-section>
+    <cathegories :cats="cats"></cathegories>
   </div>
 </template>
 
@@ -20,10 +21,11 @@
 // import Product from "@/components/Product";
 //import Cathegories from "@/components/cathegories";
 import footerSection from "@/components/footerSection";
+import Cathegories from "@/components/cathegories";
 export default {
   name: 'App',
   components: {
-    // Cathegories
+    Cathegories,
      //nav_menu
     // sorter
     // Product
@@ -61,6 +63,18 @@ export default {
           'دسته‌بندی یک',
         'دسته‌بندی دو',
         'دسته‌بندی سه',
+        'دسته‌بندی یک',
+        'دسته‌بندی دو',
+        'دسته‌بندی سه',
+        'دسته‌بندی یک',
+        'دسته‌بندی دو',
+        'دسته‌بندی سه',
+        'دسته‌بندی یک',
+        'دسته‌بندی دو',
+        'دسته‌بندی سه',
+        'دسته‌بندی یک',
+        'دسته‌بندی دو',
+        'دسته‌بندی سه',
         'دسته‌بندی چهار'
       ]
     }
@@ -69,12 +83,30 @@ export default {
 </script>
 
 <style>
+/** {*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*  box-sizing: border-box;*/
+/*}*/
+/*body {*/
+/*  font-family: 'montseratt', sans-serif;*/
+/*}*/
+/*#app {*/
+/*  width: 100vw;*/
+/*  min-height: 100vh;*/
+/*  overflow: hidden;*/
+/*  background-color: white;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*}*/
+/*.products {*/
+/*  display: flex;*/
+/*  max-width: 1280px;*/
+/*  padding: 25px;*/
+/*  margin: 0 auto;*/
+/*}*/
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
 }
 </style>
