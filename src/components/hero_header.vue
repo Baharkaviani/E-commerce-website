@@ -3,7 +3,7 @@
     <div class="hero-containter">
       <h1>در محصولات سایت جستجو کنید...</h1>
       <input type="text" id="product" name="product" placeholder="نام محصول خود را وارد کنید...">
-      <button>جستجو کنید</button>
+      <a class="button">جستجو کنید</a>
     </div>
   </div>
 </template>
@@ -32,6 +32,7 @@ h1{
   text-align: center;
   border-color: black;
   border: 1px solid;
+  margin-bottom: 0px;
 }
 
 input {
@@ -43,10 +44,14 @@ input {
   left: 50%;
   transform: translate(-50%, 0);
   height: 20px;
-}
 
-button{
-  margin-top: 100px;
+
+}
+input:focus{
+  outline: none;
+}
+.button{
+  margin-top: 95px;
   border-radius: 24px;
   border: none;
   background-color: #ffcc00;
@@ -56,5 +61,6 @@ button{
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
+  display: inline-block;
 }
 </style>

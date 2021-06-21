@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <website id="website"></website>
+<!--        <website id="website"></website>-->
 <!--        <sorter></sorter>-->
 <!--        <section class="products">-->
 <!--            <Product v-for="product in products"-->
@@ -10,22 +10,25 @@
 <!--        </section>-->
 <!--        <categories property="cats"></categories>-->
 <!--        <categories :cats="cats"></categories>-->
+      <hero_header></hero_header>
+
     </div>
 </template>
 
 <script>
-    import website from "@/components/website";
+    // import website from "@/components/website";
     //import sorter from "@/components/sorter";
     //import Product from "@/components/Product";
     //import Categories from "@/components/categories";
-
+  import hero_header from "@/components/hero_header";
     export default {
         name: 'App',
         components: {
-            website,
+            // website,
             // Categories,
             // sorter,
             // Product,
+          hero_header
         },
         data (){
             return{
