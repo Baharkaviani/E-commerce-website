@@ -41,23 +41,23 @@ export default {
       signupItems: [{label:"نام",
         placeholder:"نام خود را وارد کنید...",
         class:true,
-        id:"1"},
+        wsize:true},
         {label:"نام خانوادگی",
           placeholder:"نام خانوادگی خود را وارد کنید...",
           class:true,
-          id:"2"},
+          wsize: true},
         {label:"ایمیل",
           placeholder:"ایمیل خود را وارد کنید...",
           class:true,
-          id:"3"},
+          wsize: true},
         {label:"رمز عبور",
           placeholder:"رمز عبور خود را وارد کنید...",
           class:true,
-          id:"4"}],
+          wsize: true}],
         address:{label:"آدرس",
           placeholder:"آدرس خود را وارد کنید...",
           class:false,
-          id:"5"}
+          wsize: true}
     }
   },
   computed:{

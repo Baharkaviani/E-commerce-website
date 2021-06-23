@@ -1,7 +1,7 @@
 <template>
   <div>
     <label :class="{naddrl: attr.class,  addrl:!attr.class}" :for="attr.label">{{attr.label}}</label>
-    <input v-if="attr.class" type="text"  :id="attr.label" :name="attr.label" :placeholder="attr.placeholder">
+    <input v-if="attr.class" type="text" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :placeholder="attr.placeholder">
     <textarea v-if="!attr.class" :name="attr.label" placeholder="آدرس خود را وارد کنید..."  ></textarea>
   </div>
 </template>
@@ -35,20 +35,24 @@ label{
   border-bottom-right-radius: 5px;
   left: 0;
   vertical-align: middle;
+  box-sizing: border-box;
 }
 .naddrl{
-  /*padding-top: 0;*/
-  /*padding-bottom: 0;*/
-  height: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   margin: 0;
-  box-sizing: border-box;
+
 }
 .addrl{
-  padding-top: 10px;
-  /*padding-bottom: 29px;*/
-  height: 70px;
+  padding-bottom: 30px;
+  padding-top: 30px;
   margin: 0;
-  box-sizing: border-box;
+}
+.wsize{
+  width: 300px;
+}
+.nwsize{
+  width:718px;
 }
 textarea, input{
   border-bottom-left-radius: 5px;
@@ -58,20 +62,20 @@ textarea, input{
   box-sizing: border-box;
 }
 input{
-  width: 300px;
   padding-right:10px;
-  height: 40px;
   margin: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 textarea{
-  width: 730px;
+  width: 718px;
   vertical-align: middle;
   resize: none;
   padding-right:10px;
   padding-top: 10px;
-  padding-bottom: 0;
-  height: 70px;
+  padding-bottom: 30px;
+
   margin: 0;
 }
 
