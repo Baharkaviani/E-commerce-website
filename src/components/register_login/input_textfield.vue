@@ -3,7 +3,7 @@
     <label :class="{naddrl: attr.class,  addrl:!attr.class}" :for="attr.label">{{attr.label}}</label>
     <input v-if="attr.label=='ایمیل'"  type="email" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
     <input v-else-if="attr.class" type="text" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
-    <textarea v-else-if="!attr.class" :name="attr.label" placeholder="آدرس خود را وارد کنید..."  ></textarea>
+    <textarea v-else-if="!attr.class" :name="attr.label" :placeholder="attr.placeholder"  ></textarea>
   </div>
 </template>
 
