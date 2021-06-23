@@ -75,7 +75,7 @@ export default {
 .main-div{
   background-color: #dddddd;
   width: 1280px;
-  height: 100%;
+  /*height: 100%;*/
 
 }
 .page-label{
@@ -96,13 +96,8 @@ form{
                 'a b '
                 'c d'
                 'e e';
-  /*grid-template-columns: 418px 418px;*/
-
   gap: 15px;
   justify-content: center;
-  /*left: 0;*/
-  /*right: 0;*/
-  /*margin: 0 auto;*/
 }
 .login-fields{
   margin-top: 15px;

@@ -23,51 +23,56 @@ export default {
 div{
   width: 100%;
   position: relative;
+  display: flex;
 }
 label{
   background-color: #00bec9;
   color: #f1f1f1;
   width: 100px;
-  display: inline-block;
+  display: block;
   text-align: center;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   left: 0;
-  transform: translate(-2%,0%);
   vertical-align: middle;
-  margin-right: 0px;
 }
 .naddrl{
-  padding-top: 12px;
-  padding-bottom: 12px;
+  /*padding-top: 0;*/
+  /*padding-bottom: 0;*/
+  height: 40px;
+  margin: 0;
+  box-sizing: border-box;
 }
 .addrl{
-  padding-top: 29px;
-  padding-bottom: 29px;
+  padding-top: 10px;
+  /*padding-bottom: 29px;*/
+  height: 70px;
+  margin: 0;
+  box-sizing: border-box;
 }
 textarea, input{
   border-bottom-left-radius: 5px;
   border-top-left-radius: 5px;
-  border-top: #dddddd;
-  border-bottom: #dddddd;
-  border-left: #dddddd;
+  border: none;
+  margin: 0;
+  box-sizing: border-box;
 }
 input{
   width: 300px;
   padding-right:10px;
-  padding-top: 12px;
-  padding-bottom: 15px;
-  /*border-color:white;*/
-
-
+  height: 40px;
+  margin: 0;
 }
+
 textarea{
   width: 730px;
   vertical-align: middle;
   resize: none;
   padding-right:10px;
-  padding-top: 21px;
-  padding-bottom: 21px;
+  padding-top: 10px;
+  padding-bottom: 0;
+  height: 70px;
+  margin: 0;
 }
 
 ::placeholder{
@@ -78,6 +83,5 @@ input:focus{
 }
 textarea:focus{
   outline: none;
-
 }
 </style>
