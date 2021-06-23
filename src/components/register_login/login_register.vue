@@ -33,27 +33,35 @@ export default {
     return {
       loginitems: [{label:"ایمیل",
         placeholder:"ایمیل خود را وارد کنید...",
-        class:true},
+        class:true,
+        wsize:true,
+        minl:0},
         {label:"رمز عبور",
           placeholder:"رمز عبور خود را وارد کنید...",
-          class:true}
+          class:true,
+          wsize:true,
+          minl:6}
         ],
       signupItems: [{label:"نام",
         placeholder:"نام خود را وارد کنید...",
         class:true,
-        wsize:true},
+        wsize:true,
+        minl:0},
         {label:"نام خانوادگی",
           placeholder:"نام خانوادگی خود را وارد کنید...",
           class:true,
-          wsize: true},
+          wsize: true,
+          minl:0},
         {label:"ایمیل",
           placeholder:"ایمیل خود را وارد کنید...",
           class:true,
-          wsize: true},
+          wsize: true,
+          minl:0},
         {label:"رمز عبور",
           placeholder:"رمز عبور خود را وارد کنید...",
           class:true,
-          wsize: true}],
+          wsize: true,
+          minl:0}],
         address:{label:"آدرس",
           placeholder:"آدرس خود را وارد کنید...",
           class:false,
@@ -96,6 +104,12 @@ form{
                 'a b '
                 'c d'
                 'e e';
+  gap: 15px;
+  justify-content: center;
+}
+#login-form{
+  display: grid;
+  grid-template-rows: auto auto;
   gap: 15px;
   justify-content: center;
 }

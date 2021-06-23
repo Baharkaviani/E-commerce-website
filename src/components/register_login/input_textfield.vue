@@ -1,8 +1,9 @@
 <template>
   <div>
     <label :class="{naddrl: attr.class,  addrl:!attr.class}" :for="attr.label">{{attr.label}}</label>
-    <input v-if="attr.class" type="text" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :placeholder="attr.placeholder">
-    <textarea v-if="!attr.class" :name="attr.label" placeholder="آدرس خود را وارد کنید..."  ></textarea>
+    <input v-if="attr.label=='ایمیل'"  type="email" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
+    <input v-else-if="attr.class" type="text" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
+    <textarea v-else-if="!attr.class" :name="attr.label" placeholder="آدرس خود را وارد کنید..."  ></textarea>
   </div>
 </template>
 
@@ -61,6 +62,7 @@ textarea, input{
   margin: 0;
   box-sizing: border-box;
 }
+
 input{
   padding-right:10px;
   margin: 0;
@@ -84,6 +86,9 @@ textarea{
 }
 input:focus{
   outline: none;
+}
+input:invalid:focus {
+  border:1px solid red;
 }
 textarea:focus{
   outline: none;
