@@ -1,31 +1,35 @@
 <template>
- <div class="product">
-   <div class="upper-box">
-     <div class="img-div"><img :src="product.img" class="image" /></div>
-     <div class="title">{{product.title}}</div>
-     <div class="cat">{{product.category}}</div>
+  <div class="product">
 
-   </div>
-   <hr>
-  <div class="lower-box">
+    <div v-if="admin" class="sold">{{product.sold}}</div>
+    <div class="upper-box">
+      <div class="img-div"><img :src="product.img" class="image" /></div>
+      <div class="title">{{product.title}}</div>
+      <div class="cat">{{product.category}}</div>
 
-       <div class="price">{{product.price}} تومان</div>
-       <div class="btn"><button class="buy">خرید محصول</button></div>
+    </div>
+    <hr>
+    <div class="lower-box">
 
-   </div>
- </div>
+      <div class="price">{{product.price}} تومان</div>
+      <div v-if="!admin" class="btn"><button class="buy">خرید محصول</button></div>
+      <div v-else class="btn"><button class="buy">ویرایش محصول</button></div>
+    </div>
+  </div>
 
 </template>
 
 <script>
 export default {
   name: "product",
-  props:['product']
+  props:{
+    product: Object,
+    admin: Boolean
+  }
 }
 </script>
 
 <style scoped>
-
 .product{
   direction: rtl;
   width: 500px;
@@ -48,7 +52,6 @@ export default {
   width: 130px;
   height: 170px;
 }
-
 .title{
   color: #404040;
   /*margin-top: 30px;*/
@@ -61,7 +64,6 @@ export default {
   margin-bottom: 15px;
   font-size: 16px;
   padding-right: 20px;
-
 }
 .buy{
   text-align: center;
@@ -77,7 +79,6 @@ export default {
   left: 0%;
   transform: translate(20%, -50%);
   float: left;
-
 }
 .price{
   color: #585959;
@@ -86,29 +87,42 @@ export default {
   top: 50%;
   right: 0;
   transform: translate(-40%, -50%);
-
-
 }
 .upper-box{
   height: 80%;
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  mso-page-border-z-order: in-back;
 }
-
 .btn{
-
 }
 hr{
   display: inline-block;
   margin-right: 15px;
   margin-left: 15px;
-
-
 }
 .lower-box{
   position: relative;
   height: 20%;
- display: flex;
+  display: flex;
 }
-
+.sold{
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  background-color: white;
+  color: #009eff;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.4);
+  text-align: center;
+  vertical-align:middle;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  /*z-index: 2;*/
+}
 </style>
