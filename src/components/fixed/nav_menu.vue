@@ -30,8 +30,12 @@
         border: 1px solid;
         border-color: #404040;
         height: 65px;
-        position: relative;
+        position: fixed;
         width: 1278px;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
         background-color: #FFFFFF;
     }
 
@@ -97,8 +101,8 @@
         direction: rtl;
         display: none;
         position:absolute;
-        top: 0%;
-        left: 0%;
+        top: 0;
+        left: 0;
         transform: translate(22%, 15%);
         background-color: #ddd;
         z-index: -1;

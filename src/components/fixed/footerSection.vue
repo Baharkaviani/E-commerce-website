@@ -15,12 +15,14 @@
         direction: rtl;
         display: flex;
         height: 65px;
-        position: relative;
-        /*left: 0;*/
-        /*bottom: 0;*/
-        /*width: 1280px;*/
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 1280px;
         background-color: #000000;
         text-align: center;
+        margin: 0 auto;
     }
 
     #footer {

@@ -1,20 +1,17 @@
 <template>
     <div class="website-container">
-        <nav_menu class="menu"/>
+<!--        <hero_header class="main-hero"/>-->
         <div class="item1">Main</div>
         <div class="item2">Right</div>
-        <footer-section class="footerSection"/>
     </div>
 </template>
 
 <script>
-    import nav_menu from "@/components/fixed/nav_menu";
-    import footerSection from "@/components/fixed/footerSection";
+    // import hero_header from "@/components/hero_header";
     export default {
         name: "website",
         components: {
-            nav_menu,
-            footerSection
+            // hero_header
         },
     }
 
@@ -24,10 +21,13 @@
     .website-container {
         width: 1280px;
         height: 100%;
-        position: absolute;
+        position: relative;
         display: grid;
+        top: 65px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
         grid-template-areas:
-                'menu menu menu menu'
                 'header header header right'
                 'footer footer footer footer';
         align-content: space-between;
@@ -38,7 +38,9 @@
         text-align: center;
         font-size: 30px;
     }
-    .website-container > .menu { grid-area: menu; }
+    .website-container > .main-hero {
+        grid-area: main-hero;
+    }
     .item1 { grid-area: header; }
     .item2 { grid-area: right; }
     .website-container > .footerSection { grid-area: footer; }

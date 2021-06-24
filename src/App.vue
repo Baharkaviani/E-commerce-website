@@ -1,13 +1,16 @@
 <template>
-    <div id="app">
-<!--        <website id="website"></website>-->
+    <div class="app container">
+        <nav_menu class="menu container-item"/>
+        <website class="main container-item"/>
+<!--        <login_register class="main"/>-->
+        <footer-section class="footerSection container-item"/>
 <!--        <sorter></sorter>-->
 <!--        <section class="products">-->
-            <Product v-for="product in products"
-                 :key="product.title"
-                 :product="product"
-                  :admin=true
-            />
+<!--            <Product v-for="product in products"-->
+<!--                 :key="product.title"-->
+<!--                 :product="product"-->
+<!--                  :admin=true-->
+<!--            />-->
 <!--        </section>-->
 <!--        <categories property="cats"></categories>-->
 <!--        <categories :cats="cats"></categories>-->
@@ -22,23 +25,28 @@
 </template>
 
 <script>
-    // import website from "@/components/website";
+    import nav_menu from "@/components/fixed/nav_menu";
+    import website from "@/components/website";
+    import footerSection from "@/components/fixed/footerSection";
+    // import login_register from "@/components/register_login/login_register";
+
     //import sorter from "@/components/sorter";
-     import Product from "@/components/Product";
+    //import Product from "@/components/Product";
     //import Categories from "@/components/categories";
-  // import hero_header from "@/components/hero_header";
-  //    import login_register from "@/components/register_login/login_register";
-    // import Input_textfield from "@/components/register_login/input_textfield";
+    //import hero_header from "@/components/hero_header";
+    //import login_register from "@/components/register_login/login_register";
+    //import Input_textfield from "@/components/register_login/input_textfield";
     export default {
         name: 'App',
         components: {
-           // login_register
-          // Input_textfield
-            // website,
+            nav_menu,
+            website,
+            footerSection,
+            // login_register
             // Categories,
             // sorter,
-            Product
-          // hero_header
+            // Product,
+            // hero_header
         },
         data (){
             return{
@@ -109,32 +117,32 @@
 </script>
 
 <style>
-    #app {
+    .container {
         display: flex;
         justify-content: center;
     }
 
-    /** {*/
-    /*  margin: 0;*/
-    /*  padding: 0;*/
-    /*  box-sizing: border-box;*/
+    /*.app {*/
+    /*    width: 1280px;*/
+        /*display: grid;*/
+        /*grid-template-areas:*/
+        /*        'menu'*/
+        /*        'main'*/
+        /*        'footer';*/
+        /*align-content: space-between;*/
+        /*background-color: #00bec9;*/
     /*}*/
-    /*body {*/
-    /*  font-family: 'montseratt', sans-serif;*/
+
+    /*.menu {*/
+    /*    flex-basis: 1280px;*/
     /*}*/
-    /*#app {*/
-    /*  width: 100vw;*/
-    /*  min-height: 100vh;*/
-    /*  overflow: hidden;*/
-    /*  background-color: white;*/
-    /*  display: flex;*/
-    /*  justify-content: center;*/
-    /*  align-items: center;*/
+
+    /*.main {*/
+    /*    padding: 10px;*/
+    /*    flex: 0 0 100%;*/
     /*}*/
-    /*.products {*/
-    /*  display: flex;*/
-    /*  max-width: 1280px;*/
-    /*  padding: 25px;*/
-    /*  margin: 0 auto;*/
+
+    /*.footerSection {*/
+    /*    flex: 1 100%;*/
     /*}*/
 </style>
