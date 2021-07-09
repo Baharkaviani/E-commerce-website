@@ -70,12 +70,11 @@ export default {
   },
   computed:{
     getText(){
-      if(this.login==true)
-        return "ورود"
+      if(this.login===true)
+        return "ورود";
       return "ثبت نام"
     }
   }
-
 }
 </script>
 
@@ -83,7 +82,10 @@ export default {
     .main-div{
         background-color: #dddddd;
         width: 1280px;
-        /*height: 100%;*/
+        margin-top: 65px;
+        height: 100%;
+        justify-content: center;
+        align-items: center;
     }
 
     .page-label{
