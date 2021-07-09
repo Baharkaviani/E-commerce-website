@@ -2,9 +2,9 @@
     <div class="app">
         <nav_menu class="menu"/>
 <!--        <website class="main"/>-->
-        <div class="app-item">
+<!--        <div class="app-item">-->
             <login_register class="main"/>
-        </div>
+<!--        </div>-->
         <footer-section class="footerSection"/>
 <!--        <sorter></sorter>-->
 <!--        <section class="products">-->
@@ -151,7 +151,7 @@
     .app {
         width: 1280px;
         display: grid;
-        position: relative;
+        position: absolute;
         grid-template-areas:
                 'menu'
                 'main'
@@ -162,22 +162,25 @@
         right: 0;
         margin: 0 auto;
         height: 100%;
-    }
-
-    div {
 
     }
+
 
     /*.menu {*/
     /*    flex-basis: 1280px;*/
     /*}*/
-
+    .app-item{
+      border: 2px solid red;
+    }
     .main {
-        top: 50%;
+        top: 0%;
         background-color: #dddddd;
         bottom: 50%;
+        position: absolute;
         transform: translate(0, 50%);
         margin-top: 65px;
+
+
     }
 
     /*.footerSection {*/

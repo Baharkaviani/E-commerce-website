@@ -83,7 +83,7 @@ export default {
         background-color: #dddddd;
         width: 1280px;
         margin-top: 65px;
-        height: 100%;
+        /*height: 100%;*/
         justify-content: center;
         align-items: center;
     }
