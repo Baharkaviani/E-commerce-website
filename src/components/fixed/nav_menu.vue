@@ -103,8 +103,8 @@
         position:absolute;
         top: 0;
         left: 0;
-        transform: translate(22%, 15%);
-        background-color: #ddd;
+        transform: translate(0%, 10%);
+        background-color: #cecece;
         z-index: -1;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
