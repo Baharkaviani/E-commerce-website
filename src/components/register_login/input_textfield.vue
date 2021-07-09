@@ -2,6 +2,7 @@
   <div>
     <label :class="{naddrl: attr.class,  addrl:!attr.class}" :for="attr.label">{{attr.label}}</label>
     <input v-if="attr.label=='ایمیل'"  type="email" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
+    <input v-else-if="attr.label=='رمز عبور'" type="password" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
     <input v-else-if="attr.class" type="text" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
     <textarea v-else-if="!attr.class" :name="attr.label" :placeholder="attr.placeholder"  ></textarea>
   </div>
@@ -90,6 +91,8 @@ input:focus{
 input:invalid:focus {
   border:1px solid red;
 }
+/*input["password"]*/
+
 textarea:focus{
   outline: none;
 }

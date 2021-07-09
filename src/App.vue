@@ -119,14 +119,33 @@
 </script>
 
 <style>
-    /*.app {*/
-    /*    display: flex;*/
-    /*    justify-content: center;*/
-    /*    background-color: #dddddd;*/
-    /*    width: 1280px;*/
-    /*    left: 0;*/
-    /*    right: 0;*/
-    /*    margin: 0 auto;*/
+    #app {
+        display: flex;
+        justify-content: center;
+    }
+
+    /** {*/
+    /*  margin: 0;*/
+    /*  padding: 0;*/
+    /*  box-sizing: border-box;*/
+    /*}*/
+    /*body {*/
+    /*  font-family: 'montseratt', sans-serif;*/
+    /*}*/
+    /*#app {*/
+    /*  width: 100vw;*/
+    /*  min-height: 100vh;*/
+    /*  overflow: hidden;*/
+    /*  background-color: white;*/
+    /*  display: flex;*/
+    /*  justify-content: center;*/
+    /*  align-items: center;*/
+    /*}*/
+    /*.products {*/
+    /*  display: flex;*/
+    /*  max-width: 1280px;*/
+    /*  padding: 25px;*/
+    /*  margin: 0 auto;*/
     /*}*/
 
     .app {
