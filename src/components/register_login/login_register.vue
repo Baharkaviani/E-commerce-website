@@ -61,7 +61,7 @@ export default {
           placeholder:"رمز عبور خود را وارد کنید...",
           class:true,
           wsize: true,
-          minl:0}],
+          minl:6}],
         address:{label:"آدرس",
           placeholder:"آدرس خود را وارد کنید...",
           class:false,

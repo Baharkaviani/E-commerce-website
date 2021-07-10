@@ -1,11 +1,12 @@
 <template>
     <div class="app">
-        <nav_menu class="menu"/>
+<!--        <nav_menu class="menu"/>-->
 <!--        <website class="main"/>-->
 <!--        <div class="app-item">-->
-            <login_register class="main"/>
+      <user_profile class="test"></user_profile>
+<!--            <login_register class="main"/>-->
 <!--        </div>-->
-        <footer-section class="footerSection"/>
+<!--        <footer-section class="footerSection"/>-->
 <!--        <sorter></sorter>-->
 <!--        <section class="products">-->
 <!--            <Product v-for="product in products"-->
@@ -27,10 +28,11 @@
 </template>
 
 <script>
-    import nav_menu from "@/components/fixed/nav_menu";
+    // import nav_menu from "@/components/fixed/nav_menu";
     // import website from "@/components/website";
-    import footerSection from "@/components/fixed/footerSection";
-    import login_register from "@/components/register_login/login_register";
+    // import footerSection from "@/components/fixed/footerSection";
+    // import login_register from "@/components/register_login/login_register";
+    import user_profile from "@/components/profiles/user_profile";
 
     //import sorter from "@/components/sorter";
     //import Product from "@/components/Product";
@@ -42,10 +44,11 @@
     export default {
         name: 'App',
         components: {
-            nav_menu,
+          user_profile
+            // nav_menu,
             // website,
-            footerSection,
-            login_register
+            // footerSection,
+            // login_register
             // Categories,
             // sorter,
             // Product,
@@ -132,15 +135,15 @@
     /*body {*/
     /*  font-family: 'montseratt', sans-serif;*/
     /*}*/
-    /*#app {*/
-    /*  width: 100vw;*/
-    /*  min-height: 100vh;*/
-    /*  overflow: hidden;*/
-    /*  background-color: white;*/
-    /*  display: flex;*/
-    /*  justify-content: center;*/
-    /*  align-items: center;*/
-    /*}*/
+    #app {
+      width: 100vw;
+      min-height: 100vh;
+      overflow: hidden;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     /*.products {*/
     /*  display: flex;*/
     /*  max-width: 1280px;*/
@@ -148,22 +151,22 @@
     /*  margin: 0 auto;*/
     /*}*/
 
-    .app {
-        width: 1280px;
-        display: grid;
-        position: absolute;
-        grid-template-areas:
-                'menu'
-                'main'
-                'footer';
-        align-content: space-between;
-        background-color: #dddddd;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        height: 100%;
+    /*.app {*/
+    /*    width: 1280px;*/
+    /*    display: grid;*/
+    /*    position: absolute;*/
+    /*    grid-template-areas:*/
+    /*            'menu'*/
+    /*            'main'*/
+    /*            'footer';*/
+    /*    align-content: space-between;*/
+    /*    background-color: #dddddd;*/
+    /*    left: 0;*/
+    /*    right: 0;*/
+    /*    margin: 0 auto;*/
+    /*    height: 100%;*/
 
-    }
+    /*}*/
 
 
     /*.menu {*/
@@ -182,7 +185,9 @@
 
 
     }
-
+  /*.test{*/
+  /*  border: 1px solid #00bec9;*/
+  /*}*/
     /*.footerSection {*/
     /*    flex: 1 100%;*/
     /*}*/
