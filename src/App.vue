@@ -3,7 +3,8 @@
 <!--        <nav_menu class="menu"/>-->
 <!--        <website class="main"/>-->
 <!--        <div class="app-item">-->
-      <user_profile class="test"></user_profile>
+<!--      <user_profile class="test"></user_profile>-->
+      <admin_profile></admin_profile>
 <!--            <login_register class="main"/>-->
 <!--        </div>-->
 <!--        <footer-section class="footerSection"/>-->
@@ -32,8 +33,8 @@
     // import website from "@/components/website";
     // import footerSection from "@/components/fixed/footerSection";
     // import login_register from "@/components/register_login/login_register";
-    import user_profile from "@/components/profiles/user_profile";
-
+    // import user_profile from "@/components/profiles/user_profile";
+    import admin_profile from "@/components/profiles/admin_profile";
     //import sorter from "@/components/sorter";
     //import Product from "@/components/Product";
     //import Categories from "@/components/categories";
@@ -44,7 +45,8 @@
     export default {
         name: 'App',
         components: {
-          user_profile
+          // user_profile
+          admin_profile
             // nav_menu,
             // website,
             // footerSection,
