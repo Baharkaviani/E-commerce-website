@@ -7,7 +7,7 @@
         <website class="website"/>
 
         <!--    login and register section    -->
-<!--        <div class="app-item">-->
+<!--        <div class="loginRegister">-->
 <!--            <login_register class="main"/>-->
 <!--        </div>-->
 
@@ -24,7 +24,9 @@
 <!--        </section>-->
 <!--        <categories property="cats"></categories>-->
 <!--        <categories :cats="cats"></categories>-->
+
 <!--      <hero_header></hero_header>-->
+
 <!--      <Input_textfield v-for="inp in inps"-->
 <!--                         :key="inp.label"-->
 <!--                         :attr="inp"-->
@@ -39,11 +41,10 @@
     import website from "@/components/website";
     import footerSection from "@/components/fixed/footerSection";
     // import login_register from "@/components/register_login/login_register";
-
     //import sorter from "@/components/sorter";
     //import Product from "@/components/Product";
     //import Categories from "@/components/categories";
-    //import hero_header from "@/components/hero_header";
+    // import hero_header from "@/components/hero_header";
     //import login_register from "@/components/register_login/login_register";
     //import Input_textfield from "@/components/register_login/input_textfield";
 
@@ -127,48 +128,63 @@
 </script>
 
 <style>
-    /*.app {*/
-    /*    display: flex;*/
-    /*    justify-content: center;*/
-    /*    background-color: #dddddd;*/
-    /*    width: 1280px;*/
-    /*    left: 0;*/
-    /*    right: 0;*/
-    /*    margin: 0 auto;*/
-    /*}*/
+    * {
+        margin: 0;
+    }
 
     .app {
-        width: 1280px;
-        display: grid;
-        position: absolute;
-        grid-template-areas:
-                'menu'
-                'main'
-                'footer';
-        align-content: space-between;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        /*position: relative;*/
         background-color: #dddddd;
+        width: 1280px;
         left: 0;
         right: 0;
         margin: 0 auto;
-        height: 100%;
+
+        min-height: 100vh;
+        overflow-y: hidden;
     }
 
+    /*.app {*/
+    /*    width: 1280px;*/
+    /*    display: grid;*/
+    /*    position: absolute;*/
+    /*    grid-template-areas:*/
+    /*            'menu'*/
+    /*            'main'*/
+    /*            'footer';*/
+    /*    align-content: space-between;*/
+    /*    background-color: #dddddd;*/
+    /*    left: 0;*/
+    /*    right: 0;*/
+    /*    margin: 0 auto;*/
+    /*    height: 100%;*/
+    /*}*/
+
+    /*.app .menu {*/
+    /*    flex: 0 1 auto;*/
+    /*}*/
+
+    .app .loginRegister {
+        /*!*flex: 1 1 auto;*!*/
+        /*min-height: 100vh;*/
+        /*overflow-y: hidden;*/
+    }
+
+    .app .footerSection {
+        flex: 0 1 auto;
+    }
 
     .main {
-        background-color: #dddddd;
-        bottom: 50%;
-        position: absolute;
-        transform: translate(0, 50%);
-        margin-top: 65px;
+        /*bottom: 50%;*/
+        /*position: absolute;*/
+        /*transform: translate(0, 50%);*/
     }
-
-    .menu { grid-area: menu; }
 
     .website {
-        grid-area: main;
-        margin-top: 65px;
+        margin-top: 60px;
     }
-
-    .footerSection { grid-area: footer; }
-
 </style>
