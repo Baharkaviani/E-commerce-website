@@ -1,11 +1,19 @@
 <template>
     <div class="app">
+        <!--    nav menu of the website    -->
         <nav_menu class="menu"/>
-<!--        <website class="main"/>-->
+
+        <!--    website component contains the main part of site!    -->
+        <website class="website"/>
+
+        <!--    login and register section    -->
 <!--        <div class="app-item">-->
-            <login_register class="main"/>
+<!--            <login_register class="main"/>-->
 <!--        </div>-->
+
+        <!--    footer of the website    -->
         <footer-section class="footerSection"/>
+
 <!--        <sorter></sorter>-->
 <!--        <section class="products">-->
 <!--            <Product v-for="product in products"-->
@@ -28,9 +36,9 @@
 
 <script>
     import nav_menu from "@/components/fixed/nav_menu";
-    // import website from "@/components/website";
+    import website from "@/components/website";
     import footerSection from "@/components/fixed/footerSection";
-    import login_register from "@/components/register_login/login_register";
+    // import login_register from "@/components/register_login/login_register";
 
     //import sorter from "@/components/sorter";
     //import Product from "@/components/Product";
@@ -43,9 +51,9 @@
         name: 'App',
         components: {
             nav_menu,
-            // website,
+            website,
             footerSection,
-            login_register
+            // login_register
             // Categories,
             // sorter,
             // Product,
@@ -119,33 +127,14 @@
 </script>
 
 <style>
-    #app {
-        display: flex;
-        justify-content: center;
-    }
-
-    /** {*/
-    /*  margin: 0;*/
-    /*  padding: 0;*/
-    /*  box-sizing: border-box;*/
-    /*}*/
-    /*body {*/
-    /*  font-family: 'montseratt', sans-serif;*/
-    /*}*/
-    /*#app {*/
-    /*  width: 100vw;*/
-    /*  min-height: 100vh;*/
-    /*  overflow: hidden;*/
-    /*  background-color: white;*/
-    /*  display: flex;*/
-    /*  justify-content: center;*/
-    /*  align-items: center;*/
-    /*}*/
-    /*.products {*/
-    /*  display: flex;*/
-    /*  max-width: 1280px;*/
-    /*  padding: 25px;*/
-    /*  margin: 0 auto;*/
+    /*.app {*/
+    /*    display: flex;*/
+    /*    justify-content: center;*/
+    /*    background-color: #dddddd;*/
+    /*    width: 1280px;*/
+    /*    left: 0;*/
+    /*    right: 0;*/
+    /*    margin: 0 auto;*/
     /*}*/
 
     .app {
@@ -162,28 +151,24 @@
         right: 0;
         margin: 0 auto;
         height: 100%;
-
     }
 
 
-    /*.menu {*/
-    /*    flex-basis: 1280px;*/
-    /*}*/
-    .app-item{
-      border: 2px solid red;
-    }
     .main {
-        top: 0%;
         background-color: #dddddd;
         bottom: 50%;
         position: absolute;
         transform: translate(0, 50%);
         margin-top: 65px;
-
-
     }
 
-    /*.footerSection {*/
-    /*    flex: 1 100%;*/
-    /*}*/
+    .menu { grid-area: menu; }
+
+    .website {
+        grid-area: main;
+        margin-top: 65px;
+    }
+
+    .footerSection { grid-area: footer; }
+
 </style>

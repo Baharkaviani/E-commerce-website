@@ -1,6 +1,6 @@
 <template>
     <div class="main-hero">
-        <div class="hero-containter">
+        <div class="hero-container">
             <h1>در محصولات سایت جستجو کنید...</h1>
             <input type="text" id="product" name="product" placeholder="نام محصول خود را وارد کنید...">
             <a class="button">جستجو کنید</a>
@@ -15,38 +15,42 @@
 </script>
 
 <style scoped>
-    *{
+    * {
         direction: rtl;
-        left: 0;
-        right: 0;
-        width: 1280px;
     }
 
     .main-hero{
-        border: 1px solid black;
-        /*width: 500px;*/
-        height: 700px;
+        background-color: #ff6213;
+        left: 0;
+        right: 0;
+        margin: auto 0;
+        width: 1280px;
         position: relative;
+        /*height: 300px;*/
     }
 
-    h1{
+    .hero-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    h1 {
         margin-top: 80px;
         font-size: 32px;
-        color: red;
+        color: white;
         text-align: center;
-        border-color: black;
-        border: 1px solid;
-        margin-bottom: 0;
     }
 
     input {
-        margin-top: 40px;
-        /*width: 400px;*/
         text-align: center;
         border-radius: 24px;
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, 0);
+        /*position: absolute;*/
+        width: 800px;
+        margin: 40px 0 0 0;
+        /*left: 50%;*/
+        /*transform: translate(-50%, 0);*/
         height: 20px;
     }
 
@@ -55,16 +59,14 @@
     }
 
     .button{
-        margin-top: 95px;
+        margin-top: 35px;
         border-radius: 24px;
+        /*position: absolute;*/
         border: none;
         background-color: #ffcc00;
         font-size: 16px;
         text-align: center;
         padding: 5px 25px;
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, 0);
-        display: inline-block;
+        /*display: block;*/
     }
 </style>
