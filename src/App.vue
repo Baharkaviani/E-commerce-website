@@ -16,7 +16,6 @@
 
 <!--        <user_profile class="test"></user_profile>&ndash;&gt;-->
 <!--        <admin_profile></admin_profile>-->
-<!--        <sorter></sorter>-->
 <!--        <section class="products">-->
 <!--            <Product v-for="product in products"-->
 <!--                 :key="product.title"-->
@@ -26,8 +25,6 @@
 <!--        </section>-->
 <!--        <categories property="cats"></categories>-->
 <!--        <categories :cats="cats"></categories>-->
-
-<!--      <hero_header></hero_header>-->
 
 <!--      <Input_textfield v-for="inp in inps"-->
 <!--                         :key="inp.label"-->
@@ -40,15 +37,15 @@
 
 <script>
     import nav_menu from "@/components/fixed/nav_menu";
-    import website from "@/components/website";
     import footerSection from "@/components/fixed/footerSection";
+
+    import website from "@/components/website";
     //import login_register from "@/components/register_login/login_register";
+
     // import user_profile from "@/components/profiles/user_profile";
     // import admin_profile from "@/components/profiles/admin_profile";
-    //import sorter from "@/components/sorter";
     //import Product from "@/components/Product";
     //import Categories from "@/components/categories";
-    //import hero_header from "@/components/hero_header";
     //import login_register from "@/components/register_login/login_register";
     //import Input_textfield from "@/components/register_login/input_textfield";
 
@@ -56,15 +53,14 @@
         name: 'App',
         components: {
             nav_menu,
-            website,
             footerSection,
+            website,
+            // login_register
+
             // user_profile
             // admin_profile
-            // login_register
             // Categories,
-            // sorter,
             // Product,
-            // hero_header
         },
         data (){
             return{
@@ -138,14 +134,12 @@
         margin: 0;
     }
 
-
-
     .app {
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        /*position: relative;*/
+
         background-color: #dddddd;
         width: 1280px;
         left: 0;
@@ -175,24 +169,4 @@
     /*.app .menu {*/
     /*    flex: 0 1 auto;*/
     /*}*/
-
-    .app .loginRegister {
-        /*!*flex: 1 1 auto;*!*/
-        /*min-height: 100vh;*/
-        /*overflow-y: hidden;*/
-    }
-
-    .app .footerSection {
-        flex: 0 1 auto;
-    }
-
-    .main {
-        /*bottom: 50%;*/
-        /*position: absolute;*/
-        /*transform: translate(0, 50%);*/
-    }
-
-    .website {
-        margin-top: 60px;
-    }
 </style>

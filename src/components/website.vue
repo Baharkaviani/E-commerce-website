@@ -1,16 +1,19 @@
 <template>
     <div class="website-container">
         <hero_header class="main-hero"/>
+        <sorter></sorter>
     </div>
 </template>
 
 <script>
     import hero_header from "@/components/hero_header";
+    import sorter from "@/components/sorter";
 
     export default {
         name: "website",
         components: {
-            hero_header
+            hero_header,
+            sorter
         },
     }
 
@@ -18,12 +21,12 @@
 
 <style scoped>
     .website-container {
-        width: 1280px;
-        position: relative;
-    }
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
 
-    .website-container > div {
-        text-align: center;
-        font-size: 30px;
+        width: 1280px;
+        /*position: absolute;*/
     }
 </style>
