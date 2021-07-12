@@ -14,6 +14,8 @@
         <!--    footer of the website    -->
         <footer-section class="footerSection"/>
 
+<!--        <user_profile class="test"></user_profile>&ndash;&gt;-->
+<!--        <admin_profile></admin_profile>-->
 <!--        <sorter></sorter>-->
 <!--        <section class="products">-->
 <!--            <Product v-for="product in products"-->
@@ -40,11 +42,13 @@
     import nav_menu from "@/components/fixed/nav_menu";
     import website from "@/components/website";
     import footerSection from "@/components/fixed/footerSection";
-    // import login_register from "@/components/register_login/login_register";
+    //import login_register from "@/components/register_login/login_register";
+    // import user_profile from "@/components/profiles/user_profile";
+    // import admin_profile from "@/components/profiles/admin_profile";
     //import sorter from "@/components/sorter";
     //import Product from "@/components/Product";
     //import Categories from "@/components/categories";
-    // import hero_header from "@/components/hero_header";
+    //import hero_header from "@/components/hero_header";
     //import login_register from "@/components/register_login/login_register";
     //import Input_textfield from "@/components/register_login/input_textfield";
 
@@ -54,6 +58,8 @@
             nav_menu,
             website,
             footerSection,
+            // user_profile
+            // admin_profile
             // login_register
             // Categories,
             // sorter,
@@ -131,6 +137,8 @@
     * {
         margin: 0;
     }
+
+
 
     .app {
         display: flex;

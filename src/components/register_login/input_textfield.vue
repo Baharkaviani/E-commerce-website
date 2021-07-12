@@ -1,9 +1,9 @@
 <template>
   <div>
-    <label :class="{naddrl: attr.class,  addrl:!attr.class}" :for="attr.label">{{attr.label}}</label>
+    <label :class="{naddrl: attr.class,  addrl:!attr.class, searchlabel:attr.search}" :for="attr.label">{{attr.label}}</label>
     <input v-if="attr.label=='ایمیل'"  type="email" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
     <input v-else-if="attr.label=='رمز عبور'" type="password" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
-    <input v-else-if="attr.class" type="text" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
+    <input v-else-if="attr.class" type="text" :class="{search:attr.search, wsize: attr.wsize,  nwsize:!attr.wsize}"  :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
     <textarea v-else-if="!attr.class" :name="attr.label" :placeholder="attr.placeholder"  ></textarea>
   </div>
 </template>
@@ -39,6 +39,9 @@ label{
   vertical-align: middle;
   box-sizing: border-box;
 }
+.searchlabel{
+  width: 200px;
+}
 .naddrl{
   padding-top: 10px;
   padding-bottom: 10px;
@@ -63,7 +66,9 @@ textarea, input{
   margin: 0;
   box-sizing: border-box;
 }
-
+.search{
+  width: 500px;
+}
 input{
   padding-right:10px;
   margin: 0;

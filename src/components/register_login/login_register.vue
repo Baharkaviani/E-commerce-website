@@ -81,7 +81,6 @@
     .main-div{
         background-color: #dddddd;
         width: 1280px;
-        /*margin-top: 65px;*/
         justify-content: center;
         align-items: center;
     }
