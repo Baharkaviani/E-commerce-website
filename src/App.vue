@@ -10,11 +10,11 @@
 <!--        <footer-section class="footerSection"/>-->
 <!--        <sorter></sorter>-->
 <!--        <section class="products">-->
-<!--            <Product v-for="product in products"-->
-<!--                 :key="product.title"-->
-<!--                 :product="product"-->
-<!--                  :admin=true-->
-<!--            />-->
+            <Product v-for="product in products"
+                 :key="product.title"
+                 :product="product"
+                  :admin=true
+            />
 <!--        </section>-->
 <!--        <categories property="cats"></categories>-->
 <!--        <categories :cats="cats"></categories>-->
@@ -33,7 +33,7 @@
     // import website from "@/components/website";
     // import footerSection from "@/components/fixed/footerSection";
     // import login_register from "@/components/register_login/login_register";
-    // import user_profile from "@/components/profiles/user_profile";
+    //  import user_profile from "@/components/profiles/user_profile";
     import admin_profile from "@/components/profiles/admin_profile";
     //import sorter from "@/components/sorter";
     //import Product from "@/components/Product";
@@ -45,7 +45,7 @@
     export default {
         name: 'App',
         components: {
-          // user_profile
+           // user_profile
           admin_profile
             // nav_menu,
             // website,

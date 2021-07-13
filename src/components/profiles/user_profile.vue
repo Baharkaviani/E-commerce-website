@@ -14,56 +14,57 @@
       <button class="tab profile">پروفایل</button>
       <button class="tab invoice">رسیدها</button>
     </div>
+<!--<div class="ss">-->
+<!--    <table>-->
+<!--      <tr>-->
+<!--        <th>کد پیگیری</th>-->
+<!--        <th>کالا</th>-->
+<!--        <th>قیمت پرداخت شده</th>-->
+<!--        <th>آدرس ارسال شده</th>-->
+<!--      </tr>-->
 
-    <table>
-      <tr>
-        <th>کد پیگیری</th>
-        <th>کالا</th>
-        <th>قیمت پرداخت شده</th>
-        <th>آدرس ارسال شده</th>
-      </tr>
+<!--      <tr>-->
+<!--        <td>SHOP102030</td>-->
+<!--        <td>موس گیمینگ ریزر</td>-->
+<!--        <td>۱۰/۰۰۰ تومان</td>-->
+<!--        <td>تهران، تهران، امیرکبیر</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>SHOP102030</td>-->
+<!--        <td>موس گیمینگ ریزر</td>-->
+<!--        <td>۱۰/۰۰۰ تومان</td>-->
+<!--        <td>تهران، تهران، امیرکبیر</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <td>SHOP102030</td>-->
+<!--        <td>موس گیمینگ ریزر</td>-->
+<!--        <td>۱۰/۰۰۰ تومان</td>-->
+<!--        <td>تهران، تهران، امیرکبیر</td>-->
+<!--      </tr>-->
 
-      <tr>
-        <td>SHOP102030</td>
-        <td>موس گیمینگ ریزر</td>
-        <td>۱۰/۰۰۰ تومان</td>
-        <td>تهران، تهران، امیرکبیر</td>
-      </tr>
-      <tr>
-        <td>SHOP102030</td>
-        <td>موس گیمینگ ریزر</td>
-        <td>۱۰/۰۰۰ تومان</td>
-        <td>تهران، تهران، امیرکبیر</td>
-      </tr>
-      <tr>
-        <td>SHOP102030</td>
-        <td>موس گیمینگ ریزر</td>
-        <td>۱۰/۰۰۰ تومان</td>
-        <td>تهران، تهران، امیرکبیر</td>
-      </tr>
+<!--    </table>-->
+<!--</div>-->
 
-    </table>
-
-<!--    <form  id="edit-form">-->
-<!--      <input_textfield class="name" :attr="name"/>-->
-<!--      <input_textfield class="sname" :attr="sname"/>-->
-<!--      <input_textfield class="password" :attr="password"/>-->
-<!--      <input_textfield class="address" :attr="address"/>-->
-<!--    </form>-->
-<!--    <div class="button-div" >-->
-<!--      <button class="sub" type="submit" form="edit-form" >ویرایش اطلاعات</button>-->
-<!--    </div>-->
+    <form  id="edit-form">
+      <input_textfield class="name" :attr="name"/>
+      <input_textfield class="sname" :attr="sname"/>
+      <input_textfield class="password" :attr="password"/>
+      <input_textfield class="address" :attr="address"/>
+    </form>
+    <div class="button-div" >
+      <button class="sub" type="submit" form="edit-form" >ویرایش اطلاعات</button>
+    </div>
 
   </div>
 
 </template>
 
 <script>
-// import input_textfield from "@/components/register_login/input_textfield";
+ import input_textfield from "@/components/register_login/input_textfield";
 
 export default {
   name: "user_profile",
-  // components: {input_textfield},
+   components: {input_textfield},
   data(){
     return {
       name:{
@@ -150,6 +151,7 @@ form{
   font-size: 16px;
   text-align: center;
   padding: 5px 50px;
+  border-color: #787575;
 }
 .invoice{
   border-bottom-left-radius: 24px;
@@ -200,11 +202,11 @@ button .tab:hover{
 table{
 
   margin-top: 50px;
-
   direction: rtl;
   background-color: white;
   width: 1100px;
   border-collapse: collapse;
+
   text-align: center;
   margin-right: auto;
   margin-left: auto;
@@ -214,9 +216,17 @@ table th {
   padding-top: 15px;
   padding-bottom: 15px;
   color: #d7d6d6;
+  font-size: 14px;
   text-align: right;
   background-color: white;
 
+}
+.ss{
+  box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+  background-color: white;
+  width: 1120px;
+  margin-right: auto;
+  margin-left: auto;
 }
 table td{
   padding-right: 60px;
