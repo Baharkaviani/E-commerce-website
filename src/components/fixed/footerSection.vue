@@ -14,8 +14,10 @@
     .footerSection{
         direction: rtl;
         display: flex;
+        justify-content: center;
+        align-items: center;
         height: 65px;
-        position: fixed;
+        position: absolute;
         left: 0;
         right: 0;
         bottom: 0;
@@ -30,8 +32,6 @@
         text-align: center;
         display: flex;
         font-size: 16px;
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%, 50%);
+        position: relative;
     }
 </style>

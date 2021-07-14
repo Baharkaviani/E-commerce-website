@@ -3,87 +3,84 @@
         <div class="page-label">
             <label>فروشگاه - {{getText}}</label>
         </div>
-    <form v-if="login" id="login-form">
-        <Input_textfield class="login-fields fields" v-for="item in loginitems"
-                              :key="item.label"
-                               :attr="item"
-                        />
-    </form>
-    <form v-else id="signup-form">
-        <Input_textfield class="signup-fields fields"  v-for="item in signupItems"
-                         :key="item.label"
-                         :attr="item"
-        />
-        <input_textfield class="address" :attr="address"/>
-    </form>
-
+        <form v-if="login" id="login-form">
+            <Input_textfield class="login-fields fields" v-for="item in loginitems"
+                                  :key="item.label"
+                                   :attr="item"
+                            />
+        </form>
+        <form v-else id="signup-form">
+            <Input_textfield class="signup-fields fields"  v-for="item in signupItems"
+                             :key="item.label"
+                             :attr="item"
+            />
+            <input_textfield class="address" :attr="address"/>
+        </form>
         <button type="submit" :form="{'login-form': login,  'signup-form':!login}" >{{getText}}</button>
     </div>
 </template>
 
 <script>
-import Input_textfield from "@/components/register_login/input_textfield";
-export default {
-  name: "login_register",
-  components: {Input_textfield},
-  props: {
-    login: Boolean
-  },
-  data() {
-    return {
-      loginitems: [{label:"ایمیل",
-        placeholder:"ایمیل خود را وارد کنید...",
-        class:true,
-        wsize:true,
-        minl:0},
-        {label:"رمز عبور",
-          placeholder:"رمز عبور خود را وارد کنید...",
-          class:true,
-          wsize:true,
-          minl:6}
-        ],
-      signupItems: [{label:"نام",
-        placeholder:"نام خود را وارد کنید...",
-        class:true,
-        wsize:true,
-        minl:0},
-        {label:"نام خانوادگی",
-          placeholder:"نام خانوادگی خود را وارد کنید...",
-          class:true,
-          wsize: true,
-          minl:0},
-        {label:"ایمیل",
-          placeholder:"ایمیل خود را وارد کنید...",
-          class:true,
-          wsize: true,
-          minl:0},
-        {label:"رمز عبور",
-          placeholder:"رمز عبور خود را وارد کنید...",
-          class:true,
-          wsize: true,
-          minl:6}],
-        address:{label:"آدرس",
-          placeholder:"آدرس خود را وارد کنید...",
-          class:false,
-          wsize: true}
+    import Input_textfield from "@/components/register_login/input_textfield";
+    export default {
+        name: "login_register",
+        components: {Input_textfield},
+        props: {
+            login: Boolean
+        },
+        data() {
+            return {
+          loginitems: [{label:"ایمیل",
+            placeholder:"ایمیل خود را وارد کنید...",
+            class:true,
+            wsize:true,
+            minl:0},
+            {label:"رمز عبور",
+              placeholder:"رمز عبور خود را وارد کنید...",
+              class:true,
+              wsize:true,
+              minl:6}
+            ],
+          signupItems: [{label:"نام",
+            placeholder:"نام خود را وارد کنید...",
+            class:true,
+            wsize:true,
+            minl:0},
+            {label:"نام خانوادگی",
+              placeholder:"نام خانوادگی خود را وارد کنید...",
+              class:true,
+              wsize: true,
+              minl:0},
+            {label:"ایمیل",
+              placeholder:"ایمیل خود را وارد کنید...",
+              class:true,
+              wsize: true,
+              minl:0},
+            {label:"رمز عبور",
+              placeholder:"رمز عبور خود را وارد کنید...",
+              class:true,
+              wsize: true,
+              minl:0}],
+            address:{label:"آدرس",
+              placeholder:"آدرس خود را وارد کنید...",
+              class:false,
+              wsize: true}
+        }
+        },
+        computed:{
+            getText(){
+                if(this.login===true)
+                    return "ورود";
+                return "ثبت نام"
+            }
+        }
     }
-  },
-  computed:{
-    getText(){
-      if(this.login===true)
-        return "ورود";
-      return "ثبت نام"
-    }
-  }
-}
 </script>
 
 <style scoped>
     .main-div{
         background-color: #dddddd;
         width: 1280px;
-        margin-top: 65px;
-        /*height: 100%;*/
         justify-content: center;
         align-items: center;
     }

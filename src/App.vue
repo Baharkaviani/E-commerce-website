@@ -1,24 +1,31 @@
 <template>
     <div class="app">
-<!--        <nav_menu class="menu"/>-->
-<!--        <website class="main"/>-->
-<!--        <div class="app-item">-->
-<!--      <user_profile class="test"></user_profile>-->
-      <admin_profile></admin_profile>
+        <!--    nav menu of the website    -->
+        <nav_menu class="menu"/>
+
+        <!--    website component contains the main part of site!    -->
+        <website class="website"/>
+
+        <!--    login and register section    -->
+<!--        <div class="loginRegister">-->
 <!--            <login_register class="main"/>-->
 <!--        </div>-->
-<!--        <footer-section class="footerSection"/>-->
-<!--        <sorter></sorter>-->
+
+        <!--    footer of the website    -->
+        <footer-section class="footerSection"/>
+
+<!--        <user_profile class="test"></user_profile>&ndash;&gt;-->
+<!--        <admin_profile></admin_profile>-->
 <!--        <section class="products">-->
-            <Product v-for="product in products"
-                 :key="product.title"
-                 :product="product"
-                  :admin=true
-            />
+<!--            <Product v-for="product in products"-->
+<!--                 :key="product.title"-->
+<!--                 :product="product"-->
+<!--                  :admin=true-->
+<!--            />-->
 <!--        </section>-->
 <!--        <categories property="cats"></categories>-->
 <!--        <categories :cats="cats"></categories>-->
-<!--      <hero_header></hero_header>-->
+
 <!--      <Input_textfield v-for="inp in inps"-->
 <!--                         :key="inp.label"-->
 <!--                         :attr="inp"-->
@@ -29,32 +36,31 @@
 </template>
 
 <script>
-    // import nav_menu from "@/components/fixed/nav_menu";
-    // import website from "@/components/website";
-    // import footerSection from "@/components/fixed/footerSection";
-    // import login_register from "@/components/register_login/login_register";
-    //  import user_profile from "@/components/profiles/user_profile";
-    import admin_profile from "@/components/profiles/admin_profile";
-    //import sorter from "@/components/sorter";
+    import nav_menu from "@/components/fixed/nav_menu";
+    import footerSection from "@/components/fixed/footerSection";
+
+    import website from "@/components/website";
+    //import login_register from "@/components/register_login/login_register";
+
+    // import user_profile from "@/components/profiles/user_profile";
+    // import admin_profile from "@/components/profiles/admin_profile";
     //import Product from "@/components/Product";
     //import Categories from "@/components/categories";
-    //import hero_header from "@/components/hero_header";
     //import login_register from "@/components/register_login/login_register";
     //import Input_textfield from "@/components/register_login/input_textfield";
 
     export default {
         name: 'App',
         components: {
-           // user_profile
-          admin_profile
-            // nav_menu,
-            // website,
-            // footerSection,
+            nav_menu,
+            footerSection,
+            website,
             // login_register
+
+            // user_profile
+            // admin_profile
             // Categories,
-            // sorter,
             // Product,
-            // hero_header
         },
         data (){
             return{
@@ -124,34 +130,25 @@
 </script>
 
 <style>
-    #app {
-        display: flex;
-        justify-content: center;
+    * {
+        margin: 0;
     }
 
-    /** {*/
-    /*  margin: 0;*/
-    /*  padding: 0;*/
-    /*  box-sizing: border-box;*/
-    /*}*/
-    /*body {*/
-    /*  font-family: 'montseratt', sans-serif;*/
-    /*}*/
-    #app {
-      width: 100vw;
-      min-height: 100vh;
-      overflow: hidden;
-      background-color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .app {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        background-color: #dddddd;
+        width: 1280px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+
+        min-height: 100vh;
+        overflow-y: hidden;
     }
-    /*.products {*/
-    /*  display: flex;*/
-    /*  max-width: 1280px;*/
-    /*  padding: 25px;*/
-    /*  margin: 0 auto;*/
-    /*}*/
 
     /*.app {*/
     /*    width: 1280px;*/
@@ -167,30 +164,9 @@
     /*    right: 0;*/
     /*    margin: 0 auto;*/
     /*    height: 100%;*/
-
     /*}*/
 
-
-    /*.menu {*/
-    /*    flex-basis: 1280px;*/
-    /*}*/
-    .app-item{
-      border: 2px solid red;
-    }
-    .main {
-        top: 0%;
-        background-color: #dddddd;
-        bottom: 50%;
-        position: absolute;
-        transform: translate(0, 50%);
-        margin-top: 65px;
-
-
-    }
-  /*.test{*/
-  /*  border: 1px solid #00bec9;*/
-  /*}*/
-    /*.footerSection {*/
-    /*    flex: 1 100%;*/
+    /*.app .menu {*/
+    /*    flex: 0 1 auto;*/
     /*}*/
 </style>
