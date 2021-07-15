@@ -1,19 +1,36 @@
 <template>
   <div>
     <label :class="{naddrl: attr.class,  addrl:!attr.class, searchlabel:attr.search}" :for="attr.label">{{attr.label}}</label>
-    <input v-if="attr.label=='ایمیل'"  type="email" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
-    <input v-else-if="attr.label=='رمز عبور'" type="password" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
-    <input v-else-if="attr.class" type="text" :class="{search:attr.search, wsize: attr.wsize,  nwsize:!attr.wsize}"  :id="attr.label" :name="attr.label" :minlength="attr.minl" :placeholder="attr.placeholder">
-    <textarea v-else-if="!attr.class" :name="attr.label" :placeholder="attr.placeholder"  ></textarea>
+    <input  v-if="attr.label=='ایمیل'"  type="email" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
+            v-model="inputValue" v-on:keyup="emitToParent">
+    <input  v-else-if="attr.label=='رمز عبور'" type="password" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
+            v-model="inputValue" v-on:keyup="emitToParent">
+    <input  v-else-if="attr.class" type="text" :class="{search:attr.search, wsize: attr.wsize,  nwsize:!attr.wsize}"  :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
+            v-model="inputValue" v-on:keyup="emitToParent">
+    <textarea  v-else-if="!attr.class" :name="attr.argument" :placeholder="attr.placeholder" v-model="inputValue" v-on:keyup="emitToParent" ></textarea>
   </div>
 </template>
 
 <script>
 export default {
   name: "input_textfield",
-  props:['attr']
+  props: {
+    attr: Object,
+    modelValue: String
+  },
+  data() {
+    return {
+      inputValue: ''
+    }
+  },
+  methods: {
 
+    emitToParent() {
+      this.$emit('childToParent', this.inputValue, this.attr.argument)
 
+    }
+
+  }
 }
 </script>
 
