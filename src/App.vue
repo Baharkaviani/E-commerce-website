@@ -1,7 +1,7 @@
 <template>
     <div class="app">
         <!--    nav menu of the website    -->
-<!--        <nav_menu class="menu"/>-->
+        <nav_menu class="menu"/>
 
         <!--    website component contains the main part of site!    -->
         <website class="website"/>
@@ -12,12 +12,12 @@
 <!--        <admin_profile></admin_profile>-->
 
         <!--    login and register section    -->
-        <div class="loginRegister">
-            <login_register class="main" :login="logv"/>
-        </div>
+<!--        <div class="loginRegister">-->
+<!--            <login_register class="main" :login="logv"/>-->
+<!--        </div>-->
 
         <!--    footer of the website    -->
-<!--        <footer-section class="footerSection"/>-->
+        <footer-section class="footerSection"/>
 
 
 
@@ -32,10 +32,11 @@
 </template>
 
 <script>
-    // import nav_menu from "@/components/fixed/nav_menu";
-    // import footerSection from "@/components/fixed/footerSection";
+    import nav_menu from "@/components/fixed/nav_menu";
+    import footerSection from "@/components/fixed/footerSection";
 
     import website from "@/components/website";
+    // import website_products from "@/components/website_products";
 
     // import user_profile from "@/components/profiles/user_profile";
     // import admin_profile from "@/components/profiles/admin_profile";
@@ -47,8 +48,8 @@
         name: 'App',
         components: {
             // website_products,
-            // nav_menu,
-            // footerSection,
+            nav_menu,
+            footerSection,
             website,
             // login_register
 

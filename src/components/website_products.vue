@@ -1,25 +1,25 @@
 <template>
     <div class="product-container">
-        <section class="products">
+        <section class="products" style="width: 75%;">
             <Product v-for="product in products"
                      :key="product.title"
                      :product="product"
-                     :admin=true
+                     :admin=false
             />
         </section>
-<!--        <categories/>-->
+        <categories class="categories" style="background-color:#aaa; width: 25%;"/>
     </div>
 </template>
 
 <script>
     import Product from "@/components/Product";
-    // import categories from "@/components/categories";
+    import categories from "@/components/categories";
 
     export default {
         name: "website_products",
         components: {
             Product,
-            // categories
+            categories
         },
         data () {
             return {
@@ -59,11 +59,19 @@
 </script>
 
 <style scoped>
-    .products {
+    .product-container {
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-direction: row;
-        width: 1280px;
+        position: relative;
+    }
+
+    .products {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+        flex-wrap: wrap;
     }
 </style>

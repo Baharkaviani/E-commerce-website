@@ -17,7 +17,7 @@
         justify-content: center;
         align-items: center;
         height: 65px;
-        position: absolute;
+        position: fixed;
         left: 0;
         right: 0;
         bottom: 0;
