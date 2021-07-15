@@ -22,20 +22,27 @@
     .main-cat{
         direction: rtl;
         padding-right: 10px;
+        padding-left: 10px;
         color: #585959;
         background-color: white;
         margin-left: 10px;
-        max-height: 173px;
+        max-height: 270px;
     }
-
+    hr{
+      margin-bottom: 10px;
+      color: #787575;
+    }
     .cat-label{
+      display: block;
         font-size: 18px;
+      margin-top: 10px;
+      margin-bottom: 10px;
     }
 
     .container{
         /*margin-top: 10px;*/
         overflow-y: scroll;
-        max-height: 150px;
+        max-height: 210px;
     }
 
     .labels {
