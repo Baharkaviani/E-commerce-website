@@ -29,6 +29,6 @@
         justify-content: space-between;
         flex-direction: column;
         width: 1280px;
+        margin-bottom: 75px;
     }
-
 </style>

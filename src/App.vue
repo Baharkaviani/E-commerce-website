@@ -5,7 +5,6 @@
 
         <!--    website component contains the main part of site!    -->
         <website class="website"/>
-<!--        <website_products/>-->
 
 <!--        <user_profile class="test"></user_profile>-->
 
@@ -18,8 +17,6 @@
 
         <!--    footer of the website    -->
         <footer-section class="footerSection"/>
-
-
 
 
 <!--        <categories :cats="cats"></categories>-->
@@ -36,7 +33,6 @@
     import footerSection from "@/components/fixed/footerSection";
 
     import website from "@/components/website";
-    // import website_products from "@/components/website_products";
 
     // import user_profile from "@/components/profiles/user_profile";
     // import admin_profile from "@/components/profiles/admin_profile";
@@ -47,7 +43,6 @@
     export default {
         name: 'App',
         components: {
-            // website_products,
             nav_menu,
             footerSection,
             website,

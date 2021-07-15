@@ -36,6 +36,7 @@
         box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
         position: relative;
         margin-top: 10px;
+        background-color: white;
     }
 
     .img-div{

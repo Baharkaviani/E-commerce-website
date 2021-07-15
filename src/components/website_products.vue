@@ -7,7 +7,7 @@
                      :admin=false
             />
         </section>
-        <categories class="categories" style="background-color:#aaa; width: 25%;"/>
+        <categories :cats="cats" class="categories" style="width: 25%;"/>
     </div>
 </template>
 
@@ -53,6 +53,24 @@
                         sold: 34
                     }
                 ],
+                cats:[
+                    'دسته‌بندی یک',
+                    'دسته‌بندی دو',
+                    'دسته‌بندی سه',
+                    'دسته‌بندی یک',
+                    'دسته‌بندی دو',
+                    'دسته‌بندی سه',
+                    'دسته‌بندی یک',
+                    'دسته‌بندی دو',
+                    'دسته‌بندی سه',
+                    'دسته‌بندی یک',
+                    'دسته‌بندی دو',
+                    'دسته‌بندی سه',
+                    'دسته‌بندی یک',
+                    'دسته‌بندی دو',
+                    'دسته‌بندی سه',
+                    'دسته‌بندی چهار'
+                ],
             }
         }
     }
@@ -65,6 +83,7 @@
         justify-content: space-between;
         flex-direction: row;
         position: relative;
+        margin: 10px;
     }
 
     .products {
