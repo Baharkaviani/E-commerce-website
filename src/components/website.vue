@@ -1,7 +1,7 @@
 <template>
     <div class="website-container">
         <hero_header class="main-hero"/>
-        <sorter></sorter>
+        <sorter class="sorter"/>
     </div>
 </template>
 
@@ -25,8 +25,7 @@
         align-items: center;
         justify-content: space-between;
         flex-direction: column;
-
         width: 1280px;
-        /*position: absolute;*/
     }
+
 </style>

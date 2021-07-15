@@ -85,7 +85,7 @@ export default {
 
 <style scoped>
 .main-div{
-  background-color: #e7e5e5;
+  background-color: #dddddd;
   width: 1280px;
   margin-top: 65px;
   box-sizing: border-box;
@@ -105,7 +105,7 @@ export default {
 
 .tab{
 
-  background-color: #e7e5e5;
+  background-color: #dddddd;
   margin-top: 20px;
   font-size: 16px;
   text-align: center;

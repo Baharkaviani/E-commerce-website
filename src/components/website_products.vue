@@ -1,0 +1,69 @@
+<template>
+    <div class="product-container">
+        <section class="products">
+            <Product v-for="product in products"
+                     :key="product.title"
+                     :product="product"
+                     :admin=true
+            />
+        </section>
+<!--        <categories/>-->
+    </div>
+</template>
+
+<script>
+    import Product from "@/components/Product";
+    // import categories from "@/components/categories";
+
+    export default {
+        name: "website_products",
+        components: {
+            Product,
+            // categories
+        },
+        data () {
+            return {
+                products: [
+                    {
+                        title: 'ماوس۱',
+                        img: require('../assets/mouse.png'),
+                        price: 1000,
+                        category: 'no1',
+                        sold: 20
+                    },
+                    {
+                        title: 'ماوس۲',
+                        img: require('../assets/mouse.png'),
+                        price: 2000,
+                        category: 'دسته‌بندی یک',
+                        sold: 40
+                    },
+                    {
+                        title: 'ماوس۳',
+                        img: require('../assets/mouse.png'),
+                        price: 4000,
+                        category: 'no4',
+                        sold: 33
+                    },
+                    {
+                        title: 'ماوس گیمینگ ریزر',
+                        img: require('../assets/mouse.png'),
+                        price: '۳۰,۰۰۰',
+                        category: 'دسته‌بندی یک',
+                        sold: 34
+                    }
+                ],
+            }
+        }
+    }
+</script>
+
+<style scoped>
+    .products {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+        width: 1280px;
+    }
+</style>

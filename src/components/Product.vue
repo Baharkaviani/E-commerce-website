@@ -1,45 +1,42 @@
 <template>
-  <div class="product">
-
-    <div v-if="admin" class="sold">{{product.sold}}</div>
-    <div class="upper-box">
-      <div class="img-div"><img :src="product.img" class="image" /></div>
-      <div class="title">{{product.title}}</div>
-      <div class="cat">{{product.category}}</div>
-
+    <div class="product">
+        <div v-if="admin" class="sold">{{product.sold}}</div>
+        <div class="upper-box">
+            <div class="img-div"><img :src="product.img" class="image" /></div>
+            <div class="title">{{product.title}}</div>
+            <div class="cat">{{product.category}}</div>
+        </div>
+        <hr>
+        <div class="lower-box">
+            <div class="price">{{product.price}} تومان</div>
+            <div v-if="!admin" class="btn"><button class="buy">خرید محصول</button></div>
+            <div v-else class="btn"><button class="buy">ویرایش محصول</button></div>
+        </div>
     </div>
-    <hr>
-    <div class="lower-box">
-
-      <div class="price">{{product.price}} تومان</div>
-      <div v-if="!admin" class="btn"><button class="buy">خرید محصول</button></div>
-      <div v-else class="btn"><button class="buy">ویرایش محصول</button></div>
-    </div>
-  </div>
-
 </template>
 
 <script>
-export default {
-  name: "product",
-  props:{
-    product: Object,
-    admin: Boolean
-  }
-}
+    export default {
+        name: "product",
+        props:{
+            product: Object,
+            admin: Boolean
+        }
+    }
 </script>
 
 <style scoped>
-.product{
-  direction: rtl;
-  width: 500px;
-  height: 400px;
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.2);
-  position: relative;
-}
+    .product{
+        direction: rtl;
+        width: 500px;
+        height: 400px;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 4px 0 rgba(0,0,0,0.2);
+        position: relative;
+    }
+
 .img-div{
   margin-top: 15px;
   position: absolute;

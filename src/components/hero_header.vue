@@ -4,20 +4,58 @@
             <h1>در محصولات سایت جستجو کنید...</h1>
             <input type="text" id="product" name="product" placeholder="نام محصول خود را وارد کنید...">
             <a class="button">جستجو کنید</a>
-            <img src="../assets/clock.png"  alt="clock"/>
+
+            <div class="slideshow-container">
+                <div class="mySlides fade">
+                    <img src="../assets/clock.png" style="width:100%; height: 240px" alt="clock">
+                </div>
+
+                <div class="mySlides fade">
+                    <img src="../assets/pens.png" style="width:100%; height: 240px" alt="pens">
+                </div>
+
+                <div class="mySlides fade">
+                    <img src="../assets/perfume.png" style="width:100%; height: 240px" alt="perfume">
+                </div>
+            </div>
+            
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: "hero_header"
+        name: "hero_header",
+        data: function() {
+            return {
+                slideIndex:0
+            };
+        },
+        methods: {
+            showSlides: function () {
+                let i;
+                var slides = document.getElementsByClassName("mySlides");
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                this.slideIndex++;
+                if (this.slideIndex > slides.length) {
+                    this.slideIndex = 1
+                }
+                slides[this.slideIndex-1].style.display = "block";
+                setTimeout(this.showSlides, 2000); // Change image every 2 seconds
+            }
+        },
+        mounted() {
+            this.showSlides()
+        }
     }
 </script>
 
 <style scoped>
     * {
         direction: rtl;
+        box-sizing: border-box
     }
 
     .main-hero{
@@ -68,5 +106,35 @@
     img {
         margin-top: 35px;
         max-width: 800px;
+        vertical-align: middle;
+    }
+
+    /* Slideshow container */
+    .slideshow-container {
+        max-width: 1000px;
+        position: relative;
+        margin: auto;
+    }
+
+    .active {
+        background-color: #717171;
+    }
+
+    /* Fading animation */
+    .fade {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        animation-name: fade;
+        animation-duration: 1.5s;
+    }
+
+    @-webkit-keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
+    }
+
+    @keyframes fade {
+        from {opacity: .4}
+        to {opacity: 1}
     }
 </style>

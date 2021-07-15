@@ -1,50 +1,46 @@
 <template>
     <div class="app">
         <!--    nav menu of the website    -->
-        <nav_menu class="menu"/>
+<!--        <nav_menu class="menu"/>-->
 
         <!--    website component contains the main part of site!    -->
         <website class="website"/>
+<!--        <website_products/>-->
+
+<!--        <user_profile class="test"></user_profile>-->
+
+<!--        <admin_profile></admin_profile>-->
 
         <!--    login and register section    -->
 <!--        <div class="loginRegister">-->
-<!--            <login_register class="main"/>-->
+<!--            <login_register :login=true class="main"/>-->
 <!--        </div>-->
 
         <!--    footer of the website    -->
-        <footer-section class="footerSection"/>
+<!--        <footer-section class="footerSection"/>-->
 
-<!--        <user_profile class="test"></user_profile>&ndash;&gt;-->
-<!--        <admin_profile></admin_profile>-->
-<!--        <section class="products">-->
-<!--            <Product v-for="product in products"-->
-<!--                 :key="product.title"-->
-<!--                 :product="product"-->
-<!--                  :admin=true-->
-<!--            />-->
-<!--        </section>-->
-<!--        <categories property="cats"></categories>-->
+
+
+
 <!--        <categories :cats="cats"></categories>-->
 
 <!--      <Input_textfield v-for="inp in inps"-->
 <!--                         :key="inp.label"-->
 <!--                         :attr="inp"-->
 <!--                    />-->
-<!--      <login_register :login=false></login_register>-->
-
     </div>
 </template>
 
 <script>
-    import nav_menu from "@/components/fixed/nav_menu";
-    import footerSection from "@/components/fixed/footerSection";
+    // import nav_menu from "@/components/fixed/nav_menu";
+    // import footerSection from "@/components/fixed/footerSection";
 
     import website from "@/components/website";
-    //import login_register from "@/components/register_login/login_register";
+    // import website_products from "@/components/website_products";
+    // import login_register from "@/components/register_login/login_register";
 
     // import user_profile from "@/components/profiles/user_profile";
     // import admin_profile from "@/components/profiles/admin_profile";
-    //import Product from "@/components/Product";
     //import Categories from "@/components/categories";
     //import login_register from "@/components/register_login/login_register";
     //import Input_textfield from "@/components/register_login/input_textfield";
@@ -52,15 +48,15 @@
     export default {
         name: 'App',
         components: {
-            nav_menu,
-            footerSection,
+            // website_products,
+            // nav_menu,
+            // footerSection,
             website,
             // login_register
 
             // user_profile
             // admin_profile
             // Categories,
-            // Product,
         },
         data (){
             return{
@@ -123,7 +119,6 @@
                         placeholder:"ایمیل خود را وارد کنید...",
                         class:false}
                 ],
-
             }
         }
     }
