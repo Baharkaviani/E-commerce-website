@@ -1,7 +1,7 @@
 <template>
     <div class="menu">
         <nav>
-            <div class="menu-item store"><a href="#">فروشگاه</a></div>
+            <div class="menu-item store"><a v-on:click="linkClicked($event)" id="website" href="#">فروشگاه</a></div>
             <div class="menu-item"><a href="#">صفحه اول</a></div>
             <div class="menu-item"><a href="#">تماس با ما</a></div>
             <div class="menu-item"><a href="#">پشتیبانی</a></div>
@@ -12,7 +12,7 @@
             <a class="drop">تارا</a>
             <i class="arrow"></i>
             <div class="dropdown-content">
-                <a class="first" href="#">پروفایل</a>
+                <a class="first" v-on:click="linkClicked($event)" id="profile" href="#">پروفایل</a>
                 <a class="second" href="#">خروج از حساب</a>
             </div>
         </div>
@@ -21,7 +21,12 @@
 
 <script>
     export default {
-      name:"nav_menu"
+      name:"nav_menu",
+      methods:{
+        linkClicked(event){
+          this.$emit('childToParent', event.currentTarget.id)
+        }
+      }
     }
 </script>
 

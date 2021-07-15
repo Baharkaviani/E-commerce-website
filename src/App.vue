@@ -1,12 +1,12 @@
 <template>
     <div class="app">
         <!--    nav menu of the website    -->
-        <nav_menu class="menu"/>
+        <nav_menu class="menu" v-on:childToParent="onChildClick"/>
 
         <!--    website component contains the main part of site!    -->
-        <website class="website"/>
+        <website v-if="page=='website'" class="website"/>
 
-<!--        <user_profile class="test"></user_profile>-->
+        <user_profile v-if="page=='profile'" class="test"></user_profile>
 
 <!--        <admin_profile></admin_profile>-->
 
@@ -34,7 +34,7 @@
 
     import website from "@/components/website";
 
-    // import user_profile from "@/components/profiles/user_profile";
+    import user_profile from "@/components/profiles/user_profile";
     // import admin_profile from "@/components/profiles/admin_profile";
     //import Categories from "@/components/categories";
     //import login_register from "@/components/register_login/login_register";
@@ -48,9 +48,12 @@
             website,
             // login_register
 
-            // user_profile
+            user_profile
             // admin_profile
             // Categories,
+        },
+        props:{
+          page : String
         },
         data (){
             return{
@@ -67,7 +70,12 @@
                         class:false}
                 ],
             }
-        }
+        },
+      methods:{
+          onChildClick(value) {
+            this.page = value
+          }
+      }
     }
 </script>
 
