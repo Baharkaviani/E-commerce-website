@@ -25,6 +25,7 @@
         color: #585959;
         background-color: white;
         margin-left: 10px;
+        max-height: 173px;
     }
 
     .cat-label{
@@ -32,7 +33,7 @@
     }
 
     .container{
-        margin-top: 10px;
+        /*margin-top: 10px;*/
         overflow-y: scroll;
         max-height: 150px;
     }

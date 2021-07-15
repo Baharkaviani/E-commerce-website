@@ -55,54 +55,6 @@
         data (){
             return{
                 logv : false,
-                products:[
-                    {
-                        title:'ماوس۱',
-                        img:require('./assets/mouse.png'),
-                        price:1000,
-                        category:'no1',
-                        sold:20
-                    },
-                    {
-                        title:'ماوس۲',
-                        img:require('./assets/mouse.png'),
-                        price:2000,
-                        category:'دسته‌بندی یک',
-                        sold:40
-                    },
-                    {
-                        title:'ماوس۳',
-                        img:require('./assets/mouse.png'),
-                        price:4000,
-                        category:'no4',
-                        sold: 33
-                    },
-                    {
-                        title:'ماوس گیمینگ ریزر',
-                        img:require('./assets/mouse.png'),
-                        price:'۳۰,۰۰۰',
-                        category:'دسته‌بندی یک',
-                        sold: 34
-                    }
-                ],
-                cats:[
-                    'دسته‌بندی یک',
-                    'دسته‌بندی دو',
-                    'دسته‌بندی سه',
-                    'دسته‌بندی یک',
-                    'دسته‌بندی دو',
-                    'دسته‌بندی سه',
-                    'دسته‌بندی یک',
-                    'دسته‌بندی دو',
-                    'دسته‌بندی سه',
-                    'دسته‌بندی یک',
-                    'دسته‌بندی دو',
-                    'دسته‌بندی سه',
-                    'دسته‌بندی یک',
-                    'دسته‌بندی دو',
-                    'دسته‌بندی سه',
-                    'دسته‌بندی چهار'
-                ],
                 inps:[
                     {label:"نام",
                         placeholder:"نام خود را وارد کنید...",
