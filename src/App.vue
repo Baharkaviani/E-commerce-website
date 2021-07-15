@@ -4,12 +4,12 @@
         <nav_menu class="menu"/>
 
         <!--    website component contains the main part of site!    -->
-        <website class="website"/>
+<!--        <website class="website"/>-->
 
         <!--    login and register section    -->
-<!--        <div class="loginRegister">-->
-<!--            <login_register class="main"/>-->
-<!--        </div>-->
+        <div class="loginRegister">
+            <login_register class="main" :login="logv"/>
+        </div>
 
         <!--    footer of the website    -->
         <footer-section class="footerSection"/>
@@ -39,8 +39,8 @@
     import nav_menu from "@/components/fixed/nav_menu";
     import footerSection from "@/components/fixed/footerSection";
 
-    import website from "@/components/website";
-    //import login_register from "@/components/register_login/login_register";
+    // import website from "@/components/website";
+    import login_register from "@/components/register_login/login_register";
 
     // import user_profile from "@/components/profiles/user_profile";
     // import admin_profile from "@/components/profiles/admin_profile";
@@ -54,8 +54,8 @@
         components: {
             nav_menu,
             footerSection,
-            website,
-            // login_register
+            // website,
+            login_register
 
             // user_profile
             // admin_profile
@@ -64,6 +64,7 @@
         },
         data (){
             return{
+                logv : false,
                 products:[
                     {
                         title:'ماوس۱',
