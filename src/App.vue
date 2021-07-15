@@ -12,9 +12,9 @@
 <!--        <admin_profile></admin_profile>-->
 
         <!--    login and register section    -->
-<!--        <div class="loginRegister">-->
-<!--            <login_register :login=true class="main"/>-->
-<!--        </div>-->
+        <div class="loginRegister">
+            <login_register class="main" :login="logv"/>
+        </div>
 
         <!--    footer of the website    -->
 <!--        <footer-section class="footerSection"/>-->
@@ -36,8 +36,6 @@
     // import footerSection from "@/components/fixed/footerSection";
 
     import website from "@/components/website";
-    // import website_products from "@/components/website_products";
-    // import login_register from "@/components/register_login/login_register";
 
     // import user_profile from "@/components/profiles/user_profile";
     // import admin_profile from "@/components/profiles/admin_profile";
@@ -60,6 +58,7 @@
         },
         data (){
             return{
+                logv : false,
                 products:[
                     {
                         title:'ماوس۱',

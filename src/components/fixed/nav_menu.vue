@@ -37,6 +37,7 @@
         right: 0;
         margin: 0 auto;
         background-color: #FFFFFF;
+      z-index: 10;
     }
 
     nav {
@@ -120,6 +121,8 @@
         text-align: right;
         min-width: 103px;
         font-size: 16px;
+
+
     }
     .first{
         margin-top: 25px;
