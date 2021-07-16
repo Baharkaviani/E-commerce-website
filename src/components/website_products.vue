@@ -85,7 +85,6 @@
 <style scoped>
     .product-container {
         display: flex;
-        /*align-items: center;*/
         justify-content: space-between;
         flex-direction: row;
         position: relative;

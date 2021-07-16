@@ -18,9 +18,6 @@
         <!--    footer of the website    -->
         <footer-section class="footerSection"/>
 
-
-<!--        <categories :cats="cats"></categories>-->
-
 <!--      <Input_textfield v-for="inp in inps"-->
 <!--                         :key="inp.label"-->
 <!--                         :attr="inp"-->
@@ -31,9 +28,7 @@
 <script>
     import nav_menu from "@/components/fixed/nav_menu";
     import footerSection from "@/components/fixed/footerSection";
-
     import website from "@/components/website";
-
     // import user_profile from "@/components/profiles/user_profile";
     import admin_profile from "@/components/profiles/admin_profile";
     //import Categories from "@/components/categories";
@@ -53,10 +48,10 @@
             // Categories,
         },
         props:{
-          page : {
-            default:"logreg",
-            type: String
-          }
+            page : {
+                default:"logreg",
+                type: String
+            }
         },
         data (){
             return{
@@ -74,11 +69,11 @@
                 ],
             }
         },
-      methods:{
-          onChildClick(value) {
-            this.page = value
-          }
-      }
+        methods:{
+            onChildClick(value) {
+                this.page = value
+            }
+        }
     }
 </script>
 
@@ -102,24 +97,4 @@
         min-height: 100vh;
         overflow-y: hidden;
     }
-
-    /*.app {*/
-    /*    width: 1280px;*/
-    /*    display: grid;*/
-    /*    position: absolute;*/
-    /*    grid-template-areas:*/
-    /*            'menu'*/
-    /*            'main'*/
-    /*            'footer';*/
-    /*    align-content: space-between;*/
-    /*    background-color: #dddddd;*/
-    /*    left: 0;*/
-    /*    right: 0;*/
-    /*    margin: 0 auto;*/
-    /*    height: 100%;*/
-    /*}*/
-
-    /*.app .menu {*/
-    /*    flex: 0 1 auto;*/
-    /*}*/
 </style>

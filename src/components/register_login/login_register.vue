@@ -166,7 +166,6 @@
         grid-template-areas:
                       'a b '
                       'c d'
-                      /*'e1 e2'*/
                       'e e';
         gap: 15px;
         justify-content: center;
@@ -201,6 +200,7 @@
         left: 50%;
         transform: translate(-50%, 0);
     }
+
     button:hover{
       cursor: pointer;
 
