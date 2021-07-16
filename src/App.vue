@@ -6,13 +6,13 @@
         <!--    website component contains the main part of site!    -->
         <website v-if="page=='website'" class="website"/>
 
-        <user_profile v-if="page=='profile'" class="test"></user_profile>
+<!--        <user_profile v-if="page=='profile'" class="test"></user_profile>-->
 
-<!--        <admin_profile></admin_profile>-->
+        <admin_profile v-if="page=='profile'"></admin_profile>
 
         <!--    login and register section    -->
 <!--        <div class="loginRegister">-->
-<!--            <login_register class="main" :login="logv"/>-->
+            <login_register v-if="page=='logreg'" class="main" :login="logv"/>
 <!--        </div>-->
 
         <!--    footer of the website    -->
@@ -34,10 +34,10 @@
 
     import website from "@/components/website";
 
-    import user_profile from "@/components/profiles/user_profile";
-    // import admin_profile from "@/components/profiles/admin_profile";
+    // import user_profile from "@/components/profiles/user_profile";
+    import admin_profile from "@/components/profiles/admin_profile";
     //import Categories from "@/components/categories";
-    //import login_register from "@/components/register_login/login_register";
+    import login_register from "@/components/register_login/login_register";
     //import Input_textfield from "@/components/register_login/input_textfield";
 
     export default {
@@ -46,14 +46,17 @@
             nav_menu,
             footerSection,
             website,
-            // login_register
+            login_register,
 
-            user_profile
-            // admin_profile
+            // user_profile
+            admin_profile
             // Categories,
         },
         props:{
-          page : String
+          page : {
+            default:"logreg",
+            type: String
+          }
         },
         data (){
             return{

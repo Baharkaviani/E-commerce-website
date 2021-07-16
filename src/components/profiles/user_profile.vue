@@ -1,58 +1,112 @@
 <template>
   <div class="main-div">
-<!--    <div class="page-label">تارا عزیز، خوش آمدید</div>-->
-    <div class="label-div">
-    <label class="page-label">تارا عزیز، خوش آمدید</label>
-     <label class="page-label"> | </label>
-    <label>موجودی حساب شما: </label>
-    <label class="balance">۱۰/۰۰۰</label>
-    <a class="button">افزایش موجودی</a>
+    <div v-if="!this.profile" class="page-label">تارا عزیز، خوش آمدید</div>
+    <div v-if="this.profile" class="label-div">
+    <label v-if="this.profile" class="page-label">تارا عزیز، خوش آمدید</label>
+     <label v-if="this.profile" class="page-label"> | </label>
+    <label v-if="this.profile">موجودی حساب شما: </label>
+    <label v-if="this.profile" class="balance">۱۰/۰۰۰</label>
+    <a v-if="this.profile" class="button">افزایش موجودی</a>
     </div>
 
-    <br>
-    <div class="tab-div">
-      <button class="tab profile">پروفایل</button>
-      <button class="tab invoice">رسیدها</button>
+<!--    <br v-if="this.profile">-->
+    <div  class="tab-div">
+      <button v-on:click="changeToProfile" :class="{clickedBtn:this.profile, tab:true, profile:true}">پروفایل</button>
+      <button   v-on:click="changeToInvoice" :class="{clickedBtn:!this.profile, tab:true, invoice:true}" >رسیدها</button>
     </div>
-<!--<div class="ss">-->
-<!--    <table>-->
-<!--      <tr>-->
-<!--        <th>کد پیگیری</th>-->
-<!--        <th>کالا</th>-->
-<!--        <th>قیمت پرداخت شده</th>-->
-<!--        <th>آدرس ارسال شده</th>-->
-<!--      </tr>-->
+<div v-if="!this.profile" class="ss">
+    <table v-if="!this.profile">
+      <tr>
+        <th>کد پیگیری</th>
+        <th>کالا</th>
+        <th>قیمت پرداخت شده</th>
+        <th>آدرس ارسال شده</th>
+      </tr>
 
-<!--      <tr>-->
-<!--        <td>SHOP102030</td>-->
-<!--        <td>موس گیمینگ ریزر</td>-->
-<!--        <td>۱۰/۰۰۰ تومان</td>-->
-<!--        <td>تهران، تهران، امیرکبیر</td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td>SHOP102030</td>-->
-<!--        <td>موس گیمینگ ریزر</td>-->
-<!--        <td>۱۰/۰۰۰ تومان</td>-->
-<!--        <td>تهران، تهران، امیرکبیر</td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td>SHOP102030</td>-->
-<!--        <td>موس گیمینگ ریزر</td>-->
-<!--        <td>۱۰/۰۰۰ تومان</td>-->
-<!--        <td>تهران، تهران، امیرکبیر</td>-->
-<!--      </tr>-->
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
 
-<!--    </table>-->
-<!--</div>-->
+    </table>
+</div>
 
-    <form  id="edit-form">
-      <input_textfield class="name" :attr="name"/>
-      <input_textfield class="sname" :attr="sname"/>
-      <input_textfield class="password" :attr="password"/>
-      <input_textfield class="address" :attr="address"/>
+    <form v-if="this.profile" id="edit-form">
+      <input_textfield v-if="this.profile" class="name" :attr="name"/>
+      <input_textfield v-if="this.profile" class="sname" :attr="sname"/>
+      <input_textfield v-if="this.profile" class="password" :attr="password"/>
+      <input_textfield v-if="this.profile" class="address" :attr="address"/>
     </form>
-    <div class="button-div" >
-      <button class="sub" type="submit" form="edit-form" >ویرایش اطلاعات</button>
+    <div v-if="this.profile" class="button-div" >
+      <button v-if="this.profile" class="sub" type="submit" form="edit-form" >ویرایش اطلاعات</button>
     </div>
 
   </div>
@@ -67,19 +121,22 @@ export default {
    components: {input_textfield},
   data(){
     return {
+      profile: true,
       name:{
         label: "نام",
         placeholder: "نام خود را وارد کنید...",
         class: true,
         wsize: true,
-        minl: 0
+        minl: 1,
+        maxl: 255,
       },
        sname: {
           label: "نام خانوادگی",
           placeholder: "نام خانوادگی خود را وارد کنید...",
           class: true,
           wsize: true,
-          minl: 0
+         minl: 1,
+         maxl: 255
         },
 
         password:{
@@ -87,14 +144,26 @@ export default {
           placeholder: "رمز عبور خود را وارد کنید...",
           class: true,
           wsize: false,
-          minl: 6
+          minl: 8,
+          maxl: 255,
+          regex:  /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/
         },
        address:{
         label: "آدرس",
         placeholder: "آدرس خود را وارد کنید...",
         class: false,
-        wsize: true
+        wsize: true,
+         minl: 1,
+         maxl: 1000,
       }
+    }
+  },
+  methods:{
+    changeToProfile(){
+      this.profile = true
+    },
+    changeToInvoice(){
+      this.profile = false
     }
   }
 
@@ -146,12 +215,14 @@ form{
 }
 .tab{
 
-  background-color: #dddddd;
   margin-top: 20px;
   font-size: 16px;
   text-align: center;
   padding: 5px 50px;
   border-color: #787575;
+  color: #575656;
+  background-color: #dddddd;
+
 }
 .invoice{
   border-bottom-left-radius: 24px;
@@ -177,6 +248,8 @@ form{
   font-size: 14px;
   text-align: center;
   padding: 5px 10px;
+  color: #dddddd;
+
 }
 .tab-div{
   text-align: center;
@@ -193,15 +266,17 @@ form{
 
 }
 .button-div{
+  margin-top: 30px;
   text-align: center;
 }
-button .tab:hover{
-  background-color: red;
+.clickedBtn{
+  background-color: #cdcccc;
+  color: #404040;
 }
 
 table{
 
-  margin-top: 50px;
+  /*margin-top: 30px;*/
   direction: rtl;
   background-color: white;
   width: 1100px;
@@ -210,6 +285,8 @@ table{
   text-align: center;
   margin-right: auto;
   margin-left: auto;
+  overflow-y: scroll;
+  max-height:290px;
 }
 table th {
   padding-right: 60px;
@@ -222,11 +299,16 @@ table th {
 
 }
 .ss{
+  margin-top: 30px;
   box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
   background-color: white;
   width: 1120px;
   margin-right: auto;
   margin-left: auto;
+  overflow-y: scroll;
+  height: 290px;
+  /*max-height:290px;*/
+  /*min-height: 200px;*/
 }
 table td{
   padding-right: 60px;
@@ -243,5 +325,4 @@ table tr{
 table tr:hover {
   background-color: #ddd;
  }
-
 </style>

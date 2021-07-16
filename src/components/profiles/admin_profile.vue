@@ -4,15 +4,15 @@
 
 
     <div class="tab-div">
-      <button class="tab product">لیست کالاها</button>
-      <button class="tab">لیست دسته‌ها</button>
-      <button class="tab invoice">رسیدها</button>
+      <button class="tab product" :class="{ clickedBtn:this.tab===0}" v-on:click="changeToProduct">لیست کالاها</button>
+      <button class="tab" :class="{ clickedBtn:this.tab===1}" v-on:click="changeToCats">لیست دسته‌ها</button>
+      <button class="tab invoice" :class="{ clickedBtn:this.tab===2}" v-on:click="changeToInvoice">رسیدها</button>
     </div>
-    <div  class="btn"><button class="add">+ایجاد محصول جدید</button></div>
-<!--    <input_textfield class="search" :attr="search"/>-->
+    <div v-if="this.tab===0" class="btn"><button class="add">+ایجاد محصول جدید</button></div>
+    <input_textfield v-if="this.tab===2" class="search" :attr="search"/>
 
-      <div class="table-div cats-div">
-        <table class='cats'>
+      <div v-if="this.tab===1" class="table-div cats-div">
+        <table v-if="this.tab===1" class='cats'>
           <tr>
             <th>نام دسته‌بندی</th>
             <th class="col-center">عملیات</th>
@@ -22,63 +22,126 @@
             <td>دسته‌بندی</td>
             <td class="tab-btn"><button class="edit bttn">ویرایش دسته‌بندی</button><button class="omit bttn">Xحذف دسته‌بندی</button></td>
           </tr>
+          <tr class="tr-button">
+            <td>دسته‌بندی</td>
+            <td class="tab-btn"><button class="edit bttn">ویرایش دسته‌بندی</button><button class="omit bttn">Xحذف دسته‌بندی</button></td>
+          </tr>
+          <tr class="tr-button">
+            <td>دسته‌بندی</td>
+            <td class="tab-btn"><button class="edit bttn">ویرایش دسته‌بندی</button><button class="omit bttn">Xحذف دسته‌بندی</button></td>
+          </tr>
+          <tr class="tr-button">
+            <td>دسته‌بندی</td>
+            <td class="tab-btn"><button class="edit bttn">ویرایش دسته‌بندی</button><button class="omit bttn">Xحذف دسته‌بندی</button></td>
+          </tr>
+          <tr class="tr-button">
+            <td>دسته‌بندی</td>
+            <td class="tab-btn"><button class="edit bttn">ویرایش دسته‌بندی</button><button class="omit bttn">Xحذف دسته‌بندی</button></td>
+          </tr>
+          <tr class="tr-button">
+            <td>دسته‌بندی</td>
+            <td class="tab-btn"><button class="edit bttn">ویرایش دسته‌بندی</button><button class="omit bttn">Xحذف دسته‌بندی</button></td>
+          </tr>
+          <tr class="tr-button">
+            <td>دسته‌بندی</td>
+            <td class="tab-btn"><button class="edit bttn">ویرایش دسته‌بندی</button><button class="omit bttn">Xحذف دسته‌بندی</button></td>
+          </tr>
+
         </table>
       </div>
 
-<!--  <div class="table-div invoice-div">-->
-<!--    <table class='invoices'>-->
-<!--      <tr>-->
-<!--        <th>کد پیگیری</th>-->
-<!--        <th>کالا</th>-->
-<!--        <th>قیمت پرداخت شده</th>-->
-<!--        <th>نام خریدار</th>-->
-<!--        <th>آدرس ارسال شده</th>-->
-<!--      </tr>-->
+  <div v-if="this.tab===2" class="table-div invoice-div">
+    <table v-if="this.tab===2" class='invoices'>
+      <tr>
+        <th>کد پیگیری</th>
+        <th>کالا</th>
+        <th>قیمت پرداخت شده</th>
+        <th>نام خریدار</th>
+        <th>آدرس ارسال شده</th>
+      </tr>
 
-<!--      <tr>-->
-<!--        <td>SHOP102030</td>-->
-<!--        <td>موس گیمینگ ریزر</td>-->
-<!--        <td>۱۰/۰۰۰ تومان</td>-->
-<!--        <td>هادی</td>-->
-<!--        <td>تهران، تهران، امیرکبیر</td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td>SHOP102030</td>-->
-<!--        <td>موس گیمینگ ریزر</td>-->
-<!--        <td>۱۰/۰۰۰ تومان</td>-->
-<!--        <td>هادی</td>-->
-<!--        <td>تهران، تهران، امیرکبیر</td>-->
-<!--      </tr>-->
-<!--      <tr>-->
-<!--        <td>SHOP102030</td>-->
-<!--        <td>موس گیمینگ ریزر</td>-->
-<!--        <td>۱۰/۰۰۰ تومان</td>-->
-<!--        <td>هادی</td>-->
-<!--        <td>تهران، تهران، امیرکبیر</td>-->
-<!--      </tr>-->
-
-<!--    </table>-->
-<!--  </div>-->
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>هادی</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>هادی</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>هادی</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>هادی</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>هادی</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>     <tr>
+      <td>SHOP102030</td>
+      <td>موس گیمینگ ریزر</td>
+      <td>۱۰/۰۰۰ تومان</td>
+      <td>هادی</td>
+      <td>تهران، تهران، امیرکبیر</td>
+    </tr>
+      <tr>
+        <td>SHOP102030</td>
+        <td>موس گیمینگ ریزر</td>
+        <td>۱۰/۰۰۰ تومان</td>
+        <td>هادی</td>
+        <td>تهران، تهران، امیرکبیر</td>
+      </tr>
+    </table>
+  </div>
   </div>
 </template>
 
 <script>
-// import input_textfield from "@/components/register_login/input_textfield";
+import input_textfield from "@/components/register_login/input_textfield";
 export default {
-  // components: {input_textfield},
+  components: {input_textfield},
   name: "admin_profile",
-  data(){
-    return{
-      search:{
+  data() {
+    return {
+      tab: 0,
+      search: {
         label: "جستجوی کد پیگیری",
-        placeholder:"کد پیگیری را برای جستجو وارد کنید ...",
+        placeholder: "کد پیگیری را برای جستجو وارد کنید ...",
         class: true,
         wsize: true,
-        search:true,
-        minl: 0
+        search: true,
+        minl: 0,
+        maxl: 255
       }
     }
-
+  },
+  methods:{
+    changeToProduct(){
+      this.tab = 0
+    },
+    changeToCats(){
+      this.tab = 1
+    },
+    changeToInvoice(){
+      this.tab = 2
+    }
   }
 }
 </script>
@@ -105,6 +168,7 @@ export default {
 
 .tab{
 
+  color: #575656;
   background-color: #dddddd;
   margin-top: 20px;
   font-size: 16px;
@@ -122,6 +186,10 @@ export default {
 }
 .btn{
   text-align: center;
+}
+.clickedBtn{
+  background-color: #cdcccc;
+  color: #404040;
 }
 .add{
   text-align: center;
@@ -142,7 +210,7 @@ export default {
 }
 table{
 
-  margin-top: 50px;
+  /*margin-top: 50px;*/
   direction: rtl;
   background-color: white;
 
@@ -153,7 +221,19 @@ table{
   margin-left: auto;
 }
 .invoices{
+  padding-top: 0;
   width: 1100px;
+  /*overflow-y: scroll;*/
+  max-height:280px;
+  /*min-height: 280px;*/
+}
+.invoice-div{
+  margin-top: 30px;
+  width: 1120px;
+  overflow-y: scroll;
+  height: 280px;
+  /*max-height:280px;*/
+  /*min-height: 280px;*/
 }
 .cats{
   width: 700px;
@@ -181,6 +261,10 @@ table th {
 }
 .cats-div{
   width: 740px;
+  margin-top: 30px;
+  overflow-y: scroll;
+  max-height:350px;
+  min-height: 350px;
 }
 table td{
   padding-right: 60px;
