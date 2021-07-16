@@ -1,13 +1,14 @@
 <template>
   <div>
     <label :class="{naddrl: attr.class,  addrl:!attr.class, searchlabel:attr.search}" :for="attr.label">{{attr.label}}</label>
-    <input  v-if="attr.label=='ایمیل'"  type="email" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
-            v-model="inputValue" v-on:keyup="emitToParent">
-    <input  v-else-if="attr.label=='رمز عبور'" type="password" :class="{wsize: attr.wsize,  nwsize:!attr.wsize}" :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
-            v-model="inputValue" v-on:keyup="emitToParent">
-    <input  v-else-if="attr.class" type="text" :class="{search:attr.search, wsize: attr.wsize,  nwsize:!attr.wsize}"  :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
-            v-model="inputValue" v-on:keyup="emitToParent">
-    <textarea  v-else-if="!attr.class" :name="attr.argument" :placeholder="attr.placeholder" v-model="inputValue" v-on:keyup="emitToParent" ></textarea>
+    <input  v-if="attr.label=='ایمیل'"  type="email" :class="{wsize: attr.wsize,  nwsize:!attr.wsize, valid: this.error===1, invalid: this.error===2}" :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
+            v-model="inputValue" v-on:keyup="emitToParent" v-on:focusin="emitToParent" v-on:focusout="changeError">
+    <input  v-else-if="attr.label=='رمز عبور'" type="password" :class="{wsize: attr.wsize,  nwsize:!attr.wsize , valid: this.error===1, invalid: this.error===2}" :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
+            v-model="inputValue" v-on:keyup="emitToParent" v-on:focusin="emitToParent" v-on:focusout="changeError">
+    <input  v-else-if="attr.class" type="text" :class="{search:attr.search, wsize: attr.wsize,  nwsize:!attr.wsize, valid: this.error===1, invalid: this.error===2}"  :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
+            v-model="inputValue" v-on:keyup="emitToParent" v-on:focusin="emitToParent" v-on:focusout="changeError">
+    <textarea  v-else-if="!attr.class" :name="attr.argument" v-on:focusout="changeError"  :class="{valid: this.error===1, invalid: this.error===2}" :placeholder="attr.placeholder" v-model="inputValue"
+               v-on:keyup="emitToParent" v-on:focusin="emitToParent"  ></textarea>
   </div>
 </template>
 
@@ -20,16 +21,34 @@ export default {
   },
   data() {
     return {
+      error : 0,
       inputValue: ''
     }
   },
-  methods: {
 
+  methods: {
+    changeError(){
+      this.error = 0
+    },
     emitToParent() {
+      let valid = true
+      if (this.attr.regex )
+        if  (!this.attr.regex.test(this.inputValue))
+          valid = false
+      if (this.inputValue.length<this.attr.minl || this.attr.maxl<this.inputValue.length)
+        valid = false
+      if (valid)
+        this.error = 1
+      else
+        this.error = 2
       this.$emit('childToParent', this.inputValue, this.attr.argument)
 
-    }
+    },
 
+    computeBorder( ) {
+
+
+    }
   }
 }
 </script>
@@ -110,9 +129,15 @@ textarea{
 input:focus{
   outline: none;
 }
-input:invalid:focus {
+.valid{
+  border:1px solid green;
+}
+.invalid{
   border:1px solid red;
 }
+/*input:invalid:focus {*/
+/*  border:1px solid red;*/
+/*}*/
 /*input["password"]*/
 
 textarea:focus{

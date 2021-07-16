@@ -47,7 +47,9 @@
             argument: "email",
             class: true,
             wsize: true,
-            minl: 0
+            minl: 1,
+            maxl: 255,
+            regex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           },
             {
               label: "رمز عبور",
@@ -55,7 +57,9 @@
               argument: "pass",
               class: true,
               wsize: true,
-              minl: 6
+              minl: 8,
+              maxl: 255,
+              regex:  /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/
             }
           ],
           signupItems: [{
@@ -64,7 +68,8 @@
             argument: "name",
             class: true,
             wsize: true,
-            minl: 0
+            minl: 1,
+            maxl: 255
           },
             {
               label: "نام خانوادگی",
@@ -72,7 +77,8 @@
               argument: "sname",
               class: true,
               wsize: true,
-              minl: 0
+              minl: 1,
+              maxl: 255
             },
             {
               label: "ایمیل",
@@ -80,7 +86,9 @@
               argument: "email",
               class: true,
               wsize: true,
-              minl: 0
+              minl: 1,
+              maxl: 255,
+              regex:/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
             },
             {
               label: "رمز عبور",
@@ -88,14 +96,18 @@
               argument: "pass",
               class: true,
               wsize: true,
-              minl: 6
+              minl: 8,
+              maxl: 255,
+              regex: /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/
             }],
           addressItem: {
             label: "آدرس",
             argument: "address",
             placeholder: "آدرس خود را وارد کنید...",
             class: false,
-            wsize: true
+            wsize: true,
+            minl:1,
+            maxl: 1000
           }
         }
       },
@@ -121,7 +133,7 @@
         },
 
         onChildClick (value, argument) {
-           console.log(value + argument)
+           // console.log(value + argument)
           this.args[argument] = value
         }
       }
