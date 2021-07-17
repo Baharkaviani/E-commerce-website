@@ -4,15 +4,15 @@
         <nav_menu class="menu" v-on:childToParent="onChildClick"/>
 
         <!--    website component contains the main part of site!    -->
-        <website v-if="page=='website'" class="website"/>
+        <website v-if="page==='website'" class="website"/>
 
-<!--        <user_profile v-if="page=='profile'" class="test"></user_profile>-->
+<!--        <user_profile v-if="page==='profile'" class="test"></user_profile>-->
 
-        <admin_profile v-if="page=='profile'"></admin_profile>
+        <admin_profile v-if="page==='profile'"></admin_profile>
 
         <!--    login and register section    -->
 <!--        <div class="loginRegister">-->
-            <login_register v-if="page=='logreg'" class="main" :login="logv"/>
+            <login_register v-if="page==='logreg'" class="main" :login="logv"/>
 <!--        </div>-->
 
         <!--    footer of the website    -->
