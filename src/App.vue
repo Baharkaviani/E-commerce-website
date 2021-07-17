@@ -6,9 +6,9 @@
         <!--    website component contains the main part of site!    -->
         <website v-if="page=='website'" class="website"/>
 
-        <user_profile v-if="page=='profile'" class="test"></user_profile>
+<!--        <user_profile v-if="page=='profile'" class="test"></user_profile>-->
 
-<!--        <admin_profile v-if="page=='profile'"></admin_profile>-->
+        <admin_profile v-if="page=='profile'"></admin_profile>
 
         <!--    login and register section    -->
 <!--        <div class="loginRegister">-->
@@ -29,8 +29,8 @@
     import nav_menu from "@/components/fixed/nav_menu";
     import footerSection from "@/components/fixed/footerSection";
     import website from "@/components/website";
-    import user_profile from "@/components/profiles/user_profile";
-    // import admin_profile from "@/components/profiles/admin_profile";
+    // import user_profile from "@/components/profiles/user_profile";
+    import admin_profile from "@/components/profiles/admin_profile";
     //import Categories from "@/components/categories";
     import login_register from "@/components/register_login/login_register";
     //import Input_textfield from "@/components/register_login/input_textfield";
@@ -43,8 +43,8 @@
             website,
             login_register,
 
-            user_profile
-            // admin_profile
+            // user_profile
+            admin_profile
             // Categories,
         },
         props:{

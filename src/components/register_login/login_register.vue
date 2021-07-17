@@ -14,14 +14,14 @@
     </form>
     <form  v-else id="signup-form" @submit.prevent="checkForm" action="https://vuejs.org/"
            method="post">
-      <Input_textfield class="signup-fields fields" v-on:childToParent="onChildClick" v-on:focusedOut="clear"   v-for="item in signupItems"
+      <Input_textfield class="signup-fields fields" v-on:childToParent="onChildClick"   v-for="item in signupItems"
                        :key="item.label"
                        :attr="item"
                        :class="item.argument"
 
 
       />
-      <input_textfield class="address fields" v-on:childToParent="onChildClick" v-on:focusedOut="clear"  :attr="addressItem"/>
+      <input_textfield class="address fields" v-on:childToParent="onChildClick"  :attr="addressItem"/>
 
       <p v-if="!login && !this.valid['name']" class="name-error error">{{this.error['name']}}</p>
       <p v-if="!login && !this.valid['sname']" class="sname-error error">{{this.error['sname']}}</p>
@@ -182,7 +182,7 @@ export default {
       this.valid[argument] = true
     },
     submit($refs){
-      console.log("hello")
+      console.log(this.valid)
       $refs.modalName.openModal()
     }
   }

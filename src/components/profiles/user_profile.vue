@@ -233,6 +233,7 @@ export default {
   margin-right: auto;
   margin-left: auto;
 
+
 }
 label{
   text-align: center;
@@ -329,7 +330,7 @@ form{
   font-size: 14px;
   text-align: center;
   padding: 5px 10px;
-  color: #dddddd;
+  color: black;
 
 }
 .tab-div{
