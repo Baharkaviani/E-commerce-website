@@ -100,10 +100,15 @@
 </div>
 
     <form v-if="this.profile" id="edit-form">
-      <input_textfield v-if="this.profile" class="name" :attr="name"/>
-      <input_textfield v-if="this.profile" class="sname" :attr="sname"/>
-      <input_textfield v-if="this.profile" class="password" :attr="password"/>
-      <input_textfield v-if="this.profile" class="address" :attr="address"/>
+      <input_textfield v-if="this.profile" class="name" v-on:childToParent="onChildClick" v-on:focusedOut="clear" :attr="name"/>
+      <input_textfield v-if="this.profile" class="sname" v-on:childToParent="onChildClick" v-on:focusedOut="clear" :attr="sname"/>
+      <input_textfield v-if="this.profile" class="password"  v-on:childToParent="onChildClick" v-on:focusedOut="clear" :attr="password"/>
+      <input_textfield v-if="this.profile" class="address" v-on:childToParent="onChildClick" v-on:focusedOut="clear" :attr="address"/>
+
+      <p v-if="this.profile && !this.valid['name']" class="name-error error">{{this.error['name']}}</p>
+      <p v-if="this.profile && !this.valid['sname']" class="sname-error error">{{this.error['sname']}}</p>
+      <p class="pass-error error" v-if="this.profile && !this.valid['pass']">{{this.error['pass']}}</p>
+      <p v-if="this.profile && !this.valid['address']" class="address-error error" >{{this.error['address']}}</p>
     </form>
     <div v-if="this.profile" class="button-div" >
       <button v-if="this.profile" class="sub" type="submit" form="edit-form" >ویرایش اطلاعات</button>
@@ -122,11 +127,30 @@ export default {
   data(){
     return {
       profile: true,
+      args:{
+        name: '',
+        sname: '',
+        pass:'',
+        address:''
+      },
+      error:{
+        name: '',
+        sname: '',
+        pass:'',
+        address:''
+      },
+      valid:{
+        name: true,
+        sname: true,
+        pass:true,
+        address:true
+      },
       name:{
         label: "نام",
         placeholder: "نام خود را وارد کنید...",
         class: true,
         wsize: true,
+        argument:"name",
         minl: 1,
         maxl: 255,
       },
@@ -134,6 +158,7 @@ export default {
           label: "نام خانوادگی",
           placeholder: "نام خانوادگی خود را وارد کنید...",
           class: true,
+         argument:"sname",
           wsize: true,
          minl: 1,
          maxl: 255
@@ -143,6 +168,7 @@ export default {
           label: "رمز عبور",
           placeholder: "رمز عبور خود را وارد کنید...",
           class: true,
+          argument:"pass",
           wsize: false,
           minl: 8,
           maxl: 255,
@@ -151,6 +177,7 @@ export default {
        address:{
         label: "آدرس",
         placeholder: "آدرس خود را وارد کنید...",
+         argument:"address",
         class: false,
         wsize: true,
          minl: 1,
@@ -164,6 +191,21 @@ export default {
     },
     changeToInvoice(){
       this.profile = false
+    },
+    onChildClick (value, argument, isValid, message) {
+      // console.log(value + argument)
+      this.args[argument] = value
+      if(!isValid) {
+        this.error[argument] = message
+        this.valid[argument] = false
+      }
+      else {
+        this.clear(argument)
+      }
+    },
+    clear(argument){
+      this.error[argument] = ''
+      this.valid[argument] = true
     }
   }
 
@@ -207,10 +249,13 @@ form{
   direction: rtl;
   display: grid;
   grid-template-areas:
-                      'a b '
-                      'c c'
-                     'd d';
-  gap: 15px;
+                      'name sname '
+                      'namee snamee'
+                      'pass pass'
+                      'passe passe'
+                     'addr addr'
+                      'addre addre';
+  column-gap: 15px;
   justify-content: center;
 }
 .tab{
@@ -234,11 +279,47 @@ form{
 
 
 }
+/*.password{*/
+/*  grid-area: c;*/
+/*}*/
+/*.address{*/
+/*  grid-area: d;*/
+/*}*/
+.name{
+  grid-area: name;
+}
+.name-error{
+  margin-top: 15px;
+  grid-area: namee;
+}
+.sname{
+  grid-area: sname;
+}
+.sname-error{
+  margin-top: 15px;
+  grid-area: snamee;
+}
 .password{
-  grid-area: c;
+  margin-top: 15px;
+  grid-area: pass;
+}
+.pass-error{
+  margin-top: 15px;
+  grid-area: passe;
 }
 .address{
-  grid-area: d;
+  margin-top: 15px;
+  grid-area: addr;
+}
+.address-error{
+  margin-top: 15px;
+  grid-area: addre;
+}
+.error{
+  margin-right: 80px;
+  color: red;
+  font-size: 14px;
+  text-align: right;
 }
 .button{
   margin-right: 10px;
@@ -325,4 +406,5 @@ table tr{
 table tr:hover {
   background-color: #ddd;
  }
+
 </style>
