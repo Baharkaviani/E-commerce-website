@@ -29,24 +29,37 @@ export default {
   methods: {
     changeError(){
       this.error = 0
+      this.$emit('focusedOut',this.attr.argument)
     },
     emitToParent() {
       let valid = true
+      let message = ""
+      let inputVal = this.inputValue.trim()
       if (this.attr.regex )
-        if  (!this.attr.regex.test(this.inputValue))
+        if  (!this.attr.regex.test(inputVal)) {
           valid = false
-      if (this.inputValue.length<this.attr.minl || this.attr.maxl<this.inputValue.length)
+          if (this.attr.argument ==="email")
+            message = "ایمیل آدرس نامعتبر است"
+          else
+            message = "رمز عبور باید شامل عدد و حروف باشد"
+        }
+      if (inputVal.length<this.attr.minl) {
+        if(this.attr.minl ===1)
+          message =this.attr.label+ ' باید پر شود'
+        else
+          message = `رمز عبور باید حداقل شامل ۸ کاراکتر باشد`
         valid = false
+      }
+      if (inputVal.length>this.attr.maxl) {
+        message = 'کاراکتر باشد' +this.attr.maxl+'باید حداکثر شامل'  +this.attr.label
+        valid = false
+      }
       if (valid)
         this.error = 1
       else
         this.error = 2
-      this.$emit('childToParent', this.inputValue, this.attr.argument)
-
-    },
-
-    computeBorder( ) {
-
+      // console.log(message)
+      this.$emit('childToParent', inputVal, this.attr.argument,valid,message)
 
     }
   }
