@@ -30,17 +30,24 @@
       <p v-if="!login && !this.valid['address']" class="address-error error" >{{this.error['address']}}</p>
     </form>
 
+    <modal ref="modalName">
+      <template v-slot:body>
+       <p class="modal">عملیات با موفقیت انجام شد</p>
+      </template>
+    </modal>
 
-    <button v-if="!login" type="submit" form='signup-form' >{{getText}}</button>
+    <button v-if="!login" type="submit"  @click="submit($refs)" form='signup-form' >{{getText}}</button>
     <button v-else type="submit" form='login-form' >{{getText}}</button>
   </div>
 </template>
 
 <script>
 import Input_textfield from "@/components/register_login/input_textfield";
+import Modal from "@/components/Modal";
 export default {
   name: "login_register",
-  components: {Input_textfield},
+  components: {Input_textfield,
+              Modal },
   props: {
     login: Boolean
   },
@@ -173,6 +180,10 @@ export default {
     clear(argument){
       this.error[argument] = ''
       this.valid[argument] = true
+    },
+    submit($refs){
+      console.log("hello")
+      $refs.modalName.openModal()
     }
   }
 }
