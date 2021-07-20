@@ -20,7 +20,8 @@ db = Database()
 
 
 class Category(db.Entity):
-    name =  PrimaryKey(str,255)
+    id =  PrimaryKey(int, auto=True)
+    name =  Required(str,255)
 
 
 class Invoice(db.Entity):
@@ -46,7 +47,8 @@ class User(db.Entity):
     invoices = Set(Invoice)
 
 class Product(db.Entity):
-    name = PrimaryKey(str,255)
+    id = PrimaryKey(int, auto=True)
+    name = Required(str,255)
     price = Required(int)
     available = Required(int)
     category = Required(str,255,default='دسته بندی نشده')

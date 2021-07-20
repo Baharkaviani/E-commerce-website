@@ -171,7 +171,7 @@ def buy():
                                  address=user.address,
                                  price=invoicePrice, date=datetime.datetime.utcnow(), user=user)
             # test it later
-            user.invoices.append(newInvoice)
+            user.invoices.add(newInvoice)
             return jsonify({'message': 'purchase successful'})
         else:
             return jsonify({'message': 'purchase unsuccessful, product not available'})
@@ -189,12 +189,13 @@ def increaseBalance():
     email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
     user = select(user for user in User if user.email == email)[:][0]
     user.balance += 100000
+    return jsonify({'message': 'balance increased successfully'})
 
 
 @app.route('/invoiceuser', methods=['GET'])
 @authentication
 @db_session
-def get():
+def invoiceUser():
     headers = request.headers
     authorizarion_header = headers.get('Authorization')
     email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
@@ -211,7 +212,7 @@ def get():
 @app.route('/invoiceadmin', methods=['GET'])
 @authentication
 @db_session
-def get():
+def invoiceAdmin():
     headers = request.headers
     authorizarion_header = headers.get('Authorization')
     access = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get(
@@ -233,34 +234,38 @@ def get():
 @app.route('/editprofile', methods=['POST'])
 @authentication
 @db_session
-def get():
+def editProfile():
     passwordregex = '(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{8,255})$'
     headers = request.headers
     body = request.get_json()
     authorizarion_header = headers.get('Authorization')
     email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
     user = select(user for user in User if user.email == email)[:][0]
-    if not body.get('name'):
+
+    if  body.get('name'):
         if len(body.get('name')) <= 250:
             user.name = body.get('name')
+
         else:
             return jsonify({'message': 'name too long'}), 400
 
-    if not body.get('sname'):
+
+    if  body.get('sname'):
         if len(body.get('sname')) <= 250:
             user.sname = body.get('sname')
         else:
             return jsonify({'message': 'surname too long'}), 400
-    if not body.get('address'):
+    if  body.get('address'):
         if len(body.get('address')) < 1001:
             user.address = body.get('address')
-
+            # return jsonify({'message': user.sname, 'd': user.address})
         else:
             return jsonify({'message': 'address too long'}), 400
 
-    if not body.get('pass'):
-        if len(body.get('pass')) <= 250 and re.match(passwordregex, body.get('pass')):
-            user.password = body.get('pass')
+    if  body.get('password'):
+        if len(body.get('password')) <= 250 and re.match(passwordregex, body.get('password')):
+            user.password = body.get('password')
+            # return jsonify({'message': user.sname, 'd': user.password})
         else:
             return jsonify({'message': 'Invalid new password'}), 400
 
@@ -283,7 +288,7 @@ def editCat():
         category.name = newName
         products = select(pro for pro in Product if pro.category == cat)[:]
         for product in products:
-            product.category = cat
+            product.category = newName
 
         return jsonify({'message': 'category edited successfully'})
 
@@ -302,7 +307,7 @@ def deleteCat():
     if access:
         body = request.get_json()
         cat = body.get('category')
-        delete(cate for cate in Category if cate.name == cat)[:][0]
+        delete(cate for cate in Category if cate.name == cat)
         products = select(pro for pro in Product if pro.category == cat)[:]
         for product in products:
             product.category = 'دسته بندی نشده'
@@ -325,16 +330,16 @@ def editProduct():
         body = request.get_json()
         name = body.get('name')
         product = Product.get(name=name)
-        if not body.get('newName'):
+        if  body.get('newName'):
             product.name = body.get('newName')
 
-        if not body.get('available'):
+        if  body.get('available'):
             product.available = body.get('available')
 
-        if not body.get('category'):
+        if  body.get('category'):
             product.category = body.get('category')
 
-        if not body.get('price'):
+        if  body.get('price'):
             product.price = int(body.get('price'))
 
         return jsonify({'message': 'product edited successfully'})
