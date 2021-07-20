@@ -31,11 +31,11 @@
             <p v-if="!login && !this.valid['address']" class="address-error error">{{this.error['address']}}</p>
         </form>
 
-        <modal ref="modalName">
-            <template v-slot:body>
-                <p class="modal">عملیات با موفقیت انجام شد</p>
-            </template>
-        </modal>
+    <modal  ref="modalName">
+      <template v-slot:body>
+       <p  class="modal">{{this.modalProp}}</p>
+      </template>
+    </modal>
 
         <button v-if="!login" type="submit" @click="submit($refs)" form='signup-form'>{{getText}}</button>
         <button v-else type="submit" form='login-form'>{{getText}}</button>
@@ -59,6 +59,7 @@
         },
         data() {
             return {
+              submitted:false,
                 args: {
                     name: '',
                     sname: '',
@@ -186,18 +187,23 @@
                 this.valid[argument] = true;
             },
             submit($refs) {
-                // var bodyFormData = new FormData();
-                // bodyFormData.append ("hello");
                 console.log("submit -> valid:" + this.valid);
                 if (this.valid.name && this.valid.sname && this.valid.email && this.valid.pass && this.valid.address) {
-                    axios({
-                        method: "post",
-                        url: "http://81.12.34.189/login:5000",
-                        data: "hello",
-                    }).then((response) => {
-                        console.log(response.text);
-                        if (response) {
-                            this.modalProp = "ثبت نام با موفقیت انجام شد."
+                  axios({
+                    method: 'post',
+                    url: 'http://127.0.0.1:5000/signup',
+                    data: {
+                      email: this.args.email,
+                      name: this.args.name,
+                      sname: this.args.sname,
+                      password: this.args.pass,
+                      address: this.args.address
+                    }
+                  }).then(function (response){
+                        console.log(response);
+                        // this.submitted = true
+                        if (response.status ==200) {
+                            this.modalProp = response.data.message
                         }
                         else {
                             this.modalProp = "ثبت نام نا موفق"
