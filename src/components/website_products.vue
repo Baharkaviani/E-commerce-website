@@ -31,7 +31,7 @@
 <script>
     import Product from "@/components/Product";
     import categories from "@/components/categories";
-
+    import axios from 'axios'
     export default {
         name: "website_products",
         components: {
@@ -44,118 +44,118 @@
                 perPage: 10,
                 pages: [],
                 products: [
-                    {
-                        title: 'ماوس۱',
-                        img: require('../assets/mouse.png'),
-                        price: 1000,
-                        category: 'no1',
-                        sold: 20
-                    },
-                    {
-                        title: 'ماوس۲',
-                        img: require('../assets/mouse.png'),
-                        price: 2000,
-                        category: 'دسته‌بندی یک',
-                        sold: 40
-                    },
-                    {
-                        title: 'ماوس۳',
-                        img: require('../assets/mouse.png'),
-                        price: 4000,
-                        category: 'no4',
-                        sold: 33
-                    },
-                    {
-                        title: 'ماوس گیمینگ ریزر',
-                        img: require('../assets/mouse.png'),
-                        price: '۳۰,۰۰۰',
-                        category: 'دسته‌بندی یک',
-                        sold: 34
-                    },
-                    {
-                        title: 'ماوس۱',
-                        img: require('../assets/mouse.png'),
-                        price: 1000,
-                        category: 'no1',
-                        sold: 20
-                    },
-                    {
-                        title: 'ماوس۲',
-                        img: require('../assets/mouse.png'),
-                        price: 2000,
-                        category: 'دسته‌بندی یک',
-                        sold: 40
-                    },
-                    {
-                        title: 'ماوس۳',
-                        img: require('../assets/mouse.png'),
-                        price: 4000,
-                        category: 'no4',
-                        sold: 33
-                    },
-                    {
-                        title: 'ماوس گیمینگ ریزر',
-                        img: require('../assets/mouse.png'),
-                        price: '۳۰,۰۰۰',
-                        category: 'دسته‌بندی یک',
-                        sold: 34
-                    },
-                    {
-                        title: 'ماوس۱',
-                        img: require('../assets/mouse.png'),
-                        price: 1000,
-                        category: 'no1',
-                        sold: 20
-                    },
-                    {
-                        title: 'ماوس۲',
-                        img: require('../assets/mouse.png'),
-                        price: 2000,
-                        category: 'دسته‌بندی یک',
-                        sold: 40
-                    },
-                    {
-                        title: 'ماوس۳',
-                        img: require('../assets/mouse.png'),
-                        price: 4000,
-                        category: 'no4',
-                        sold: 33
-                    },
-                    {
-                        title: 'ماوس گیمینگ ریزر',
-                        img: require('../assets/mouse.png'),
-                        price: '۳۰,۰۰۰',
-                        category: 'دسته‌بندی یک',
-                        sold: 34
-                    },
-                    {
-                        title: 'ماوس۱',
-                        img: require('../assets/mouse.png'),
-                        price: 1000,
-                        category: 'no1',
-                        sold: 20
-                    },
-                    {
-                        title: 'ماوس۲',
-                        img: require('../assets/mouse.png'),
-                        price: 2000,
-                        category: 'دسته‌بندی یک',
-                        sold: 40
-                    },
-                    {
-                        title: 'ماوس۳',
-                        img: require('../assets/mouse.png'),
-                        price: 4000,
-                        category: 'no4',
-                        sold: 33
-                    },
-                    {
-                        title: 'ماوس گیمینگ ریزر',
-                        img: require('../assets/mouse.png'),
-                        price: '۳۰,۰۰۰',
-                        category: 'دسته‌بندی یک',
-                        sold: 34
-                    },
+                    // {
+                    //     title: 'ماوس۱',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 1000,
+                    //     category: 'no1',
+                    //     sold: 20
+                    // },
+                    // {
+                    //     title: 'ماوس۲',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 2000,
+                    //     category: 'دسته‌بندی یک',
+                    //     sold: 40
+                    // },
+                    // {
+                    //     title: 'ماوس۳',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 4000,
+                    //     category: 'no4',
+                    //     sold: 33
+                    // },
+                    // {
+                    //     title: 'ماوس گیمینگ ریزر',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: '۳۰,۰۰۰',
+                    //     category: 'دسته‌بندی یک',
+                    //     sold: 34
+                    // },
+                    // {
+                    //     title: 'ماوس۱',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 1000,
+                    //     category: 'no1',
+                    //     sold: 20
+                    // },
+                    // {
+                    //     title: 'ماوس۲',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 2000,
+                    //     category: 'دسته‌بندی یک',
+                    //     sold: 40
+                    // },
+                    // {
+                    //     title: 'ماوس۳',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 4000,
+                    //     category: 'no4',
+                    //     sold: 33
+                    // },
+                    // {
+                    //     title: 'ماوس گیمینگ ریزر',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: '۳۰,۰۰۰',
+                    //     category: 'دسته‌بندی یک',
+                    //     sold: 34
+                    // },
+                    // {
+                    //     title: 'ماوس۱',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 1000,
+                    //     category: 'no1',
+                    //     sold: 20
+                    // },
+                    // {
+                    //     title: 'ماوس۲',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 2000,
+                    //     category: 'دسته‌بندی یک',
+                    //     sold: 40
+                    // },
+                    // {
+                    //     title: 'ماوس۳',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 4000,
+                    //     category: 'no4',
+                    //     sold: 33
+                    // },
+                    // {
+                    //     title: 'ماوس گیمینگ ریزر',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: '۳۰,۰۰۰',
+                    //     category: 'دسته‌بندی یک',
+                    //     sold: 34
+                    // },
+                    // {
+                    //     title: 'ماوس۱',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 1000,
+                    //     category: 'no1',
+                    //     sold: 20
+                    // },
+                    // {
+                    //     title: 'ماوس۲',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 2000,
+                    //     category: 'دسته‌بندی یک',
+                    //     sold: 40
+                    // },
+                    // {
+                    //     title: 'ماوس۳',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: 4000,
+                    //     category: 'no4',
+                    //     sold: 33
+                    // },
+                    // {
+                    //     title: 'ماوس گیمینگ ریزر',
+                    //     img: require('../assets/mouse.png'),
+                    //     price: '۳۰,۰۰۰',
+                    //     category: 'دسته‌بندی یک',
+                    //     sold: 34
+                    // },
                 ],
                 cats:[
                     'دسته‌بندی یک',
@@ -196,7 +196,8 @@
                 let from = (page * perPage) - perPage;
                 let to = (page * perPage);
                 return  this.products.slice(from, to);
-            }
+            },
+
         },
         computed: {
             displayedProducts () {
@@ -208,6 +209,30 @@
                 this.setPages();
             }
         },
+      created() {
+          // this.getProducts()
+
+            // console.log("hellllo")
+              axios({
+                method: 'get',
+                url: 'http://127.0.0.1:5000/products',
+
+              }).then((response)=>{
+                  for (const product of response.data){
+                    // console.log(JSON.stringify(product))
+                      product.img =require('../assets/mouse.png')
+                      this.products.push(product)
+                  }
+
+              })
+                  .catch((error => {
+                    console.log(error)
+
+                  }))
+            }
+
+
+
     }
 </script>
 
