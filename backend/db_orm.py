@@ -17,14 +17,6 @@ db_config = {
 db = Database()
 
 
-class User(db.Entity):
-    email = PrimaryKey(str)
-    password = Required(str,255)
-    name = Optional(str,255)
-    sname = Optional(str,255)
-    address = Optional(str, 255)
-    balance =Optional(int,default = 0)
-    admin = Required(bool, default = 0)
 
 
 class Category(db.Entity):
@@ -41,14 +33,26 @@ class Invoice(db.Entity):
     price = Required(int)
     date = Required(datetime.datetime)
     status = Optional(str,255)
+    user = Required('User')
+
+class User(db.Entity):
+    email = PrimaryKey(str)
+    password = Required(str,255)
+    name = Optional(str,255)
+    sname = Optional(str,255)
+    address = Optional(str, 255)
+    balance =Optional(int,default = 0)
+    admin = Required(bool, default = 0)
+    invoices = Set(Invoice)
 
 class Product(db.Entity):
     name = PrimaryKey(str,255)
     price = Required(int)
     available = Required(int)
-    category = Required(str,255)
+    category = Required(str,255,default='دسته بندی نشده')
     sold= Required(int)
     invoices = Set(Invoice)
+    date= Required(datetime.datetime)
 
 
 db.bind(provider='mysql', **db_config)
@@ -64,9 +68,9 @@ with db_session:
         Category(name='دسته بندی ۲')
         Category(name='دسته بندی ۳')
     if Product.select().first() is None:
-        Product(name="موس کامپیوتر ۱", price=200000, available = 40, sold=10, category = 'دسته بندی ۱')
-        Product(name="موس کامپیوتر ۲", price=400000, available=20, sold=5, category = 'دسته بندی ۱')
-        Product(name="موس کامپیوتر ۳", price=100000, available=40, sold=20,  category = 'دسته بندی ۲')
-        Product(name="موس کامپیوتر ۴", price=200000, available=4, sold=30,  category = 'دسته بندی ۳')
-        Product(name="موس کامپیوتر ۵", price=300000, available=40, sold=0,  category = 'دسته بندی ۱')
+        Product(name="موس کامپیوتر ۱", price=200000, available = 40, sold=10, category = 'دسته بندی ۱', date=datetime.datetime.utcnow())
+        Product(name="موس کامپیوتر ۲", price=400000, available=20, sold=5, category = 'دسته بندی ۱'  , date=datetime.datetime.utcnow())
+        Product(name="موس کامپیوتر ۳", price=100000, available=40, sold=20,  category = 'دسته بندی ۲' , date=datetime.datetime.utcnow())
+        Product(name="موس کامپیوتر ۴", price=200000, available=4, sold=30,  category = 'دسته بندی ۳' , date=datetime.datetime.utcnow())
+        Product(name="موس کامپیوتر ۵", price=300000, available=40, sold=0,  category = 'دسته بندی ۱' , date=datetime.datetime.utcnow())
 
