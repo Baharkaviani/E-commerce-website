@@ -3,11 +3,13 @@
         <div class="page-label">
             <label>فروشگاه - {{getText}}</label>
         </div>
-      <modal  ref="modalName">
-        <template  v-slot:body>
-          <p v-if="submitted" class="modal">{{modalProp}}</p>
-        </template>
-      </modal>
+
+        <modal ref="modalName">
+            <template v-slot:body>
+                <p v-if="submitted" class="modal">{{modalProp}}</p>
+            </template>
+        </modal>
+
         <form v-if="login" id="login-form" @submit.prevent="submitLogin($refs.modalName)">
             <Input_textfield class="login-fields fields" v-on:childToParent="onChildClick" v-on:focusedOut="clear"
                              v-for="item in loginitems"
@@ -18,6 +20,7 @@
             <p class="email-error error" v-if="!this.valid['email']">{{this.error['email']}}</p>
             <p class="pass-error error" v-if="!this.valid['pass']">{{this.error['pass']}}</p>
         </form>
+
         <form v-else id="signup-form" @submit.prevent="submit($refs.modalName)">
             <Input_textfield class="signup-fields fields" v-on:childToParent="onChildClick" v-for="item in signupItems"
                              :key="item.label"
@@ -33,7 +36,7 @@
             <p v-if="!login && !this.valid['address']" class="address-error error">{{this.error['address']}}</p>
         </form>
 
-        <button v-if="!login" type="submit"  form='signup-form'>{{getText}}</button>
+        <button v-if="!login" type="submit" form='signup-form'>{{getText}}</button>
         <button v-else type="submit" form='login-form'>{{getText}}</button>
     </div>
 </template>
@@ -55,7 +58,7 @@
         },
         data() {
             return {
-              submitted:false,
+                submitted: false,
                 args: {
                     name: '',
                     sname: '',
@@ -156,13 +159,6 @@
             }
         },
         methods: {
-            checkForm: function (e) {
-                if (this.args['pass'] === 'taraaa')
-                    console.log('bahar kaviani');
-                if (this.args['email'] === '1234567')
-                    console.log('bahar');
-                e.preventDefault()
-            },
             onChildClick(value, argument, isValid, message) {
                 this.args[argument] = value;
                 if (!isValid) {
@@ -176,72 +172,62 @@
                 this.error[argument] = '';
                 this.valid[argument] = true;
             },
-            setModalProp(text, done){
-              this.submitted = done
-              this.modalProp =text
+            setModalProp(text, done) {
+                this.submitted = done;
+                this.modalProp = text;
             },
-          test(refs){
-              refs.openModal()
-          },
+            test(refs) {
+                refs.openModal();
+            },
             submit(ref) {
-              console.log(ref);
+                console.log(ref);
                 let self = this;
                 if (this.valid.name && this.valid.sname && this.valid.email && this.valid.pass && this.valid.address) {
-                  axios({
-                    method: 'post',
-                    url: 'http://127.0.0.1:5000/signup',
-                    data: {
-                      email: this.args.email,
-                      name: this.args.name,
-                      sname: this.args.sname,
-                      password: this.args.pass,
-                      address: this.args.address
-                    }
-                  }).then((response)=>{
-
+                    axios({
+                        method: 'post',
+                        url: 'http://127.0.0.1:5000/signup',
+                        data: {
+                            email: this.args.email,
+                            name: this.args.name,
+                            sname: this.args.sname,
+                            password: this.args.pass,
+                            address: this.args.address
+                        }
+                    }).then((response) => {
                         window.localStorage.setItem('token', response.data.token);
-                        window.localStorage.setItem('name', this.args.name)
-                      self.setModalProp(response.data.message, true)
-                      ref.openModal()
-
-                    })
-                    .catch((error => {
-                        console.log(error)
-
+                        window.localStorage.setItem('name', this.args.name);
+                        self.setModalProp(response.data.message, true);
+                        ref.openModal();
+                    }).catch((error => {
+                            console.log(error)
                     }))
                 }
-
-                // if (done){
-                //   console.log(done,text)
-                //   this.setModalProp(text, done)
-                //   $refs.modalName.openModal()
-                // }
             },
-          submitLogin(ref) {
-            console.log(ref)
-            let self = this
-            if (this.valid.name && this.valid.sname && this.valid.email && this.valid.pass && this.valid.address) {
-              axios({
-                method: 'post',
-                url: 'http://127.0.0.1:5000/login',
-                data: {
-                  email: this.args.email,
-                  password: this.args.pass
+            submitLogin(ref) {
+                console.log(ref);
+                let self = this;
+                if (this.valid.name && this.valid.sname && this.valid.email && this.valid.pass && this.valid.address) {
+                    axios({
+                        method: 'post',
+                        url: 'http://127.0.0.1:5000/login',
+                        data: {
+                            email: this.args.email,
+                            password: this.args.pass
+                        }
+                    }).then((response) => {
+
+                        window.localStorage.setItem('token', response.data.token);
+                        window.localStorage.setItem('name', response.data.name);
+                        self.setModalProp(response.data.message, true);
+                        ref.openModal();
+
+                    })
+                        .catch((error => {
+                            console.log(error)
+
+                        }))
                 }
-              }).then((response)=>{
-
-                window.localStorage.setItem('token', response.data.token);
-                window.localStorage.setItem('name', response.data.name)
-                self.setModalProp(response.data.message, true)
-                ref.openModal()
-
-              })
-                  .catch((error => {
-                    console.log(error)
-
-                  }))
             }
-          }
         }
     }
 </script>

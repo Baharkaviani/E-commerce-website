@@ -1,68 +1,79 @@
 <template>
     <div class="product">
+        <Modal ref="modalName">
+            <template v-slot:body>
+                <input type="number" v-model="proSelNumber"/>
+            </template>
+        </Modal>
+
         <div v-if="admin" class="sold">{{product.sold}}</div>
         <div class="upper-box">
             <div class="img-div"><img :src="product.img" class="image" /></div>
             <div class="title">{{product.title}}</div>
             <div class="cat">{{product.category}}</div>
         </div>
+
         <hr>
         <div class="lower-box">
             <div class="price">{{product.price}} تومان</div>
-            <div v-if="!admin" class="btn" @click="$refs.modalName.openModal()"><button class="buy">خرید محصول</button></div>
-            <div v-else class="btn"><button class="buy">ویرایش محصول</button></div>
+            <div v-if="!admin" class="btn">
+                <button class="buy" @click="submit_buy($refs.modalName)">خرید محصول</button>
+            </div>
+            <div v-else class="btn">
+                <button class="buy">ویرایش محصول</button>
+            </div>
         </div>
-
-        <modal ref="modalName">
-            <template v-slot:body>
-                <input_textfield v-on:childToParent="onChildClick"/>
-            </template>
-        </modal>
     </div>
 </template>
 
 <script>
     import axios from "axios";
+    import Modal from "@/components/Modal";
 
     export default {
         name: "product",
+        component: {
+            Modal
+        },
         props:{
             product: Object,
             admin: Boolean
         },
+        data() {
+            return {
+                proSelNumber: 1
+            }
+        },
         methods: {
-            showModal() {
-                this.$refs.modal.openModal();
-            },
-            submit_buy() {
+            submit_buy(ref) {
+                console.log(ref);
                 console.log("Product submit -> add product:" + this.valid);
-                this.$refs.modalName.openModal();
-                // this.openTheModal();
-                if (this.valid.name && this.valid.sname && this.valid.email && this.valid.pass && this.valid.address) {
-                    axios({
-                        method: 'post',
-                        url: 'http://127.0.0.1:5000/signup',
-                        data: {
-                            email: this.args.email,
-                            name: this.args.name,
-                            sname: this.args.sname,
-                            password: this.args.pass,
-                            address: this.args.address
-                        }
-                    }).then(function (response) {
-                        console.log(response);
-                        // this.submitted = true
-                        if (response.status === 200) {
-                            this.modalProp = response.data.message
-                        } else {
-                            this.modalProp = "ثبت نام نا موفق"
-                        }
-                        // $refs.modalName.openModal();
-                    })
-                        .catch((error => {
-                            console.log(error);
-                        }))
-                }
+
+                ref.openModal();
+
+                let token = window.localStorage.getItem('token');
+
+                axios({
+                    method: 'post',
+                    url: 'http://127.0.0.1:5000/buy',
+                    headers: { 'authorization': `Bare ${token}` },
+                    data: {
+                        product: this.product.title,
+                        // number: this.,
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                    // this.submitted = true
+                    if (response.status === 200) {
+                        this.modalProp = response.data.message
+                    } else {
+                        this.modalProp = "ثبت نام نا موفق"
+                    }
+                    // $refs.modalName.openModal();
+                })
+                    .catch((error => {
+                        console.log(error);
+                    }))
             },
         }
     }
