@@ -3,7 +3,12 @@
         <div class="page-label">
             <label>فروشگاه - {{getText}}</label>
         </div>
-        <form v-if="login" id="login-form">
+      <modal  ref="modalName">
+        <template  v-slot:body>
+          <p v-if="submitted" class="modal">{{modalProp}}</p>
+        </template>
+      </modal>
+        <form v-if="login" id="login-form" @submit.prevent="submitLogin($refs.modalName)">
             <Input_textfield class="login-fields fields" v-on:childToParent="onChildClick" v-on:focusedOut="clear"
                              v-for="item in loginitems"
                              :key="item.label"
@@ -13,8 +18,7 @@
             <p class="email-error error" v-if="!this.valid['email']">{{this.error['email']}}</p>
             <p class="pass-error error" v-if="!this.valid['pass']">{{this.error['pass']}}</p>
         </form>
-        <form v-else id="signup-form" @submit.prevent="checkForm" action="https://vuejs.org/"
-              method="post">
+        <form v-else id="signup-form" @submit.prevent="submit($refs.modalName)">
             <Input_textfield class="signup-fields fields" v-on:childToParent="onChildClick" v-for="item in signupItems"
                              :key="item.label"
                              :attr="item"
@@ -31,13 +35,9 @@
             <p v-if="!login && !this.valid['address']" class="address-error error">{{this.error['address']}}</p>
         </form>
 
-    <modal  ref="modalName">
-      <template v-slot:body>
-       <p  class="modal">{{this.modalProp}}</p>
-      </template>
-    </modal>
 
-        <button v-if="!login" type="submit" @click="submit($refs)" form='signup-form'>{{getText}}</button>
+
+        <button v-if="!login" type="submit"  form='signup-form'>{{getText}}</button>
         <button v-else type="submit" form='login-form'>{{getText}}</button>
     </div>
 </template>
@@ -157,11 +157,6 @@
                 if (this.login === true)
                     return "ورود";
                 return "ثبت نام"
-            },
-            ispasswordValid() {
-                if (this.name === 'tara')
-                    return true;
-                return false;
             }
         },
         methods: {
@@ -173,7 +168,6 @@
                 e.preventDefault()
             },
             onChildClick(value, argument, isValid, message) {
-                // console.log(value + argument)
                 this.args[argument] = value;
                 if (!isValid) {
                     this.error[argument] = message;
@@ -186,8 +180,16 @@
                 this.error[argument] = '';
                 this.valid[argument] = true;
             },
-            submit($refs) {
-                console.log("submit -> valid:" + this.valid);
+            setModalProp(text, done){
+              this.submitted = done
+              this.modalProp =text
+            },
+          test(refs){
+              refs.openModal()
+          },
+            submit(ref) {
+              console.log(ref)
+                let self = this
                 if (this.valid.name && this.valid.sname && this.valid.email && this.valid.pass && this.valid.address) {
                   axios({
                     method: 'post',
@@ -199,22 +201,51 @@
                       password: this.args.pass,
                       address: this.args.address
                     }
-                  }).then(function (response){
-                        console.log(response);
-                        // this.submitted = true
-                        if (response.status ==200) {
-                            this.modalProp = response.data.message
-                        }
-                        else {
-                            this.modalProp = "ثبت نام نا موفق"
-                        }
-                        $refs.modalName.openModal();
+                  }).then((response)=>{
+
+                        window.localStorage.setItem('token', response.data.token);
+                        window.localStorage.setItem('name', this.args.name)
+                      self.setModalProp(response.data.message, true)
+                      ref.openModal()
+
                     })
                     .catch((error => {
                         console.log(error)
+
                     }))
                 }
+
+                // if (done){
+                //   console.log(done,text)
+                //   this.setModalProp(text, done)
+                //   $refs.modalName.openModal()
+                // }
             },
+          submitLogin(ref) {
+            console.log(ref)
+            let self = this
+            if (this.valid.name && this.valid.sname && this.valid.email && this.valid.pass && this.valid.address) {
+              axios({
+                method: 'post',
+                url: 'http://127.0.0.1:5000/login',
+                data: {
+                  email: this.args.email,
+                  password: this.args.pass
+                }
+              }).then((response)=>{
+
+                window.localStorage.setItem('token', response.data.token);
+                window.localStorage.setItem('name', response.data.name)
+                self.setModalProp(response.data.message, true)
+                ref.openModal()
+
+              })
+                  .catch((error => {
+                    console.log(error)
+
+                  }))
+            }
+          }
         }
     }
 </script>

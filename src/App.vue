@@ -55,7 +55,7 @@
         },
         data (){
             return{
-                logv : false,
+                logv : true,
                 inps:[
                     {label:"نام",
                         placeholder:"نام خود را وارد کنید...",
