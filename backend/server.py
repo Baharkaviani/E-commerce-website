@@ -58,7 +58,7 @@ def login():
             user = user[0]
             if user.password == password:
                 created_token = create_token(email, user.admin)
-                return jsonify({'token': created_token})
+                return jsonify({'token': created_token,'name':user.name, 'message':'ورود با موفقیت انجام شد'})
             else:
                 return jsonify({'authorization': 'Failed', 'message': 'wrong password'}), 403
 
@@ -71,6 +71,7 @@ def login():
 @app.route('/signup', methods=['POST'])
 @db_session
 def signup():
+
     body = request.get_json()
     email = body.get('email')
     password = body.get('password')
@@ -108,7 +109,7 @@ def signup():
                     User(email=email, password=password, admin=0, name=body.get('name'), sname=body.get('sname'),
                          address=body.get('address'))
                     created_token = create_token(email, 0)
-                    return jsonify({'token': created_token})
+                    return jsonify({'token': created_token, 'message':'ثبت‌ نام با موفقیت انجام شد'})
 
             else:
                 return jsonify({
@@ -122,17 +123,17 @@ def signup():
 @db_session
 def getProducts():
     # print(request.json)
-    body = request.get_json()
-    order = body.get('order')
-    if order == 'price':
-        products = select(p for p in Product).order_by(desc(Product.price))
-
-    elif order == 'sold':
-        products = select(p for p in Product).order_by(desc(Product.sold))
-
+    # body = request.get_json()
+    # order = body.get('order')
+    # if order == 'price':
+    #     products = select(p for p in Product).order_by(desc(Product.price))
+    #
+    # elif order == 'sold':
+    #     products = select(p for p in Product).order_by(desc(Product.sold))
+    products = select(p for p in Product).order_by(desc(Product.sold))
     prods = []
     for product in products:
-        prods.append({'name': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
+        prods.append({'title': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
                       'category': product.category, 'available': product.available})
 
     return jsonify(prods)
