@@ -4,9 +4,12 @@ import datetime
 from functools import wraps
 import re
 from db_orm import *
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 app.config['SECRET_KEY'] = 'ecommercebahartara'
+
 
 def create_token(email, access):
     token = jwt.encode(
@@ -14,9 +17,10 @@ def create_token(email, access):
         app.config['SECRET_KEY'], algorithm="HS256")
     return token
 
+
 def validate_token(token):
     try:
-        data = jwt.decode(token, app.config['SECRET_KEY'],algorithms=["HS256"])
+        data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=["HS256"])
     except:
         return False
     return True
@@ -40,16 +44,17 @@ def authentication(function):
 
     return token_and_login
 
+
 @app.route('/login', methods=['POST'])
 @db_session
 def login():
     body = request.get_json()
     email = body.get('email')
     password = body.get('password')
-    user = select(user for user in User if user.email==email)[:]
+    user = select(user for user in User if user.email == email)[:]
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     if (re.match(regex, email)):
-        if len(user)!=0:
+        if len(user) != 0:
             user = user[0]
             if user.password == password:
                 created_token = create_token(email, user.admin)
@@ -71,61 +76,64 @@ def signup():
     password = body.get('password')
     emailregex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     passwordregex = '(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{8,255})$'
-    if email == None and password==None:
+    if email == None and password == None:
         return jsonify({'message': 'email and password not provided'}), 400
 
-    elif password == None and email!=None:
+    elif password == None and email != None:
         return jsonify({'message': 'password was not provided'}), 400
 
-    elif password != None and email==None:
+    elif password != None and email == None:
         return jsonify({'message': 'email was not provided'}), 400
 
     else:
         if re.match(emailregex, email):
             if re.match(passwordregex, password):
                 user = select(user for user in User if user.email == email)[:]
-                if len(user)!=0:
+                if len(user) != 0:
                     return jsonify({'message': 'user already exists'}), 400
                 else:
                     address = body.get('address')
                     name = body.get('name')
                     sname = body.get('sname')
-                    if address!=None:
-                        if len(address)>1000:
+                    if address != None:
+                        if len(address) > 1000:
                             return jsonify({'message': 'address too long'}), 400
-                    elif name!=None:
-                        if len(name)>250:
+                    elif name != None:
+                        if len(name) > 250:
                             return jsonify({'message': 'name too long'}), 400
-                    elif sname!=None:
-                        if len(sname)>250:
+                    elif sname != None:
+                        if len(sname) > 250:
                             return jsonify({'message': 'surname too long'}), 400
 
-                    User(email=email, password=password, admin =0, name=body.get('name'), sname=body.get('sname'),address=body.get('address'))
+                    User(email=email, password=password, admin=0, name=body.get('name'), sname=body.get('sname'),
+                         address=body.get('address'))
                     created_token = create_token(email, 0)
                     return jsonify({'token': created_token})
 
             else:
-                return jsonify({'message': 'the password must contain both letters and numbers and be at least 8 characters long'}), 400
+                return jsonify({
+                                   'message': 'the password must contain both letters and numbers and be at least 8 characters long'}), 400
 
         else:
             return jsonify({'message': 'invalid email address'}), 400
 
 
-
 @app.route('/products', methods=['GET'])
 @db_session
 def getProducts():
+    # print(request.json)
     body = request.get_json()
     order = body.get('order')
-    if order=='price':
+    if order == 'price':
         products = select(p for p in Product).order_by(desc(Product.price))
 
     elif order == 'sold':
-        products = select(p for p in Product).order_by(desc(Product.sold) )
+        products = select(p for p in Product).order_by(desc(Product.sold))
 
-    prods =[]
+    prods = []
     for product in products:
-        prods.append({'name':product.name, 'price':product.price, 'category':product.category, 'available':product.available})
+        prods.append({'name': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
+                      'category': product.category, 'available': product.available})
 
     return jsonify(prods)
 
@@ -133,12 +141,11 @@ def getProducts():
 @app.route('/categories', methods=['GET'])
 @db_session
 def getcats():
-    categories = select(c for c in Category )
-    cats =[]
+    categories = select(c for c in Category)
+    cats = []
     for cat in categories:
-        cats.append({'name':cat.name})
+        cats.append({'name': cat.name})
     return jsonify(cats)
-
 
 
 @app.route('/buy', methods=['POST'])
@@ -154,20 +161,186 @@ def buy():
     email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
     user = select(user for user in User if user.email == email)[:][0]
     product = select(p for p in Product if p.name == product)[:][0]
-    invoicePrice =  num * product.price
+    invoicePrice = num * product.price
     if invoicePrice <= user.balance:
         if num <= product.available:
             user.balance -= invoicePrice
-            product.available-= num
-            product.sold +=num
-            Invoice(product=product, number=num, customerName=user.name, customerSName = user.sname, address=user.address,
-                 price=invoicePrice, date=datetime.datetime.utcnow())
+            product.available -= num
+            product.sold += num
+            newInvoice = Invoice(product=product, number=num, customerName=user.name, customerSName=user.sname,
+                                 address=user.address,
+                                 price=invoicePrice, date=datetime.datetime.utcnow(), user=user)
+            # test it later
+            user.invoices.append(newInvoice)
             return jsonify({'message': 'purchase successful'})
         else:
             return jsonify({'message': 'purchase unsuccessful, product not available'})
 
     else:
         return jsonify({'message': 'purchase unsuccessful, balance not enough'})
+
+
+@app.route('/balance', methods=['GET'])
+@authentication
+@db_session
+def increaseBalance():
+    headers = request.headers
+    authorizarion_header = headers.get('Authorization')
+    email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
+    user = select(user for user in User if user.email == email)[:][0]
+    user.balance += 100000
+
+
+@app.route('/invoiceuser', methods=['GET'])
+@authentication
+@db_session
+def get():
+    headers = request.headers
+    authorizarion_header = headers.get('Authorization')
+    email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
+    user = select(user for user in User if user.email == email)[:][0]
+    invoices = select(inv for inv in Invoice if inv.user == user)
+    invs = []
+    for invoice in invoices:
+        invs.append({'product': invoice.product.name, 'date': invoice.date, 'price': invoice.price, 'id': invoice.id,
+                     'address': invoice.address})
+
+    return jsonify(invs)
+
+
+@app.route('/invoiceadmin', methods=['GET'])
+@authentication
+@db_session
+def get():
+    headers = request.headers
+    authorizarion_header = headers.get('Authorization')
+    access = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get(
+        'access')
+    if access:
+        invoices = select(inv for inv in Invoice)
+        invs = []
+        for invoice in invoices:
+            invs.append(
+                {'product': invoice.product.name, 'date': invoice.date, 'price': invoice.price, 'id': invoice.id,
+                 'address': invoice.address,
+                 'name': invoice.customerName + ' ' + invoice.customerSName})
+
+        return jsonify(invs)
+    else:
+        return jsonify({'message': 'access denied'}), 403
+
+
+@app.route('/editprofile', methods=['POST'])
+@authentication
+@db_session
+def get():
+    passwordregex = '(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{8,255})$'
+    headers = request.headers
+    body = request.get_json()
+    authorizarion_header = headers.get('Authorization')
+    email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
+    user = select(user for user in User if user.email == email)[:][0]
+    if not body.get('name'):
+        if len(body.get('name')) <= 250:
+            user.name = body.get('name')
+        else:
+            return jsonify({'message': 'name too long'}), 400
+
+    if not body.get('sname'):
+        if len(body.get('sname')) <= 250:
+            user.sname = body.get('sname')
+        else:
+            return jsonify({'message': 'surname too long'}), 400
+    if not body.get('address'):
+        if len(body.get('address')) < 1001:
+            user.address = body.get('address')
+
+        else:
+            return jsonify({'message': 'address too long'}), 400
+
+    if not body.get('pass'):
+        if len(body.get('pass')) <= 250 and re.match(passwordregex, body.get('pass')):
+            user.password = body.get('pass')
+        else:
+            return jsonify({'message': 'Invalid new password'}), 400
+
+    return jsonify({'message': 'profile edited successfully'})
+
+
+@app.route('/editcategory', methods=['POST'])
+@authentication
+@db_session
+def editCat():
+    headers = request.headers
+    authorizarion_header = headers.get('Authorization')
+    access = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get(
+        'access')
+    if access:
+        body = request.get_json()
+        cat = body.get('category')
+        newName = body.get('newName')
+        category = select(cate for cate in Category if cate.name == cat)[:][0]
+        category.name = newName
+        products = select(pro for pro in Product if pro.category == cat)[:]
+        for product in products:
+            product.category = cat
+
+        return jsonify({'message': 'category edited successfully'})
+
+    else:
+        return jsonify({'message': 'access denied'}), 403
+
+
+@app.route('/deletecategory', methods=['POST'])
+@authentication
+@db_session
+def deleteCat():
+    headers = request.headers
+    authorizarion_header = headers.get('Authorization')
+    access = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get(
+        'access')
+    if access:
+        body = request.get_json()
+        cat = body.get('category')
+        delete(cate for cate in Category if cate.name == cat)[:][0]
+        products = select(pro for pro in Product if pro.category == cat)[:]
+        for product in products:
+            product.category = 'دسته بندی نشده'
+
+        return jsonify({'message': 'category deleted successfully'})
+
+    else:
+        return jsonify({'message': 'access denied'}), 403
+
+
+@app.route('/editproduct', methods=['POST'])
+@authentication
+@db_session
+def editProduct():
+    headers = request.headers
+    authorizarion_header = headers.get('Authorization')
+    access = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get(
+        'access')
+    if access:
+        body = request.get_json()
+        name = body.get('name')
+        product = Product.get(name=name)
+        if not body.get('newName'):
+            product.name = body.get('newName')
+
+        if not body.get('available'):
+            product.available = body.get('available')
+
+        if not body.get('category'):
+            product.category = body.get('category')
+
+        if not body.get('price'):
+            product.price = int(body.get('price'))
+
+        return jsonify({'message': 'product edited successfully'})
+
+    else:
+        return jsonify({'message': 'access denied'}), 403
 
 
 app.run()
