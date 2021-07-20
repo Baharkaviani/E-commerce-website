@@ -1,8 +1,8 @@
 <template>
     <div class="website-container">
         <hero_header class="main-hero"/>
-        <sorter class="sorter"/>
-        <website_products/>
+        <sorter class="sorter"  v-on:sortProducts="sort($refs.productComponent,$event)"/>
+        <website_products ref="productComponent"/>
     </div>
 </template>
 
@@ -18,6 +18,16 @@
             hero_header,
             sorter
         },
+      data(){
+          return{
+            reference: Object
+          }
+      },
+      methods:{
+          sort(ref,order){
+            ref.sortGet(order)
+          }
+      }
     }
 
 </script>

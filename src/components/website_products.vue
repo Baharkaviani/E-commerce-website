@@ -159,28 +159,28 @@
                     // },
                 ],
                 cats:[
-                    'دسته‌بندی یک',
-                    'دسته‌بندی دو',
-                    'دسته‌بندی سه',
-                    'دسته‌بندی یک',
-                    'دسته‌بندی دو',
-                    'دسته‌بندی سه',
-                    'دسته‌بندی یک',
-                    'دسته‌بندی دو',
-                    'دسته‌بندی سه',
-                    'دسته‌بندی یک',
-                    'دسته‌بندی دو',
-                    'دسته‌بندی سه',
-                    'دسته‌بندی یک',
-                    'دسته‌بندی دو',
-                    'دسته‌بندی سه',
-                  'دسته‌بندی یک',
-                  'دسته‌بندی دو',
-                  'دسته‌بندی سه',
-                  'دسته‌بندی یک',
-                  'دسته‌بندی دو',
-                  'دسته‌بندی سه',
-                    'دسته‌بندی چهار'
+                  //   'دسته‌بندی یک',
+                  //   'دسته‌بندی دو',
+                  //   'دسته‌بندی سه',
+                  //   'دسته‌بندی یک',
+                  //   'دسته‌بندی دو',
+                  //   'دسته‌بندی سه',
+                  //   'دسته‌بندی یک',
+                  //   'دسته‌بندی دو',
+                  //   'دسته‌بندی سه',
+                  //   'دسته‌بندی یک',
+                  //   'دسته‌بندی دو',
+                  //   'دسته‌بندی سه',
+                  //   'دسته‌بندی یک',
+                  //   'دسته‌بندی دو',
+                  //   'دسته‌بندی سه',
+                  // 'دسته‌بندی یک',
+                  // 'دسته‌بندی دو',
+                  // 'دسته‌بندی سه',
+                  // 'دسته‌بندی یک',
+                  // 'دسته‌بندی دو',
+                  // 'دسته‌بندی سه',
+                  //   'دسته‌بندی چهار'
                 ],
             }
         },
@@ -206,8 +206,47 @@
                 }
                 console.log("page:" + this.page + "perpage:" + perPage);
                 return this.products.slice(from, to);
-            }
-        },
+            },
+            getCategories(){
+              this.setPages();
+              axios({
+                method: 'get',
+                url: 'http://127.0.0.1:5000/categories',
+
+              }).then((response)=>{
+                for (const category of response.data){
+                  // console.log(JSON.stringify(product))
+                  this.cats.push(category)
+                }
+
+              })
+                  .catch((error => {
+                    console.log(error)
+                  }))
+            },
+          sortGet(order){
+              let self = this
+            axios({
+              method: 'get',
+              url: 'http://127.0.0.1:5000/products',
+              params:{order:order}
+
+            }).then((response)=>{
+              self.products = []
+              for (const product of response.data){
+                product.img =require('../assets/mouse.png');
+                self.products.push(product)
+              }
+              // this.displayedProductsAgain()
+            })
+                .catch((error => {
+                  console.log(error)
+                }))
+          },
+          displayedProductsAgain () {
+            return this.paginate();
+          }
+          },
         computed: {
             displayedProducts () {
                 return this.paginate();
@@ -215,10 +254,12 @@
         },
         created() {
           this.setPages();
-            console.log("hellllo");
+          this.getCategories();
+            // console.log("hellllo");
               axios({
                 method: 'get',
                 url: 'http://127.0.0.1:5000/products',
+                params:{order:'sold'}
 
               }).then((response)=>{
                   for (const product of response.data){

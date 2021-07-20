@@ -1,30 +1,43 @@
 <template>
     <nav>
         <div class="sort sortLabel"><label>مرتب سازی بر اساس:</label></div>
-        <button  class="sort sortButtons active">بیشترین فروش</button>
-        <button class="sort sortButtons">قیمت</button>
+        <button  class="sort sortButtons " :class="{active:this.sorted=='sold'}" @click="soldClicked">بیشترین فروش</button>
+        <button class="sort sortButtons" :class="{active:this.sorted=='priceAsc'}" @click="priceAscClicked">کمترین قیمت</button>
+      <button class="sort sortButtons" :class="{active:this.sorted=='priceDesc'}" @click="priceDescClicked">بیشترین قیمت</button>
+      <button class="sort sortButtons" :class="{active:this.sorted=='date'}" @click="dateClicked">تاریخ ایجاد محصول</button>
     </nav>
 </template>
 
 <script>
     export default {
         name: "sorter",
-        // methods:{
-        //   isClicked(){
-        //       var mainNav = document.getElementsByTagName("nav");
-        //       var sortOptions = mainNav.getElementsByClassName("sortButtons");
-        //
-        //       for (var i = 0; i < sortOptions.length; i++) {
-        //         sortOptions[i].addEventListener("click", function() {
-        //           var current = document.getElementsByClassName("active");
-        //           if (current.length > 0) {
-        //             current[0].className = current[0].className.replace(" active", "");
-        //           }
-        //           this.className += " active";
-        //         });
-        //       }
-        //   }
-        // }
+      data () {
+        return {
+          sorted :""
+        }
+        },
+        methods:{
+          soldClicked(){
+            this.sorted = "sold"
+            this.emitToWebsite()
+          },
+          priceDescClicked(){
+            this.sorted = "priceDesc"
+            this.emitToWebsite()
+          },
+          priceAscClicked(){
+            this.sorted = "priceAsc"
+            this.emitToWebsite()
+          },
+          dateClicked(){
+            this.sorted = "date"
+            this.emitToWebsite()
+          },
+          emitToWebsite(){
+            this.$emit('sortProducts', this.sorted)
+          }
+        }
+
     }
 </script>
 
