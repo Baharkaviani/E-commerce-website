@@ -11,14 +11,14 @@
 
             <nav aria-label="Page">
                 <ul class="pagination">
-                    <li class="page-item">
-                        <button type="button" class="page-link" v-if="page !== 1" @click="page--"> Previous </button>
+                    <li v-if="page !== 1" class="page-item">
+                        <button type="button" class="page-link" @click="page--"> Previous </button>
                     </li>
-                    <li class="page-item">
-                        <button type="button" class="page-link" v-for="pageNumber in pages.slice(page-1, page+5)" :key="pageNumber.id" @click="page = pageNumber"> {{pageNumber}} </button>
+                    <li v-for="pageNumber in pages.slice(page-1, page+5)" :key="pageNumber.id" class="page-item">
+                        <button type="button" class="page-link" @click="page = pageNumber"> {{pageNumber}} </button>
                     </li>
-                    <li class="page-item">
-                        <button type="button" @click="page++" v-if="page < pages.length" class="page-link"> Next </button>
+                    <li v-if="page !== numberOfPages" class="page-item">
+                        <button type="button" @click="page++" class="page-link"> Next </button>
                     </li>
                 </ul>
             </nav>
@@ -42,6 +42,7 @@
             return {
                 page: 1,
                 perPage: 10,
+                numberOfPages: 1,
                 pages: [],
                 products: [
                     // {
@@ -185,34 +186,36 @@
         },
         methods: {
             setPages () {
-                let numberOfPages = Math.ceil(this.products.length / this.perPage);
-                for (let index = 1; index <= numberOfPages; index++) {
+                this.numberOfPages = Math.ceil(this.products.length / this.perPage);
+                console.log("number:" + Math.ceil(this.products.length / this.perPage));
+                for (let index = 1; index <= this.numberOfPages; index++) {
                     this.pages.push(index);
                 }
             },
             paginate () {
                 let page = this.page;
                 let perPage = this.perPage;
-                let from = (page * perPage) - perPage;
-                let to = (page * perPage);
-                return  this.products.slice(from, to);
-            },
-
+                let from = (page - 1) * perPage;
+                let to = 0;
+                console.log("numberOfPages:" + this.numberOfPages);
+                if (page === this.numberOfPages) {
+                    to = this.products.length;
+                }
+                else {
+                    to = from + perPage;
+                }
+                console.log("page:" + this.page + "perpage:" + perPage);
+                return this.products.slice(from, to);
+            }
         },
         computed: {
             displayedProducts () {
                 return this.paginate();
             }
         },
-        watch: {
-            pages () {
-                this.setPages();
-            }
-        },
-      created() {
-          // this.getProducts()
-
-            // console.log("hellllo")
+        created() {
+          this.setPages();
+            console.log("hellllo");
               axios({
                 method: 'get',
                 url: 'http://127.0.0.1:5000/products',
@@ -220,14 +223,13 @@
               }).then((response)=>{
                   for (const product of response.data){
                     // console.log(JSON.stringify(product))
-                      product.img =require('../assets/mouse.png')
+                      product.img =require('../assets/mouse.png');
                       this.products.push(product)
                   }
 
               })
                   .catch((error => {
                     console.log(error)
-
                   }))
             }
 
@@ -254,12 +256,16 @@
         gap: 10px;
     }
 
-    /*.pagination {*/
-    /*    display: flex;*/
-    /*    align-items: center;*/
-    /*    justify-content: center;*/
-    /*    flex-direction: row-reverse;*/
-    /*}*/
+    .pagination {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row-reverse;
+        direction: rtl;
+        margin-top: 20px;
+        list-style-type: none;
+        height: 40px;
+    }
 
     button.page-link {
         display: inline-block;
@@ -269,10 +275,5 @@
         font-size: 20px;
         color: #29b3ed;
         font-weight: 500;
-    }
-
-    .offset{
-        width: 500px !important;
-        margin: 20px auto;
     }
 </style>

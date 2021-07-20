@@ -23,8 +23,6 @@
                              :key="item.label"
                              :attr="item"
                              :class="item.argument"
-
-
             />
             <input_textfield class="address fields" v-on:childToParent="onChildClick" :attr="addressItem"/>
 
@@ -34,8 +32,6 @@
             <p class="pass-error error" v-if="!this.valid['pass']">{{this.error['pass']}}</p>
             <p v-if="!login && !this.valid['address']" class="address-error error">{{this.error['address']}}</p>
         </form>
-
-
 
         <button v-if="!login" type="submit"  form='signup-form'>{{getText}}</button>
         <button v-else type="submit" form='login-form'>{{getText}}</button>
@@ -188,8 +184,8 @@
               refs.openModal()
           },
             submit(ref) {
-              console.log(ref)
-                let self = this
+              console.log(ref);
+                let self = this;
                 if (this.valid.name && this.valid.sname && this.valid.email && this.valid.pass && this.valid.address) {
                   axios({
                     method: 'post',

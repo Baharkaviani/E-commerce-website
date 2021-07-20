@@ -9,18 +9,61 @@
         <hr>
         <div class="lower-box">
             <div class="price">{{product.price}} تومان</div>
-            <div v-if="!admin" class="btn"><button class="buy">خرید محصول</button></div>
+            <div v-if="!admin" class="btn" @click="$refs.modalName.openModal()"><button class="buy">خرید محصول</button></div>
             <div v-else class="btn"><button class="buy">ویرایش محصول</button></div>
         </div>
+
+        <modal ref="modalName">
+            <template v-slot:body>
+                <input_textfield v-on:childToParent="onChildClick"/>
+            </template>
+        </modal>
     </div>
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
         name: "product",
         props:{
             product: Object,
             admin: Boolean
+        },
+        methods: {
+            showModal() {
+                this.$refs.modal.openModal();
+            },
+            submit_buy() {
+                console.log("Product submit -> add product:" + this.valid);
+                this.$refs.modalName.openModal();
+                // this.openTheModal();
+                if (this.valid.name && this.valid.sname && this.valid.email && this.valid.pass && this.valid.address) {
+                    axios({
+                        method: 'post',
+                        url: 'http://127.0.0.1:5000/signup',
+                        data: {
+                            email: this.args.email,
+                            name: this.args.name,
+                            sname: this.args.sname,
+                            password: this.args.pass,
+                            address: this.args.address
+                        }
+                    }).then(function (response) {
+                        console.log(response);
+                        // this.submitted = true
+                        if (response.status === 200) {
+                            this.modalProp = response.data.message
+                        } else {
+                            this.modalProp = "ثبت نام نا موفق"
+                        }
+                        // $refs.modalName.openModal();
+                    })
+                        .catch((error => {
+                            console.log(error);
+                        }))
+                }
+            },
         }
     }
 </script>

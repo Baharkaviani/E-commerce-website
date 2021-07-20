@@ -16,7 +16,7 @@
         </div>
 
         <!--    footer of the website    -->
-<!--        <footer-section class="footerSection"/>-->
+        <footer-section class="footerSection"/>
 
 <!--      <Input_textfield v-for="inp in inps"-->
 <!--                         :key="inp.label"-->
@@ -27,7 +27,7 @@
 
 <script>
     import nav_menu from "@/components/fixed/nav_menu";
-    // import footerSection from "@/components/fixed/footerSection";
+    import footerSection from "@/components/fixed/footerSection";
     import website from "@/components/website";
     // import user_profile from "@/components/profiles/user_profile";
     import admin_profile from "@/components/profiles/admin_profile";
@@ -39,7 +39,7 @@
         name: 'App',
         components: {
             nav_menu,
-            // footerSection,
+            footerSection,
             website,
             login_register,
 
@@ -87,13 +87,11 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-
         background-color: #dddddd;
         width: 1280px;
         left: 0;
         right: 0;
         margin: 0 auto;
-
         min-height: 100vh;
         overflow-y: hidden;
     }
