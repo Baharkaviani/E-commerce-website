@@ -1,6 +1,6 @@
 <template>
     <div class="product-container">
-        <div>
+        <div style="width: 75%;">
             <section class="products" >
                 <Product v-for="product in displayedProducts"
                          :key="product.title"
@@ -24,7 +24,7 @@
             </nav>
         </div>
 
-        <categories :cats="cats" class="categories"/>
+        <categories :cats="cats" class="categories" style="width: 25%;"/>
     </div>
 </template>
 
@@ -159,28 +159,28 @@
                     // },
                 ],
                 cats:[
-                  //   'دسته‌بندی یک',
-                  //   'دسته‌بندی دو',
-                  //   'دسته‌بندی سه',
-                  //   'دسته‌بندی یک',
-                  //   'دسته‌بندی دو',
-                  //   'دسته‌بندی سه',
-                  //   'دسته‌بندی یک',
-                  //   'دسته‌بندی دو',
-                  //   'دسته‌بندی سه',
-                  //   'دسته‌بندی یک',
-                  //   'دسته‌بندی دو',
-                  //   'دسته‌بندی سه',
-                  //   'دسته‌بندی یک',
-                  //   'دسته‌بندی دو',
-                  //   'دسته‌بندی سه',
-                  // 'دسته‌بندی یک',
-                  // 'دسته‌بندی دو',
-                  // 'دسته‌بندی سه',
-                  // 'دسته‌بندی یک',
-                  // 'دسته‌بندی دو',
-                  // 'دسته‌بندی سه',
-                  //   'دسته‌بندی چهار'
+                    //   'دسته‌بندی یک',
+                    //   'دسته‌بندی دو',
+                    //   'دسته‌بندی سه',
+                    //   'دسته‌بندی یک',
+                    //   'دسته‌بندی دو',
+                    //   'دسته‌بندی سه',
+                    //   'دسته‌بندی یک',
+                    //   'دسته‌بندی دو',
+                    //   'دسته‌بندی سه',
+                    //   'دسته‌بندی یک',
+                    //   'دسته‌بندی دو',
+                    //   'دسته‌بندی سه',
+                    //   'دسته‌بندی یک',
+                    //   'دسته‌بندی دو',
+                    //   'دسته‌بندی سه',
+                    // 'دسته‌بندی یک',
+                    // 'دسته‌بندی دو',
+                    // 'دسته‌بندی سه',
+                    // 'دسته‌بندی یک',
+                    // 'دسته‌بندی دو',
+                    // 'دسته‌بندی سه',
+                    //   'دسته‌بندی چهار'
                 ],
             }
         },
@@ -208,71 +208,71 @@
                 return this.products.slice(from, to);
             },
             getCategories(){
-              this.setPages();
-              axios({
-                method: 'get',
-                url: 'http://127.0.0.1:5000/categories',
+                this.setPages();
+                axios({
+                    method: 'get',
+                    url: 'http://127.0.0.1:5000/categories',
 
-              }).then((response)=>{
-                for (const category of response.data){
-                  // console.log(JSON.stringify(product))
-                  this.cats.push(category)
-                }
+                }).then((response)=>{
+                    for (const category of response.data){
+                        // console.log(JSON.stringify(product))
+                        this.cats.push(category)
+                    }
 
-              })
-                  .catch((error => {
-                    console.log(error)
-                  }))
+                })
+                    .catch((error => {
+                        console.log(error)
+                    }))
             },
-          sortGet(order){
-              let self = this
-            axios({
-              method: 'get',
-              url: 'http://127.0.0.1:5000/products',
-              params:{order:order}
+            sortGet(order){
+                let self = this
+                axios({
+                    method: 'get',
+                    url: 'http://127.0.0.1:5000/products',
+                    params:{order:order}
 
-            }).then((response)=>{
-              self.products = []
-              for (const product of response.data){
-                product.img =require('../assets/mouse.png');
-                self.products.push(product)
-              }
-              // this.displayedProductsAgain()
-            })
-                .catch((error => {
-                  console.log(error)
-                }))
-          },
-          displayedProductsAgain () {
-            return this.paginate();
-          }
-          },
+                }).then((response)=>{
+                    self.products = []
+                    for (const product of response.data){
+                        product.img =require('../assets/mouse.png');
+                        self.products.push(product)
+                    }
+                    // this.displayedProductsAgain()
+                })
+                    .catch((error => {
+                        console.log(error)
+                    }))
+            },
+            displayedProductsAgain () {
+                return this.paginate();
+            }
+        },
         computed: {
             displayedProducts () {
                 return this.paginate();
             }
         },
         created() {
-          this.setPages();
-          this.getCategories();
+            this.setPages();
+            this.getCategories();
             // console.log("hellllo");
-              axios({
+            axios({
                 method: 'get',
                 url: 'http://127.0.0.1:5000/products',
                 params:{order:'sold'}
 
-              }).then((response)=>{
-                  for (const product of response.data){
+            }).then((response)=>{
+                for (const product of response.data){
                     // console.log(JSON.stringify(product))
-                      product.img =require('../assets/mouse.png');
-                      this.products.push(product)
-                  }
+                    product.img =require('../assets/mouse.png');
+                    this.products.push(product)
+                }
 
-              })
-                  .catch((error => {
+            })
+                .catch((error => {
                     console.log(error)
-                  }))
-            }
+                }))
+        }
 
 
 
@@ -287,20 +287,21 @@
         position: relative;
         margin: 10px;
         width: 1260px;
-        gap: 10px;
+
     }
 
     .products {
         display: flex;
         align-items: center;
-        /*justify-content: center;*/
+        justify-content: center;
         flex-direction: row-reverse;
         flex-wrap: wrap;
-        direction: ltr;
         gap: 10px;
-        min-width: 960px;
-    }
 
+    }
+    .categories{
+
+    }
     .pagination {
         display: flex;
         align-items: center;
