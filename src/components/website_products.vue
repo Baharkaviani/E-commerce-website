@@ -197,18 +197,33 @@
                 let perPage = this.perPage;
                 let from = (page - 1) * perPage;
                 let to = 0;
-                // console.log("numberOfPages:" + this.numberOfPages);
+                console.log("numberOfPages:" + this.numberOfPages);
                 if (page === this.numberOfPages) {
                     to = this.products.length;
                 }
                 else {
                     to = from + perPage;
                 }
-                // console.log("page:" + this.page + "perpage:" + perPage);
+                console.log("page:" + this.page + "perpage:" + perPage);
                 return this.products.slice(from, to);
             },
+            getProducts() {
+                axios({
+                    method: 'get',
+                    url: 'http://127.0.0.1:5000/products',
+                    params:{order:'sold'}
+                }).then((response)=>{
+                    for (const product of response.data){
+                        console.log("number of products" + this.products.length);
+                        product.img =require('../assets/mouse.png');
+                        this.products.push(product)
+                    }
+                    this.setPages();
+                }).catch((error => {
+                    console.log(error)
+                }));
+            },
             getCategories(){
-                this.setPages();
                 axios({
                     method: 'get',
                     url: 'http://127.0.0.1:5000/categories',
@@ -219,7 +234,7 @@
                     }
                 }).catch((error => {
                     console.log(error);
-                }))
+                }));
             },
             sortGet(order){
                 let self = this;
@@ -246,26 +261,9 @@
             }
         },
         created() {
-            this.setPages();
+            this.getProducts();
             this.getCategories();
-            axios({
-                method: 'get',
-                url: 'http://127.0.0.1:5000/products',
-                params:{order:'sold'}
-            }).then((response)=>{
-                for (const product of response.data){
-                    // console.log(JSON.stringify(product))
-                    product.img =require('../assets/mouse.png');
-                    this.products.push(product)
-                }
-            })
-                .catch((error => {
-                    console.log(error)
-                }))
         }
-
-
-
     }
 </script>
 
@@ -287,11 +285,8 @@
         flex-direction: row-reverse;
         flex-wrap: wrap;
         gap: 10px;
-
     }
-    .categories{
 
-    }
     .pagination {
         display: flex;
         align-items: center;

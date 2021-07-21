@@ -17,11 +17,6 @@
 
         <!--    footer of the website    -->
         <footer-section class="footerSection"/>
-
-<!--      <Input_textfield v-for="inp in inps"-->
-<!--                         :key="inp.label"-->
-<!--                         :attr="inp"-->
-<!--                    />-->
     </div>
 </template>
 
