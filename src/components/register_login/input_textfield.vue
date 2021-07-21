@@ -6,7 +6,7 @@
     <input  v-else-if="attr.label=='رمز عبور'" type="password" :class="{wsize: attr.wsize,  nwsize:!attr.wsize , valid: this.error===1, invalid: this.error===2}" :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
             v-model="inputValue" v-on:keyup="emitToParent" v-on:focusin="emitToParent" v-on:focusout="changeError">
     <input  v-else-if="attr.class" type="text" :class="{search:attr.search, wsize: attr.wsize,  nwsize:!attr.wsize, valid: this.error===1, invalid: this.error===2}"  :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
-            v-model="inputValue" v-on:keyup="emitToParent" v-on:focusin="emitToParent" v-on:focusout="changeError">
+            v-model="inputValue" v-on:keyup="emitToParent" v-on:focusin="emitToParent" v-on:focusout="changeError" v-on:keyup.enter="searching">
     <textarea  v-else-if="!attr.class" :name="attr.argument" v-on:focusout="changeError"  :class="{valid: this.error===1, invalid: this.error===2}" :placeholder="attr.placeholder" v-model="inputValue"
                v-on:keyup="emitToParent" v-on:focusin="emitToParent"  ></textarea>
   </div>
@@ -31,6 +31,10 @@ export default {
       this.error = 0
       this.$emit('focusedOut',this.attr.argument)
     },
+    searching(){
+      if(this.attr.search ===true)
+        this.$emit('searchingEvent', this.inputValue)
+    },
     emitToParent() {
       let valid = true
       let message = ""
@@ -54,10 +58,12 @@ export default {
         message = 'کاراکتر باشد' +this.attr.maxl+'باید حداکثر شامل'  +this.attr.label
         valid = false
       }
-      if (valid)
+      if (valid && !this.attr.search)
         this.error = 1
-      else
+      else if (!this.attr.search)
         this.error = 2
+      else if (this.attr.search)
+        this.error = 3
       // console.log(message)
       this.$emit('childToParent', inputVal, this.attr.argument,valid,message)
 
@@ -117,6 +123,8 @@ textarea, input{
 }
 .search{
   width: 500px;
+  border: none;
+  border-color: white;
 }
 input{
   padding-right:10px;

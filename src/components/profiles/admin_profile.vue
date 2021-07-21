@@ -166,7 +166,7 @@
         </div>
 
         <!--    Third tab contents    -->
-        <input_textfield v-if="this.tab===2" class="search" :attr="search" v-model="search.placeholder"/>
+        <input_textfield v-if="this.tab===2" class="search" :attr="search" v-on:searchingEvent="searchCode"/>
 
         <div v-if="this.tab===2" class="table-div invoice-div">
             <table v-if="this.tab===2" class='invoices'>
@@ -430,6 +430,7 @@
                     url: 'http://127.0.0.1:5000/invoiceadmin',
                     headers: { 'authorization': `Bare ${token}` },
                 }).then((response)=>{
+                  this.receipt =[]
                     for (const rect of response.data){
                         this.receipt.push(rect)
                     }
@@ -498,7 +499,30 @@
                 }).catch((error => {
                     console.log(error);
                 }))
-            }
+            },
+          searchCode(code){
+            let token = window.localStorage.getItem('token');
+              if (code===""){
+                this.getReceipts()
+              }
+              else{
+                axios({
+                  method: 'get',
+                  url: 'http://127.0.0.1:5000/idfilter',
+                  headers: { 'authorization': `Bare ${token}` },
+                  params:{
+                    id:code
+                  }
+                }).then((response)=>{
+                  this.receipt =[]
+                  for (const rect of response.data){
+                    this.receipt.push(rect)
+                  }
+                }).catch((error => {
+                  console.log(error);
+                }));
+              }
+          }
         },
         computed: {
             displayedProducts () {
