@@ -153,7 +153,6 @@ def categoryFilter():
     order = request.args.get("order")
     body = request.get_json()
     categories = body.get("cats")
-    results =[]
     if order == 'priceDesc':
             products = select(p for p in Product if p.category in categories).order_by(desc(Product.price))
 
@@ -426,12 +425,15 @@ def editProduct():
             product.available += int(body.get('available'))
 
         if  body.get('category'):
+            cats = select(cat for cat in Category if cat.name == body.get('category'))[:]
+            if not len(cats):
+                Category(name=body.get('category'))
             product.category = body.get('category')
 
         if  body.get('price'):
             product.price = int(body.get('price'))
 
-        return jsonify({'message': 'product edited successfully'})
+        return jsonify({'message': 'ویرایش مورد نظر با موفقیت انجام شد'})
 
     else:
         return jsonify({'message': 'access denied'}), 403
