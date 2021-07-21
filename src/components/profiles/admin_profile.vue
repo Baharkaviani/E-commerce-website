@@ -13,7 +13,25 @@
 
         <!--    First tab contents    -->
         <div v-if="this.tab===0" class="btn">
-            <button class="add">+ ایجاد محصول جدید</button>
+          <modal ref="newProModal">
+            <template v-slot:body>
+              <label class="modalLabel">ایجاد محصول جدید</label>
+              <p>نام کالا:</p>
+              <input type="text" v-model="newProduct.name"/>
+              <p>موجودی انبار:</p>
+              <input type="number" v-model="newProduct.available"/>
+              <p>دسته بندی:</p>
+              <input type="text" v-model="newProduct.category"/>
+              <p>قیمت:</p>
+              <input type="number" v-model="newProduct.price"/>
+
+              <p :class="{error:merror, safe:!merror}">
+                {{creatingMessage}}
+              </p>
+              <button class="inModal" @click="createNewPro">ثبت محصول</button>
+            </template>
+          </modal>
+            <button class="add" @click="createProduct($refs.newProModal)">+ ایجاد محصول جدید</button>
 
             <section class="products">
                 <Product class="proItem" v-on:updateProduct="getProducts" v-for="product in displayedProducts"
@@ -200,12 +218,14 @@
 <script>
     import input_textfield from "@/components/register_login/input_textfield";
     import Product from "@/components/Product";
+    import Modal from "@/components/Modal";
     import axios from "axios";
 
     export default {
         components: {
             input_textfield,
-            Product
+            Product,
+          Modal
         },
         name: "admin_profile",
         data() {
@@ -215,6 +235,14 @@
                 numberOfPages: 1,
                 pages: [],
                 tab: 0,
+                merror:false,
+                creatingMessage:"",
+                newProduct:{
+                  name:"",
+                  price :0,
+                  available:0,
+                  category:""
+                },
                 search: {
                     label: "جستجوی کد پیگیری",
                     placeholder: "کد پیگیری را برای جستجو وارد کنید ...",
@@ -276,6 +304,9 @@
             changeToProduct() {
                 this.tab = 0
             },
+          createProduct(ref){
+              ref.openModal()
+          },
             changeToCats() {
                 this.tab = 1
             },
@@ -322,9 +353,33 @@
                     console.log(error)
                 }));
             },
+           createNewPro(){
+             let token = window.localStorage.getItem('token');
+             let self = this
+             axios({
+               method: 'post',
+               url: 'http://127.0.0.1:5000/addproduct',
+               headers: { 'authorization': `Bare ${token}` },
+               data:{
+                 name :self.newProduct.name,
+                 cat: self.newProduct.category,
+                 price: self.newProduct.price,
+                 available: self.newProduct.available
+               }
+             }).then((response)=>{
+               self.creatingMessage = response.data.message
+               self.merror = false
+               self.getProducts()
+               self.getCategories()
+             }).catch((error => {
+               self.creatingMessage = error.response.data.message
+               self.merror = true
+               console.log(error)
+             }))
+
+           },
             getReceipts() {
                 let token = window.localStorage.getItem('token');
-
                 axios({
                     method: 'get',
                     url: 'http://127.0.0.1:5000/invoiceadmin',
@@ -540,7 +595,19 @@
         /*padding-left: 50px;*/
         width: 200px;
     }
+    .inModal{
+      display: block;
+      text-align: center;
+      padding: 8px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 24px;
+      background-color:#009eff;
+      position: relative;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      color:white;
 
+    }
     .bttn {
         color: #787575;
         padding: 5px 10px;
@@ -550,5 +617,22 @@
 
     .tab-btn :hover {
         color: #00bec9;
+    }
+    input{
+      margin-bottom: 30px;
+      border-radius: 24px;
+    }
+    p{
+      margin-bottom: 30px;
+    }
+    .error{
+      color: red;
+    }
+    .safe{
+      color: green;
+    }
+    .modalLabel{
+      margin-top: 10px;
+      margin-bottom: 30px;
     }
 </style>
