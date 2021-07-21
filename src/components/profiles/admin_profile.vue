@@ -15,8 +15,8 @@
         <div v-if="this.tab===0" class="btn">
             <button class="add">+ ایجاد محصول جدید</button>
 
-            <section class="products" >
-                <Product class="proItem" v-for="product in displayedProducts"
+            <section class="products">
+                <Product class="proItem" v-on:updateProduct="getProducts" v-for="product in displayedProducts"
                          :key="product.title"
                          :product="product"
                          :admin=true
@@ -285,6 +285,7 @@
             setPages () {
                 this.numberOfPages = Math.ceil(this.products.length / this.perPage);
                 console.log("number:" + Math.ceil(this.products.length / this.perPage));
+                this.pages = [];
                 for (let index = 1; index <= this.numberOfPages; index++) {
                     this.pages.push(index);
                 }
@@ -310,6 +311,7 @@
                     url: 'http://127.0.0.1:5000/products',
                     params:{order:'sold'}
                 }).then((response)=>{
+                    this.products = [];
                     for (const product of response.data){
                         console.log("number of products" + this.products.length);
                         product.img =require('../../assets/mouse.png');

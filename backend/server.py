@@ -402,7 +402,7 @@ def editProduct():
             product.name = body.get('newName')
 
         if  body.get('available'):
-            product.available = body.get('available')
+            product.available += int(body.get('available'))
 
         if  body.get('category'):
             product.category = body.get('category')
