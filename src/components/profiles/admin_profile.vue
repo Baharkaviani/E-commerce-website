@@ -81,8 +81,10 @@
         </div>
 
         <input_textfield v-if="this.tab===2" class="search" :attr="search"/>
+
         <div v-if="this.tab===2" class="table-div invoice-div">
             <table v-if="this.tab===2" class='invoices'>
+                <thead>
                 <tr>
                     <th>کد پیگیری</th>
                     <th>کالا</th>
@@ -90,63 +92,87 @@
                     <th>نام خریدار</th>
                     <th>آدرس ارسال شده</th>
                 </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>هادی</td>
-                    <td>تهران، تهران، امیرکبیر</td>
+                </thead>
+
+                <tbody>
+                <tr v-for="(recp, index) in receipt" :key="index">
+                    <td>{{ recp.code }}</td>
+                    <td>{{ recp.name }}</td>
+                    <td>{{ recp.price }}</td>
+                    <td>{{ recp.user }}</td>
+                    <td>{{ recp.address }}</td>
                 </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>هادی</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>هادی</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>هادی</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>هادی</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>هادی</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>هادی</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
+                </tbody>
             </table>
         </div>
+
+<!--        <div v-if="this.tab===2" class="table-div invoice-div">-->
+<!--            <table v-if="this.tab===2" class='invoices'>-->
+<!--                <tr>-->
+<!--                    <th>کد پیگیری</th>-->
+<!--                    <th>کالا</th>-->
+<!--                    <th>قیمت پرداخت شده</th>-->
+<!--                    <th>نام خریدار</th>-->
+<!--                    <th>آدرس ارسال شده</th>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>هادی</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>هادی</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>هادی</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>هادی</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>هادی</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>هادی</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>هادی</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--            </table>-->
+<!--        </div>-->
     </div>
 </template>
 
 <script>
     import input_textfield from "@/components/register_login/input_textfield";
     import Product from "@/components/Product";
+    import axios from "axios";
 
     export default {
         components: {
@@ -195,6 +221,20 @@
                         category: 'دسته‌بندی یک',
                         sold: 34
                     }
+                ],
+                receipt: [
+                    {
+                        code: 'SHOP102031',
+                        name: 'موس گیمینگ ۱',
+                        price: '۱۰/۰۰۰ تومان',
+                        address: 'تهران، تهران، امیرکبیر'
+                    },
+                    {
+                        code: 'SHOP102032',
+                        name: 'موس گیمینگ ۲',
+                        price: '۳۰/۰۰۰ تومان',
+                        address: 'تهران، تهران، شریف'
+                    },
                 ]
             }
         },
@@ -208,6 +248,21 @@
             changeToInvoice() {
                 this.tab = 2
             }
+        },
+        created() {
+            let token = window.localStorage.getItem('token');
+
+            axios({
+                method: 'get',
+                url: 'http://127.0.0.1:5000/invoiceadmin',
+                headers: { 'authorization': `Bare ${token}` },
+            }).then((response)=>{
+                for (const rect of response.data){
+                    this.receipt.push(rect)
+                }
+            }).catch((error => {
+                console.log(error)
+            }))
         }
     }
 </script>

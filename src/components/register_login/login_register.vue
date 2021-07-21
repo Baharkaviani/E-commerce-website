@@ -80,17 +80,17 @@
                     pass: true,
                     address: true
                 },
-
-                loginitems: [{
-                    label: "ایمیل",
-                    placeholder: "ایمیل خود را وارد کنید...",
-                    argument: "email",
-                    class: true,
-                    wsize: true,
-                    minl: 1,
-                    maxl: 255,
-                    regex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                },
+                loginitems: [
+                    {
+                        label: "ایمیل",
+                        placeholder: "ایمیل خود را وارد کنید...",
+                        argument: "email",
+                        class: true,
+                        wsize: true,
+                        minl: 1,
+                        maxl: 255,
+                        regex: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                    },
                     {
                         label: "رمز عبور",
                         placeholder: "رمز عبور خود را وارد کنید...",
@@ -102,15 +102,16 @@
                         regex: /^(?=.*\d)(?=.*[a-z])[0-9a-zA-Z]{8,}$/
                     }
                 ],
-                signupItems: [{
-                    label: "نام",
-                    placeholder: "نام خود را وارد کنید...",
-                    argument: "name",
-                    class: true,
-                    wsize: true,
-                    minl: 1,
-                    maxl: 255
-                },
+                signupItems: [
+                    {
+                        label: "نام",
+                        placeholder: "نام خود را وارد کنید...",
+                        argument: "name",
+                        class: true,
+                        wsize: true,
+                        minl: 1,
+                        maxl: 255
+                    },
                     {
                         label: "نام خانوادگی",
                         placeholder: "نام خانوادگی خود را وارد کنید...",
