@@ -4,7 +4,7 @@
         <hr>
         <div class="container">
             <label v-for="(cat,index) in cats" :key="index" class="labels">{{cat}}
-                <input type="checkbox" :name="cat" :value="cat">
+                <input type="checkbox" @change="returnCats" v-model="selectedCats" :name="cat" :value="cat">
                 <span class="checkmark"></span>
             </label>
         </div>
@@ -14,7 +14,17 @@
 <script>
     export default {
         name: "categories",
-        props:['cats']
+        props:['cats'],
+      data() {
+        return {
+          selectedCats:[]
+        }
+        },
+      methods:{
+          returnCats(){
+            this.$emit('catsChanged', this.selectedCats)
+          }
+      }
     }
 </script>
 

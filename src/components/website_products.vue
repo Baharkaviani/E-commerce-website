@@ -24,7 +24,7 @@
             </nav>
         </div>
 
-        <categories :cats="cats" class="categories" style="width: 25%;"/>
+        <categories :cats="cats" class="categories" v-on:catsChanged="getCatsFiltered" style="width: 25%;"/>
     </div>
 </template>
 
@@ -44,6 +44,8 @@
                 perPage: 15,
                 numberOfPages: 1,
                 pages: [],
+                currentOrder :'sold',
+                currentCategories:[],
                 products: [
                     // {
                     //     title: 'ماوس۱',
@@ -188,6 +190,7 @@
             setPages () {
                 this.numberOfPages = Math.ceil(this.products.length / this.perPage);
                 console.log("number:" + Math.ceil(this.products.length / this.perPage));
+                this.pages = []
                 for (let index = 1; index <= this.numberOfPages; index++) {
                     this.pages.push(index);
                 }
@@ -211,8 +214,9 @@
                 axios({
                     method: 'get',
                     url: 'http://127.0.0.1:5000/products',
-                    params:{order:'sold'}
+                    params:{order:this.currentOrder}
                 }).then((response)=>{
+                  this.products = []
                     for (const product of response.data){
                         console.log("number of products" + this.products.length);
                         product.img =require('../assets/mouse.png');
@@ -258,22 +262,52 @@
           },
           sortGet(order){
               let self = this
-            axios({
-              method: 'get',
-              url: 'http://127.0.0.1:5000/products',
-              params:{order:order}
-
-                }).then((response)=>{
-                    self.products = []
-                    for (const product of response.data){
-                        product.img =require('../assets/mouse.png');
-                        self.products.push(product)
-                    }
-                })
-                    .catch((error => {
-                        console.log(error)
-                    }))
+            // axios({
+            //   method: 'get',
+            //   url: 'http://127.0.0.1:5000/products',
+            //   params:{order:order}
+            //
+            //     }).then((response)=>{
+            //         self.products = []
+            //         for (const product of response.data){
+            //             product.img =require('../assets/mouse.png');
+            //             self.products.push(product)
+            //         }
+            //     })
+            //         .catch((error => {
+            //             console.log(error)
+            //         }))
+              self.currentOrder = order
+            this.getCatsFiltered(this.currentCategories)
             },
+          getCatsFiltered(categories) {
+            this.currentCategories=categories
+            let self = this
+            if (categories.length == 0)
+              this.getProducts()
+            else {
+              axios({
+                method: 'post',
+                url: 'http://127.0.0.1:5000/filtercat',
+                params: {order: self.currentOrder},
+                data: {
+                  cats: categories
+                }
+
+              }).then((response) => {
+                self.products = []
+                for (const product of response.data) {
+                  product.img = require('../assets/mouse.png');
+                  self.products.push(product)
+                  self.setPages()
+                  self.page = 1
+                }
+              })
+                  .catch((error => {
+                    console.log(error)
+                  }))
+            }
+          }
         },
         computed: {
             displayedProducts () {
