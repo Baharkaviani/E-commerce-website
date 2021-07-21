@@ -36,8 +36,12 @@
             <p v-if="!login && !this.valid['address']" class="address-error error">{{this.error['address']}}</p>
         </form>
 
-        <button v-if="!login" type="submit" form='signup-form'>{{getText}}</button>
-        <button v-else type="submit" form='login-form'>{{getText}}</button>
+        <button v-if="!login" type="submit" form='signup-form' class="submitButton">{{getText}}</button>
+        <button v-else type="submit" form='login-form' class="submitButton">{{getText}}</button>
+
+        <button @click="$emit('goToRegister')" form='login-form' v-if="login" class="linkToRegister">
+            اگر تاکنون ثبت نام نکردید به این لینک مراجعه کنید
+        </button>
     </div>
 </template>
 
@@ -266,7 +270,7 @@
 
     #login-form {
         display: grid;
-        grid-template-areas: 'email' 'emaile' 'pass' 'passe';
+        grid-template-areas: 'email' 'emaile' 'pass' 'passe' 'reg';
         /*gap: 15px;*/
         justify-content: center;
     }
@@ -283,8 +287,7 @@
         grid-area: addr;
     }
 
-    button {
-
+    .submitButton {
         margin-top: 30px;
         border-radius: 24px;
         border: none;
@@ -299,7 +302,6 @@
 
     button:hover {
         cursor: pointer;
-
     }
 
     .error {
@@ -331,6 +333,22 @@
 
     .pass-error {
         grid-area: passe;
+    }
+
+    .linkToRegister {
+        grid-area: reg;
+        border:none;
+        background-color: #dddddd;
+        margin-top: 80px;
+        text-align: center;
+        padding: 10px 50px;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+    .linkToRegister:hover {
+        color: #00BEC9;
     }
 
     .email {
