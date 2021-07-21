@@ -21,22 +21,28 @@
 
 <script>
     export default {
-      name:"nav_menu",
-      methods:{
-        linkClicked(event){
-          this.$emit('childToParent', event.currentTarget.id)
-        }
-      },
-        data () {
-          return {
-              userName: window.localStorage.getItem('name')
-          }
+        name: "nav_menu",
+        data() {
+            return {
+                userName: ""
+            }
+        },
+        methods: {
+            linkClicked(event) {
+                this.$emit('childToParent', event.currentTarget.id)
+            },
+            setUserName() {
+                this.userName = window.localStorage.getItem('name');
+            }
+        },
+        created (){
+            this.setUserName();
         }
     }
 </script>
 
 <style scoped>
-    .menu{
+    .menu {
         border: 1px solid;
         border-color: #404040;
         height: 65px;
@@ -47,7 +53,7 @@
         right: 0;
         margin: 0 auto;
         background-color: #FFFFFF;
-      z-index: 10;
+        z-index: 10;
     }
 
     nav {
@@ -69,7 +75,7 @@
         display: flex;
     }
 
-    nav  .menu-item.store{
+    nav .menu-item.store {
         font-size: 120%;
         color: #00bec9;
         margin-right: 50px;
@@ -79,6 +85,7 @@
     nav .menu-item:hover {
         color: #00bec9;
     }
+
     nav .menu-item a {
         color: inherit;
         text-decoration: none;
@@ -86,7 +93,7 @@
 
     .drop {
         color: #404040;
-        position:absolute;
+        position: absolute;
         top: 50%;
         transform: translate(0, -50%);
         padding: 10px 20px;
@@ -99,7 +106,7 @@
 
     }
 
-    .sign-in{
+    .sign-in {
         margin-left: 20px;
         position: relative;
         top: 50%;
@@ -111,7 +118,7 @@
     .dropdown-content {
         direction: rtl;
         display: none;
-        position:absolute;
+        position: absolute;
         top: 0;
         left: 0;
         transform: translate(0%, 10%);
@@ -134,19 +141,24 @@
 
 
     }
-    .first{
+
+    .first {
         margin-top: 25px;
     }
-    .second{
-        margin-bottom: 10px ;
+
+    .second {
+        margin-bottom: 10px;
     }
+
     .dropdown-content a:hover {
         background-color: #f1f1f1;
     }
-    .sign-in:hover  .dropdown-content {
+
+    .sign-in:hover .dropdown-content {
         display: inline-block;
     }
-    .sign-in:hover .drop{
+
+    .sign-in:hover .drop {
         background-color: #ffcc00;
     }
 

@@ -96,10 +96,10 @@
 
                 <tbody>
                 <tr v-for="(recp, index) in receipt" :key="index">
-                    <td>{{ recp.code }}</td>
-                    <td>{{ recp.name }}</td>
+                    <td>{{ recp.id }}</td>
+                    <td>{{ recp.product }}</td>
                     <td>{{ recp.price }}</td>
-                    <td>{{ recp.user }}</td>
+                    <td>{{ recp.name }}</td>
                     <td>{{ recp.address }}</td>
                 </tr>
                 </tbody>
@@ -224,15 +224,17 @@
                 ],
                 receipt: [
                     {
-                        code: 'SHOP102031',
-                        name: 'موس گیمینگ ۱',
+                        id: 'SHOP102031',
+                        product: 'موس گیمینگ ۱',
                         price: '۱۰/۰۰۰ تومان',
+                        name: 'بهار',
                         address: 'تهران، تهران، امیرکبیر'
                     },
                     {
-                        code: 'SHOP102032',
-                        name: 'موس گیمینگ ۲',
+                        id: 'SHOP102032',
+                        product: 'موس گیمینگ ۲',
                         price: '۳۰/۰۰۰ تومان',
+                        name: 'تارا',
                         address: 'تهران، تهران، شریف'
                     },
                 ]

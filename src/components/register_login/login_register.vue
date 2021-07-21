@@ -199,6 +199,8 @@
                         window.localStorage.setItem('name', this.args.name);
                         self.setModalProp(response.data.message, true);
                         ref.openModal();
+
+                        this.$emit('signin')
                     }).catch((error => {
                             console.log(error)
                     }))
@@ -222,6 +224,7 @@
                         self.setModalProp(response.data.message, true);
                         ref.openModal();
 
+                        this.$emit('signin')
                     })
                         .catch((error => {
                             console.log(error)
