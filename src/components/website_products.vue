@@ -221,15 +221,35 @@
                     console.log(error);
                 }))
             },
-            sortGet(order){
-                let self = this;
-                axios({
-                    method: 'get',
-                    url: 'http://127.0.0.1:5000/products',
-                    params:{order:order}
+          searchThisItem(searchedItem){
+              let self = this
+            axios({
+              method: 'get',
+              url: 'http://127.0.0.1:5000//searchproduct',
+              params:{product:searchedItem}
+
+            }).then((response)=>{
+              self.products = []
+              if (response.data.length >0)
+                  for (const product of response.data){
+                      product.img =require('../assets/mouse.png');
+                      self.products.push(product)
+                  }
+
+            })
+                .catch((error => {
+                  console.log(error)
+                }))
+          },
+          sortGet(order){
+              let self = this
+            axios({
+              method: 'get',
+              url: 'http://127.0.0.1:5000/products',
+              params:{order:order}
 
                 }).then((response)=>{
-                    self.products = [];
+                    self.products = []
                     for (const product of response.data){
                         product.img =require('../assets/mouse.png');
                         self.products.push(product)
@@ -277,7 +297,7 @@
         position: relative;
         margin: 10px;
         width: 1260px;
-
+      gap: 10px;
     }
 
     .products {

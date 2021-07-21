@@ -2,8 +2,8 @@
     <div class="main-hero">
         <div class="hero-container">
             <h1>در محصولات سایت جستجو کنید...</h1>
-            <input type="text" id="product" name="product" placeholder="نام محصول خود را وارد کنید...">
-            <a class="button">جستجو کنید</a>
+            <input type="text" id="product" name="product" v-model="searchedItem" placeholder="نام محصول خود را وارد کنید...">
+            <button class="button" @click="search">جستجو کنید</button>
 
             <div class="slideshow-container">
                 <div class="mySlides fade">
@@ -28,7 +28,8 @@
         name: "hero_header",
         data: function() {
             return {
-                slideIndex:0
+                slideIndex:0,
+                searchedItem : ""
             };
         },
         methods: {
@@ -44,11 +45,17 @@
                 }
                 slides[this.slideIndex-1].style.display = "block";
                 setTimeout(this.showSlides, 10000); // Change image every 2 seconds
-            }
+            },
+          search(){
+            this.$emit('searched', this.searchedItem)
+            this.searchedItem =""
+          }
         },
         mounted() {
             this.showSlides()
-        }
+        },
+
+
     }
 </script>
 

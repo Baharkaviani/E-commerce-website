@@ -15,9 +15,10 @@
             <div v-if="!admin" class="btn">
               <modal ref="modalName">
                 <template v-slot:body>
-                  <label class="modalLabel">تعداد کالا</label>
-                  <input type="number" v-model="proSelNumber"/>
-                  <p>
+                  <label class="modalLabel"> تعداد کالا محصول {{product.title}}</label>
+                  <input type="number" @change="showPrice" v-on:keyup="showPrice" v-model="proSelNumber"/>
+                  <p>قیمت نهایی: {{finalPrice}} تومان</p>
+                  <p :class="{error:merror, safe:!merror}">
                     {{buyingMessage}}
                   </p>
                   <button class="inModal" @click="submit_buy">خرید</button>
@@ -50,14 +51,18 @@
         data() {
             return {
                 proSelNumber: 1,
-              buyingMessage:""
-
+              buyingMessage:"",
+              finalPrice:this.product.price,
+              merror:false
             }
         },
         methods: {
           submiting() {
             let ref = this.$refs.modalName;
             ref.openModal();
+          },
+          showPrice(){
+            this.finalPrice = this.proSelNumber * this.product.price
           },
           submit_buy() {
                 let self = this;
@@ -74,11 +79,13 @@
                 }).then(function (response) {
                     console.log(response);
                     self.buyingMessage = response.data.message
+                    self.merror = false
 
                 })
                     .catch((error => {
                         console.log(error);
                        self.buyingMessage = error.response.data.message
+                      self.merror = true
                     }))
 
             },
@@ -203,9 +210,16 @@
     }
     input{
       margin-bottom: 30px;
+      border-radius: 24px;
     }
     p{
       margin-bottom: 30px;
+    }
+    .error{
+      color: red;
+    }
+    .safe{
+      color: green;
     }
     .modalLabel{
       margin-top: 10px;
