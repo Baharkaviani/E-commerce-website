@@ -122,21 +122,55 @@ def signup():
 @app.route('/products', methods=['GET'])
 @db_session
 def getProducts():
-    # print(request.json)
-    # body = request.get_json()
-    # order = body.get('order')
-    # if order == 'price':
-    #     products = select(p for p in Product).order_by(desc(Product.price))
-    #
-    # elif order == 'sold':
-    #     products = select(p for p in Product).order_by(desc(Product.sold))
-    products = select(p for p in Product).order_by(desc(Product.sold))
+    order = request.args.get("order")
+    if order == 'priceDesc':
+        products = select(p for p in Product).order_by(desc(Product.price))
+
+    elif order == 'priceAsc':
+        products = select(p for p in Product).order_by(Product.price)
+
+
+    elif order == 'sold':
+        products = select(p for p in Product).order_by(desc(Product.sold))
+
+    elif order=='date':
+        products = select(p for p in Product).order_by(desc(Product.date))
+
+    # products = select(p for p in Product).order_by(desc(Product.sold))
     prods = []
     for product in products:
         prods.append({'title': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
                       'category': product.category, 'available': product.available})
 
+
+
     return jsonify(prods)
+
+# @app.route('/catsearch', methods=['GET'])
+# @db_session
+# def getProducts():
+#     order = request.args.get("order")
+#     if order == 'priceDesc':
+#         products = select(p for p in Product).order_by(desc(Product.price))
+#
+#     elif order == 'priceAsc':
+#         products = select(p for p in Product).order_by(Product.price)
+#
+#
+#     elif order == 'sold':
+#         products = select(p for p in Product).order_by(desc(Product.sold))
+#
+#     elif order=='date':
+#         products = select(p for p in Product).order_by(desc(Product.date))
+#
+#     # products = select(p for p in Product).order_by(desc(Product.sold))
+#     prods = []
+#     for product in products:
+#         prods.append({'title': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
+#                       'category': product.category, 'available': product.available})
+#
+#
+#     return jsonify(prods)
 
 
 @app.route('/categories', methods=['GET'])
@@ -145,8 +179,23 @@ def getcats():
     categories = select(c for c in Category)
     cats = []
     for cat in categories:
-        cats.append({'name': cat.name})
+        cats.append(cat.name)
     return jsonify(cats)
+
+@app.route('/searchproduct', methods=['GET'])
+@db_session
+def searchProduct():
+
+    product =  request.args.get("product")
+    if product == "":
+        getProducts()
+    product = select(p for p in Product if p.name == product)[:][0]
+    prods = []
+
+    prods.append({'title': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
+                      'category': product.category, 'available': product.available})
+
+    return jsonify(prods)
 
 
 @app.route('/buy', methods=['POST'])
@@ -173,12 +222,12 @@ def buy():
                                  price=invoicePrice, date=datetime.datetime.utcnow(), user=user)
             # test it later
             user.invoices.add(newInvoice)
-            return jsonify({'message': 'purchase successful'})
+            return jsonify({'message': 'خرید با موفقیت انجام شد'})
         else:
-            return jsonify({'message': 'purchase unsuccessful, product not available'})
+            return jsonify({'message': 'تعداد درخواست شده بیشتر از موجودی انبار است'}),403
 
     else:
-        return jsonify({'message': 'purchase unsuccessful, balance not enough'})
+        return jsonify({'message': 'موجودی ناکافی'}),403
 
 
 @app.route('/balance', methods=['GET'])
