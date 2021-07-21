@@ -24,11 +24,29 @@
                         <button class="inModal" @click="submit_buy">خرید</button>
                     </template>
                 </modal>
-
                 <button class="buy" @click="submiting()">خرید محصول</button>
             </div>
+
             <div v-else class="btn">
-                <button class="buy">ویرایش محصول</button>
+                <modal ref="editModal">
+                    <template v-slot:body>
+                        <label class="modalLabel"> ویرایش کالای {{product.title}}</label>
+                        <p>نام کالا:</p>
+                        <input type="text" v-model="data.newName"/>
+                        <p>افزایش موجودی به تعداد:</p>
+                        <input type="number" v-model="data.available"/>
+                        <p>دسته بندی:</p>
+                        <input type="text" v-model="data.category"/>
+                        <p>قیمت:</p>
+                        <input type="number" v-model="data.price"/>
+
+                        <p :class="{error:merror, safe:!merror}">
+                            {{buyingMessage}}
+                        </p>
+                        <button class="inModal" @click="submit_edit">ثبت ویرایش</button>
+                    </template>
+                </modal>
+                <button class="buy" @click="editingProduct">ویرایش محصول</button>
             </div>
         </div>
     </div>
@@ -49,10 +67,21 @@
         },
         data() {
             return {
+                // number of products to buy
                 proSelNumber: 1,
+                // response to buy action
                 buyingMessage:"",
+                // the total price
                 finalPrice:this.product.price,
-                merror:false
+                // the error message
+                merror:false,
+                // new information edited by admin to update the product info
+                data: {
+                    newName: "",
+                    available: 0,
+                    category: "",
+                    price: 0,
+                }
             }
         },
         methods: {
@@ -88,6 +117,32 @@
                     }))
 
             },
+            editingProduct (){
+                let ref = this.$refs.editModal;
+                ref.openModal();
+            },
+            submit_edit (){
+                let self = this;
+                let token = window.localStorage.getItem('token');
+
+                axios({
+                    method: 'post',
+                    url: 'http://127.0.0.1:5000/editproduct',
+                    headers: { 'authorization': `Bare ${token}` },
+                    data: {
+                        name: this.product.title,
+                        newName: this.data.newName,
+                        available: this.data.available,
+                        category: this.data.category,
+                        price: this.data.price,
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                    self.$emit("updateProduct", self.data)
+                }).catch((error => {
+                    console.log(error);
+                }))
+            }
         }
     }
 </script>
