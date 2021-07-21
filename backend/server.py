@@ -277,6 +277,7 @@ def invoiceUser():
     return jsonify(invs)
 
 
+
 @app.route('/invoiceadmin', methods=['GET'])
 @authentication
 @db_session
@@ -298,6 +299,26 @@ def invoiceAdmin():
     else:
         return jsonify({'message': 'access denied'}), 403
 
+@app.route('/idfilter', methods=['GET'])
+@authentication
+@db_session
+def idFilter():
+    headers = request.headers
+    id = request.args.get('id')
+    authorizarion_header = headers.get('Authorization')
+    access = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get(
+        'access')
+    if access:
+        invoice = select(inv for inv in Invoice if inv.id==id)[:]
+        invs =[]
+        if len(invoice)!=0:
+            invoice = select(inv for inv in Invoice if inv.id == id)[:][0]
+            invs.append({'product': invoice.product.name, 'date': invoice.date, 'price': invoice.price, 'id': invoice.id,
+                 'address': invoice.address,
+                 'name': invoice.customerName + ' ' + invoice.customerSName})
+        return jsonify(invs)
+    else:
+        return jsonify({'message': 'access denied'}), 403
 
 @app.route('/editprofile', methods=['POST'])
 @authentication
@@ -402,7 +423,7 @@ def editProduct():
             product.name = body.get('newName')
 
         if  body.get('available'):
-            product.available = body.get('available')
+            product.available += body.get('available')
 
         if  body.get('category'):
             product.category = body.get('category')
