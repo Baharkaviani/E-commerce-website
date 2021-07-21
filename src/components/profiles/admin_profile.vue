@@ -64,10 +64,10 @@
                     <td>{{ cat }}</td>
                     <td class="tab-btn">
                         <!--    button for editing category's name    -->
-                        <button class="edit bttn" @click="editingCategory(cat)">ویرایش دسته‌بندی</button>
+                        <button class="edit bttn" v-if="cat !== 'دسته بندی نشده'" @click="editingCategory(cat)">ویرایش دسته‌بندی</button>
 
                         <!--    button for deleting a category    -->
-                        <button class="omit bttn" @click="deletingCategory(cat)">Xحذف دسته‌بندی</button>
+                        <button class="omit bttn" v-if="cat !== 'دسته بندی نشده'" @click="deletingCategory(cat)">Xحذف دسته‌بندی</button>
                     </td>
                 </tr>
                 </tbody>
