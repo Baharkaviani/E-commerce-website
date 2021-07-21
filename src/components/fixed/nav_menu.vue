@@ -9,7 +9,7 @@
         </nav>
 
         <div class="sign-in">
-            <a class="drop">تارا</a>
+            <a class="drop">{{ userName }}</a>
             <i class="arrow"></i>
             <div class="dropdown-content">
                 <a class="first" v-on:click="linkClicked($event)" id="profile" href="#">پروفایل</a>
@@ -26,7 +26,12 @@
         linkClicked(event){
           this.$emit('childToParent', event.currentTarget.id)
         }
-      }
+      },
+        data () {
+          return {
+              userName: window.localStorage.getItem('name')
+          }
+        }
     }
 </script>
 
