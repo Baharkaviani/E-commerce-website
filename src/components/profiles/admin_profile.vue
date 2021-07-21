@@ -67,7 +67,7 @@
                         <button class="edit bttn" @click="editingCategory(cat)">ویرایش دسته‌بندی</button>
 
                         <!--    button for deleting a category    -->
-                        <button class="omit bttn">Xحذف دسته‌بندی</button>
+                        <button class="omit bttn" @click="deletingCategory(cat)">Xحذف دسته‌بندی</button>
                     </td>
                 </tr>
                 </tbody>
@@ -314,7 +314,8 @@
                 ],
                 categories: [],
                 cat: "",
-                newCatName: ""
+                newCatName: "",
+                buyingMessage: ""
             }
         },
         methods: {
@@ -420,7 +421,27 @@
                     self.merror = false;
                     self.getProducts();
                     self.getCategories();
-                    // self.$emit("updateCategori", self.data)
+                }).catch((error => {
+                    console.log(error);
+                }))
+            },
+            deletingCategory(cat){
+                let self = this;
+                let token = window.localStorage.getItem('token');
+
+                axios({
+                    method: 'post',
+                    url: 'http://127.0.0.1:5000/deletecategory',
+                    headers: { 'authorization': `Bare ${token}` },
+                    data: {
+                        category: cat,
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                    self.buyingMessage = response.data.message;
+                    self.merror = false;
+                    self.getProducts();
+                    self.getCategories();
                 }).catch((error => {
                     console.log(error);
                 }))
