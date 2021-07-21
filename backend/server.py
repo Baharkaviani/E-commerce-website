@@ -58,7 +58,7 @@ def login():
             user = user[0]
             if user.password == password:
                 created_token = create_token(email, user.admin)
-                return jsonify({'token': created_token,'name':user.name, 'message':'ورود با موفقیت انجام شد'})
+                return jsonify({'token': created_token, 'name': user.name, 'message': 'ورود با موفقیت انجام شد'})
             else:
                 return jsonify({'authorization': 'Failed', 'message': 'wrong password'}), 403
 
@@ -71,7 +71,6 @@ def login():
 @app.route('/signup', methods=['POST'])
 @db_session
 def signup():
-
     body = request.get_json()
     email = body.get('email')
     password = body.get('password')
@@ -109,11 +108,11 @@ def signup():
                     User(email=email, password=password, admin=0, name=body.get('name'), sname=body.get('sname'),
                          address=body.get('address'))
                     created_token = create_token(email, 0)
-                    return jsonify({'token': created_token, 'message':'ثبت‌ نام با موفقیت انجام شد'})
+                    return jsonify({'token': created_token, 'message': 'ثبت‌ نام با موفقیت انجام شد'})
 
             else:
                 return jsonify({
-                                   'message': 'the password must contain both letters and numbers and be at least 8 characters long'}), 400
+                    'message': 'the password must contain both letters and numbers and be at least 8 characters long'}), 400
 
         else:
             return jsonify({'message': 'invalid email address'}), 400
@@ -133,7 +132,7 @@ def getProducts():
     elif order == 'sold':
         products = select(p for p in Product).order_by(desc(Product.sold))
 
-    elif order=='date':
+    elif order == 'date':
         products = select(p for p in Product).order_by(desc(Product.date))
 
     # products = select(p for p in Product).order_by(desc(Product.sold))
@@ -141,8 +140,6 @@ def getProducts():
     for product in products:
         prods.append({'title': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
                       'category': product.category, 'available': product.available})
-
-
 
     return jsonify(prods)
 
@@ -154,7 +151,7 @@ def categoryFilter():
     body = request.get_json()
     categories = body.get("cats")
     if order == 'priceDesc':
-            products = select(p for p in Product if p.category in categories).order_by(desc(Product.price))
+        products = select(p for p in Product if p.category in categories).order_by(desc(Product.price))
 
     elif order == 'priceAsc':
         products = select(p for p in Product if p.category in categories).order_by(Product.price)
@@ -163,7 +160,7 @@ def categoryFilter():
     elif order == 'sold':
         products = select(p for p in Product if p.category in categories).order_by(desc(Product.sold))
 
-    elif order=='date':
+    elif order == 'date':
         products = select(p for p in Product if p.category in categories).order_by(desc(Product.date))
 
     # products = select(p for p in Product).order_by(desc(Product.sold))
@@ -171,8 +168,6 @@ def categoryFilter():
     for product in products:
         prods.append({'title': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
                       'category': product.category, 'available': product.available})
-
-
 
     return jsonify(prods)
 
@@ -186,20 +181,20 @@ def getcats():
         cats.append(cat.name)
     return jsonify(cats)
 
+
 @app.route('/searchproduct', methods=['GET'])
 @db_session
 def searchProduct():
-
-    productName =  request.args.get("product")
+    productName = request.args.get("product")
     if productName == "":
         getProducts()
     product = select(p for p in Product if p.name == productName)[:]
 
     prods = []
-    if len(product)!=0:
+    if len(product) != 0:
         product = select(p for p in Product if p.name == productName)[:][0]
         prods.append({'title': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
-                          'category': product.category, 'available': product.available})
+                      'category': product.category, 'available': product.available})
 
     return jsonify(prods)
 
@@ -230,10 +225,10 @@ def buy():
             user.invoices.add(newInvoice)
             return jsonify({'message': 'خرید با موفقیت انجام شد'})
         else:
-            return jsonify({'message': 'تعداد درخواست شده بیشتر از موجودی انبار است'}),403
+            return jsonify({'message': 'تعداد درخواست شده بیشتر از موجودی انبار است'}), 403
 
     else:
-        return jsonify({'message': 'موجودی ناکافی'}),403
+        return jsonify({'message': 'موجودی ناکافی'}), 403
 
 
 @app.route('/balance', methods=['GET'])
@@ -245,7 +240,7 @@ def increaseBalance():
     email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
     user = select(user for user in User if user.email == email)[:][0]
     user.balance += 100000
-    return jsonify({'message': 'balance increased successfully', 'balance':user.balance})
+    return jsonify({'message': 'balance increased successfully', 'balance': user.balance})
 
 
 @app.route('/getbalance', methods=['GET'])
@@ -276,7 +271,6 @@ def invoiceUser():
     return jsonify(invs)
 
 
-
 @app.route('/invoiceadmin', methods=['GET'])
 @authentication
 @db_session
@@ -298,26 +292,31 @@ def invoiceAdmin():
     else:
         return jsonify({'message': 'access denied'}), 403
 
+
 @app.route('/idfilter', methods=['GET'])
 @authentication
 @db_session
 def idFilter():
+
     headers = request.headers
-    id = request.args.get('id')
+    id = int(request.args.get('id'))
+
     authorizarion_header = headers.get('Authorization')
     access = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get(
         'access')
     if access:
-        invoice = select(inv for inv in Invoice if inv.id==id)[:]
-        invs =[]
-        if len(invoice)!=0:
+        invoice = select(inv for inv in Invoice if inv.id == id)[:]
+        invs = []
+        if len(invoice) != 0:
             invoice = select(inv for inv in Invoice if inv.id == id)[:][0]
-            invs.append({'product': invoice.product.name, 'date': invoice.date, 'price': invoice.price, 'id': invoice.id,
+            invs.append(
+                {'product': invoice.product.name, 'date': invoice.date, 'price': invoice.price, 'id': invoice.id,
                  'address': invoice.address,
                  'name': invoice.customerName + ' ' + invoice.customerSName})
         return jsonify(invs)
     else:
         return jsonify({'message': 'access denied'}), 403
+
 
 @app.route('/editprofile', methods=['POST'])
 @authentication
@@ -330,27 +329,26 @@ def editProfile():
     email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
     user = select(user for user in User if user.email == email)[:][0]
 
-    if  body.get('name'):
+    if body.get('name'):
         if len(body.get('name')) <= 250:
             user.name = body.get('name')
 
         else:
             return jsonify({'message': 'name too long'}), 400
 
-
-    if  body.get('sname'):
+    if body.get('sname'):
         if len(body.get('sname')) <= 250:
             user.sname = body.get('sname')
         else:
             return jsonify({'message': 'surname too long'}), 400
-    if  body.get('address'):
+    if body.get('address'):
         if len(body.get('address')) < 1001:
             user.address = body.get('address')
             # return jsonify({'message': user.sname, 'd': user.address})
         else:
             return jsonify({'message': 'address too long'}), 400
 
-    if  body.get('password'):
+    if body.get('password'):
         if len(body.get('password')) <= 250 and re.match(passwordregex, body.get('password')):
             user.password = body.get('password')
             # return jsonify({'message': user.sname, 'd': user.password})
@@ -418,22 +416,64 @@ def editProduct():
         body = request.get_json()
         name = body.get('name')
         product = Product.get(name=name)
-        if  body.get('newName'):
+        if body.get('newName'):
             product.name = body.get('newName')
 
-        if  body.get('available'):
+        if body.get('available'):
             product.available += int(body.get('available'))
 
-        if  body.get('category'):
+        if body.get('category'):
             cats = select(cat for cat in Category if cat.name == body.get('category'))[:]
             if not len(cats):
                 Category(name=body.get('category'))
             product.category = body.get('category')
 
-        if  body.get('price'):
+        if body.get('price'):
             product.price = int(body.get('price'))
 
         return jsonify({'message': 'ویرایش مورد نظر با موفقیت انجام شد'})
+
+    else:
+        return jsonify({'message': 'access denied'}), 403
+
+
+@app.route('/addproduct', methods=['POST'])
+@authentication
+@db_session
+def addProduct():
+    headers = request.headers
+    authorizarion_header = headers.get('Authorization')
+    access = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get(
+        'access')
+    if access:
+        body = request.get_json()
+        if not body.get('name'):
+            return jsonify({'message': 'نام محصول حتما باید وارد شود'}), 400
+
+        if not body.get('price'):
+            return jsonify({'message': 'قیمت محصول حتما باید وارد شود'}), 400
+
+        if body.get('cat'):
+            if not len(select(cate for cate in Category if cate.name == body.get('cat'))[:]):
+                Category(name=body.get('cat'))
+
+        if not body.get('cat') and not body.get('available'):
+            Product(name=body.get('name'), price=body.get('price'), date=datetime.datetime.utcnow())
+
+        elif body.get('available') and not body.get('cat'):
+            Product(name=body.get('name'), price=body.get('price'), available=body.get('available'),
+                    date=datetime.datetime.utcnow())
+
+        elif body.get('cat') and not body.get('available'):
+            Product(name=body.get('name'), price=body.get('price'), category=body.get('cat'),
+                    date=datetime.datetime.utcnow())
+
+        else:
+            Product(name=body.get('name'), price=body.get('price'), available=body.get('available'),
+                    category=body.get('cat'),
+                    date=datetime.datetime.utcnow())
+
+        return jsonify({'message': 'محصول جدید با موفقیت اضافه شد'})
 
     else:
         return jsonify({'message': 'access denied'}), 403
