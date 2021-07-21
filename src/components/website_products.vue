@@ -286,6 +286,8 @@
         flex-direction: row;
         position: relative;
         margin: 10px;
+        width: 1260px;
+
     }
 
     .products {
@@ -295,8 +297,11 @@
         flex-direction: row-reverse;
         flex-wrap: wrap;
         gap: 10px;
-    }
 
+    }
+    .categories{
+
+    }
     .pagination {
         display: flex;
         align-items: center;
