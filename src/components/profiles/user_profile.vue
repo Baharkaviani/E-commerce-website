@@ -9,96 +9,125 @@
             <a v-if="this.profile" class="button">افزایش موجودی</a>
         </div>
 
-        <!--    <br v-if="this.profile">-->
         <div class="tab-div">
             <button v-on:click="changeToProfile" :class="{clickedBtn:this.profile, tab:true, profile:true}">پروفایل
             </button>
             <button v-on:click="changeToInvoice" :class="{clickedBtn:!this.profile, tab:true, invoice:true}">رسیدها
             </button>
         </div>
+
         <div v-if="!this.profile" class="ss">
-            <table v-if="!this.profile">
+            <table class="table table-striped">
+                <thead>
                 <tr>
                     <th>کد پیگیری</th>
                     <th>کالا</th>
                     <th>قیمت پرداخت شده</th>
                     <th>آدرس ارسال شده</th>
                 </tr>
+                </thead>
 
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
+                <tbody>
+                <tr v-for="(recp, index) in receipt" :key="index">
+                    <td>{{ recp.code }}</td>
+                    <td>{{ recp.name }}</td>
+                    <td>{{ recp.price }}</td>
+                    <td>{{ recp.address }}</td>
                 </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-                <tr>
-                    <td>SHOP102030</td>
-                    <td>موس گیمینگ ریزر</td>
-                    <td>۱۰/۰۰۰ تومان</td>
-                    <td>تهران، تهران، امیرکبیر</td>
-                </tr>
-
+                </tbody>
             </table>
+
+<!--            <table v-if="!this.profile">-->
+<!--                <tr>-->
+<!--                    <th>کد پیگیری</th>-->
+<!--                    <th>کالا</th>-->
+<!--                    <th>قیمت پرداخت شده</th>-->
+<!--                    <th>آدرس ارسال شده</th>-->
+<!--                </tr>-->
+
+<!--                <tr>-->
+<!--                    <label v-for="(recp,index) in receipt" :key="index" class="labels">{{cat}}-->
+<!--                        <td>SHOP102030</td>-->
+<!--                        <td>موس گیمینگ ریزر</td>-->
+<!--                        <td>۱۰/۰۰۰ تومان</td>-->
+<!--                        <td>تهران، تهران، امیرکبیر</td>-->
+<!--                    </label>-->
+<!--                </tr>-->
+
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td>SHOP102030</td>-->
+<!--                    <td>موس گیمینگ ریزر</td>-->
+<!--                    <td>۱۰/۰۰۰ تومان</td>-->
+<!--                    <td>تهران، تهران، امیرکبیر</td>-->
+<!--                </tr>-->
+
+<!--            </table>-->
         </div>
 
         <form v-if="this.profile" id="edit-form">
@@ -116,16 +145,16 @@
             <p class="pass-error error" v-if="this.profile && !this.valid['pass']">{{this.error['pass']}}</p>
             <p v-if="this.profile && !this.valid['address']" class="address-error error">{{this.error['address']}}</p>
         </form>
+
         <div v-if="this.profile" class="button-div">
             <button v-if="this.profile" class="sub" type="submit" form="edit-form">ویرایش اطلاعات</button>
         </div>
-
     </div>
-
 </template>
 
 <script>
     import input_textfield from "@/components/register_login/input_textfield";
+    import axios from "axios";
 
     export default {
         name: "user_profile",
@@ -190,7 +219,21 @@
                     wsize: true,
                     minl: 1,
                     maxl: 1000,
-                }
+                },
+                receipt: [
+                    // {
+                    //     code: 'SHOP102031',
+                    //     name: 'موس گیمینگ ۱',
+                    //     price: '۱۰/۰۰۰ تومان',
+                    //     address: 'تهران، تهران، امیرکبیر'
+                    // },
+                    // {
+                    //     code: 'SHOP102032',
+                    //     name: 'موس گیمینگ ۲',
+                    //     price: '۳۰/۰۰۰ تومان',
+                    //     address: 'تهران، تهران، شریف'
+                    // },
+                ]
             }
         },
         methods: {
@@ -201,22 +244,34 @@
                 this.profile = false
             },
             onChildClick(value, argument, isValid, message) {
-                // console.log(value + argument)
-                this.args[argument] = value
+                this.args[argument] = value;
                 if (!isValid) {
-                    this.error[argument] = message
-                    this.valid[argument] = false
+                    this.error[argument] = message;
+                    this.valid[argument] = false;
                 } else {
-                    this.clear(argument)
+                    this.clear(argument);
                 }
             },
             clear(argument) {
-                this.error[argument] = ''
-                this.valid[argument] = true
+                this.error[argument] = '';
+                this.valid[argument] = true;
             }
+        },
+        created() {
+            let token = window.localStorage.getItem('token');
+
+            axios({
+                method: 'get',
+                url: 'http://127.0.0.1:5000/invoiceuser',
+                headers: { 'authorization': `Bare ${token}` },
+            }).then((response)=>{
+                for (const rect of response.data){
+                    this.receipt.push(rect)
+                }
+            }).catch((error => {
+                console.log(error)
+            }))
         }
-
-
     }
 </script>
 

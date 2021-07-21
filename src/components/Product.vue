@@ -56,12 +56,11 @@
         },
         methods: {
           submiting() {
-            let ref = this.$refs.modalName
+            let ref = this.$refs.modalName;
             ref.openModal();
           },
           submit_buy() {
-                let self = this
-
+                let self = this;
                 let token = window.localStorage.getItem('token');
 
                 axios({

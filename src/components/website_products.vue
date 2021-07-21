@@ -197,14 +197,14 @@
                 let perPage = this.perPage;
                 let from = (page - 1) * perPage;
                 let to = 0;
-                console.log("numberOfPages:" + this.numberOfPages);
+                // console.log("numberOfPages:" + this.numberOfPages);
                 if (page === this.numberOfPages) {
                     to = this.products.length;
                 }
                 else {
                     to = from + perPage;
                 }
-                console.log("page:" + this.page + "perpage:" + perPage);
+                // console.log("page:" + this.page + "perpage:" + perPage);
                 return this.products.slice(from, to);
             },
             getCategories(){
@@ -212,40 +212,33 @@
                 axios({
                     method: 'get',
                     url: 'http://127.0.0.1:5000/categories',
-
                 }).then((response)=>{
                     for (const category of response.data){
                         // console.log(JSON.stringify(product))
-                        this.cats.push(category)
+                        this.cats.push(category);
                     }
-
-                })
-                    .catch((error => {
-                        console.log(error)
-                    }))
+                }).catch((error => {
+                    console.log(error);
+                }))
             },
             sortGet(order){
-                let self = this
+                let self = this;
                 axios({
                     method: 'get',
                     url: 'http://127.0.0.1:5000/products',
                     params:{order:order}
 
                 }).then((response)=>{
-                    self.products = []
+                    self.products = [];
                     for (const product of response.data){
                         product.img =require('../assets/mouse.png');
                         self.products.push(product)
                     }
-                    // this.displayedProductsAgain()
                 })
                     .catch((error => {
                         console.log(error)
                     }))
             },
-            displayedProductsAgain () {
-                return this.paginate();
-            }
         },
         computed: {
             displayedProducts () {
@@ -255,19 +248,16 @@
         created() {
             this.setPages();
             this.getCategories();
-            // console.log("hellllo");
             axios({
                 method: 'get',
                 url: 'http://127.0.0.1:5000/products',
                 params:{order:'sold'}
-
             }).then((response)=>{
                 for (const product of response.data){
                     // console.log(JSON.stringify(product))
                     product.img =require('../assets/mouse.png');
                     this.products.push(product)
                 }
-
             })
                 .catch((error => {
                     console.log(error)
