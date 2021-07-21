@@ -1,7 +1,9 @@
 <template>
     <div class="main-div">
+        <!--    The label of whole profile page    -->
         <div class="page-label">ادمین عزیز، خوش آمدید</div>
 
+        <!--    List of Tabs in admin's profile    -->
         <div class="tab-div">
             <button class="tab prdct" :class="{ clickedBtn:this.tab===0}" v-on:click="changeToProduct">لیست کالاها
             </button>
@@ -9,6 +11,7 @@
             <button class="tab invoice" :class="{ clickedBtn:this.tab===2}" v-on:click="changeToInvoice">رسیدها</button>
         </div>
 
+        <!--    First tab contents    -->
         <div v-if="this.tab===0" class="btn">
             <button class="add">+ ایجاد محصول جدید</button>
 
@@ -43,6 +46,7 @@
 <!--            </section>-->
         </div>
 
+        <!--    Second tab contents    -->
         <div v-if="this.tab===1" class="table-div cats-div">
             <table v-if="this.tab===1" class='cats'>
                 <tr>
@@ -102,7 +106,9 @@
             </table>
         </div>
 
-        <input_textfield v-if="this.tab===2" class="search" :attr="search"/>
+        <!--    Third tab contents    -->
+        <input_textfield v-if="this.tab===2" class="search" :attr="search" v-model="search.placeholder"/>
+<!--        <p>{{search.placeholder}}</p>-->
 
         <div v-if="this.tab===2" class="table-div invoice-div">
             <table v-if="this.tab===2" class='invoices'>
