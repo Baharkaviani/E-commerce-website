@@ -41,7 +41,7 @@
         data () {
             return {
                 page: 1,
-                perPage: 10,
+                perPage: 15,
                 numberOfPages: 1,
                 pages: [],
                 products: [

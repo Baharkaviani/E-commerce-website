@@ -1,7 +1,7 @@
 <template>
     <div class="app">
         <!--    nav menu of the website    -->
-        <nav_menu class="menu" v-on:childToParent="onChildClick"/>
+        <nav_menu class="menu" v-on:childToParent="onChildClick" ref="navMenu"/>
 
         <!--    website component contains the main part of site!    -->
         <website v-if="page==='website'" class="website"/>
@@ -12,7 +12,7 @@
 
         <!--    login and register section    -->
         <div class="loginRegister" v-if="page==='logreg'">
-            <login_register class="main" :login="logv"/>
+            <login_register class="main" :login="logv" v-on:signin="changeName($refs.navMenu)"/>
         </div>
 
         <!--    footer of the website    -->
@@ -32,7 +32,6 @@
     import user_profile from "@/components/profiles/user_profile";
     import admin_profile from "@/components/profiles/admin_profile";
     import login_register from "@/components/register_login/login_register";
-    //import Input_textfield from "@/components/register_login/input_textfield";
 
     export default {
         name: 'App',
@@ -82,6 +81,9 @@
                         console.log("user_profile");
                     }
                 }
+            },
+            changeName(ref) {
+                ref.setUserName();
             }
         }
     }
