@@ -48,7 +48,9 @@
 
         <!--    Second tab contents    -->
         <div v-if="this.tab===1" class="table-div cats-div">
+            <!--    table of categories    -->
             <table v-if="this.tab===1" class='cats'>
+                <!--    header    -->
                 <thead>
                 <tr>
                     <th>نام دسته‌بندی</th>
@@ -56,17 +58,36 @@
                 </tr>
                 </thead>
 
+                <!--    body    -->
                 <tbody>
                 <tr class="tr-button" v-for="(cat, index) in categories" :key="index">
                     <td>{{ cat }}</td>
                     <td class="tab-btn">
-                        <button class="edit bttn">ویرایش دسته‌بندی</button>
+                        <!--    button for editing category's name    -->
+                        <button class="edit bttn" @click="editingCategory(cat)">ویرایش دسته‌بندی</button>
+
+                        <!--    button for deleting a category    -->
                         <button class="omit bttn">Xحذف دسته‌بندی</button>
                     </td>
                 </tr>
                 </tbody>
+
+                <!--    modal for editing category's name    -->
+                <modal ref="editModal">
+                    <template v-slot:body>
+                        <label class="modalLabel"> ویرایش دسته بندی {{cat}}</label>
+                        <p>نام دسته بندی:</p>
+                        <input type="text" v-model="newCatName"/>
+
+                        <p :class="{error:merror, safe:!merror}">
+                            {{buyingMessage}}
+                        </p>
+                        <button class="inModal" @click="submit_edit(cat)">ثبت ویرایش</button>
+                    </template>
+                </modal>
+
             </table>
-        </div>
+<!--        </div>-->
 
 <!--        <div v-if="this.tab===1" class="table-div cats-div">-->
 <!--            <table v-if="this.tab===1" class='cats'>-->
@@ -124,7 +145,7 @@
 <!--                    </td>-->
 <!--                </tr>-->
 <!--            </table>-->
-<!--        </div>-->
+        </div>
 
         <!--    Third tab contents    -->
         <input_textfield v-if="this.tab===2" class="search" :attr="search" v-model="search.placeholder"/>
@@ -151,7 +172,7 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
+<!--        </div>-->
 
 <!--        <div v-if="this.tab===2" class="table-div invoice-div">-->
 <!--            <table v-if="this.tab===2" class='invoices'>-->
@@ -212,19 +233,21 @@
 <!--                    <td>تهران، تهران، امیرکبیر</td>-->
 <!--                </tr>-->
 <!--            </table>-->
-<!--        </div>-->
+        </div>
     </div>
 </template>
 
 <script>
     import input_textfield from "@/components/register_login/input_textfield";
     import Product from "@/components/Product";
+    import Modal from "@/components/Modal";
     import axios from "axios";
 
     export default {
         components: {
             input_textfield,
-            Product
+            Product,
+            Modal
         },
         name: "admin_profile",
         data() {
@@ -289,7 +312,9 @@
                     //     address: 'تهران، تهران، شریف'
                     // },
                 ],
-                categories: []
+                categories: [],
+                cat: "",
+                newCatName: ""
             }
         },
         methods: {
@@ -372,6 +397,34 @@
                     console.log(error);
                 }));
             },
+            editingCategory(cat) {
+                let ref = this.$refs.editModal;
+                ref.openModal();
+                this.cat = cat;
+            },
+            submit_edit(cat) {
+                let self = this;
+                let token = window.localStorage.getItem('token');
+
+                axios({
+                    method: 'post',
+                    url: 'http://127.0.0.1:5000/editcategory',
+                    headers: { 'authorization': `Bare ${token}` },
+                    data: {
+                        category: cat,
+                        newName: this.newCatName,
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                    self.buyingMessage = response.data.message;
+                    self.merror = false;
+                    self.getProducts();
+                    self.getCategories();
+                    // self.$emit("updateCategori", self.data)
+                }).catch((error => {
+                    console.log(error);
+                }))
+            }
         },
         computed: {
             displayedProducts () {
@@ -586,5 +639,38 @@
 
     .tab-btn :hover {
         color: #00bec9;
+    }
+
+    .inModal{
+        display: block;
+        text-align: center;
+        padding: 8px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 24px;
+        background-color:#009eff;
+        position: relative;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        color:white;
+    }
+
+    input{
+        margin-bottom: 30px;
+        border-radius: 24px;
+    }
+
+    p{
+        margin-bottom: 30px;
+    }
+    .error{
+        color: red;
+    }
+    .safe{
+        color: green;
+    }
+
+    .modalLabel{
+        margin-top: 10px;
+        margin-bottom: 30px;
     }
 </style>

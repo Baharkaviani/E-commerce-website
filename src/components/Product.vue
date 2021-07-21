@@ -262,8 +262,8 @@
         position: relative;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         color:white;
-
     }
+
     input{
         margin-bottom: 30px;
         border-radius: 24px;
