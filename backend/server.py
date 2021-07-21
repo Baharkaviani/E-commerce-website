@@ -13,7 +13,7 @@ app.config['SECRET_KEY'] = 'ecommercebahartara'
 
 def create_token(email, access):
     token = jwt.encode(
-        {'email': email, 'access': access, 'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30)},
+        {'email': email, 'access': access, 'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=4)},
         app.config['SECRET_KEY'], algorithm="HS256")
     return token
 
@@ -146,31 +146,36 @@ def getProducts():
 
     return jsonify(prods)
 
-# @app.route('/catsearch', methods=['GET'])
-# @db_session
-# def getProducts():
-#     order = request.args.get("order")
-#     if order == 'priceDesc':
-#         products = select(p for p in Product).order_by(desc(Product.price))
-#
-#     elif order == 'priceAsc':
-#         products = select(p for p in Product).order_by(Product.price)
-#
-#
-#     elif order == 'sold':
-#         products = select(p for p in Product).order_by(desc(Product.sold))
-#
-#     elif order=='date':
-#         products = select(p for p in Product).order_by(desc(Product.date))
-#
-#     # products = select(p for p in Product).order_by(desc(Product.sold))
-#     prods = []
-#     for product in products:
-#         prods.append({'title': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
-#                       'category': product.category, 'available': product.available})
-#
-#
-#     return jsonify(prods)
+
+@app.route('/filtercat', methods=['POST'])
+@db_session
+def categoryFilter():
+    order = request.args.get("order")
+    body = request.get_json()
+    categories = body.get("cats")
+    results =[]
+    if order == 'priceDesc':
+            products = select(p for p in Product if p.category in categories).order_by(desc(Product.price))
+
+    elif order == 'priceAsc':
+        products = select(p for p in Product if p.category in categories).order_by(Product.price)
+
+
+    elif order == 'sold':
+        products = select(p for p in Product if p.category in categories).order_by(desc(Product.sold))
+
+    elif order=='date':
+        products = select(p for p in Product if p.category in categories).order_by(desc(Product.date))
+
+    # products = select(p for p in Product).order_by(desc(Product.sold))
+    prods = []
+    for product in products:
+        prods.append({'title': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
+                      'category': product.category, 'available': product.available})
+
+
+
+    return jsonify(prods)
 
 
 @app.route('/categories', methods=['GET'])
@@ -186,14 +191,16 @@ def getcats():
 @db_session
 def searchProduct():
 
-    product =  request.args.get("product")
-    if product == "":
+    productName =  request.args.get("product")
+    if productName == "":
         getProducts()
-    product = select(p for p in Product if p.name == product)[:][0]
-    prods = []
+    product = select(p for p in Product if p.name == productName)[:]
 
-    prods.append({'title': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
-                      'category': product.category, 'available': product.available})
+    prods = []
+    if len(product)!=0:
+        product = select(p for p in Product if p.name == productName)[:][0]
+        prods.append({'title': product.name, 'date': product.date, 'price': product.price, 'sold': product.sold,
+                          'category': product.category, 'available': product.available})
 
     return jsonify(prods)
 
@@ -239,7 +246,18 @@ def increaseBalance():
     email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
     user = select(user for user in User if user.email == email)[:][0]
     user.balance += 100000
-    return jsonify({'message': 'balance increased successfully'})
+    return jsonify({'message': 'balance increased successfully', 'balance':user.balance})
+
+
+@app.route('/getbalance', methods=['GET'])
+@authentication
+@db_session
+def returnBalance():
+    headers = request.headers
+    authorizarion_header = headers.get('Authorization')
+    email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
+    user = select(user for user in User if user.email == email)[:][0]
+    return jsonify({'balance': user.balance})
 
 
 @app.route('/invoiceuser', methods=['GET'])
