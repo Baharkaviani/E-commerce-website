@@ -120,7 +120,7 @@
                 <tr v-for="(recp, index) in receipt" :key="index">
                     <td>{{ recp.id }}</td>
                     <td>{{ recp.product }}</td>
-                    <td>{{ recp.price }}</td>
+                    <td>{{ recp.price }} تومان</td>
                     <td>{{ recp.name }}</td>
                     <td>{{ recp.address }}</td>
                 </tr>

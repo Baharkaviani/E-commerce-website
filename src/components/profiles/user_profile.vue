@@ -5,8 +5,8 @@
             <label v-if="this.profile" class="page-label">{{ userName }} عزیز، خوش آمدید</label>
             <label v-if="this.profile" class="page-label"> | </label>
             <label v-if="this.profile">موجودی حساب شما: </label>
-            <label v-if="this.profile" class="balance">۱۰/۰۰۰</label>
-            <a v-if="this.profile" class="button">افزایش موجودی</a>
+            <label v-if="this.profile" class="balance">{{ balance }}</label>
+            <button v-if="this.profile" @click="increaseBalance" class="button">افزایش موجودی</button>
         </div>
 
         <div class="tab-div">
@@ -31,7 +31,7 @@
                 <tr v-for="(recp, index) in receipt" :key="index">
                     <td>{{ recp.id }}</td>
                     <td>{{ recp.product }}</td>
-                    <td>{{ recp.price }}</td>
+                    <td>  {{ recp.price }} تومان</td>
                     <td>{{ recp.address }}</td>
                 </tr>
                 </tbody>
@@ -165,6 +165,7 @@
             return {
                 userName: window.localStorage.getItem('name'),
                 profile: true,
+                balance:0,
                 args: {
                     name: '',
                     sname: '',
@@ -243,6 +244,19 @@
             changeToInvoice() {
                 this.profile = false
             },
+            increaseBalance(){
+              let token = window.localStorage.getItem('token');
+              let self = this
+              axios({
+                method: 'get',
+                url: 'http://127.0.0.1:5000/balance',
+                headers: { 'authorization': `Bare ${token}` },
+              }).then((response)=>{
+                  self.balance = response.data.balance
+              }).catch((error => {
+                console.log(error)
+              }))
+            },
             onChildClick(value, argument, isValid, message) {
                 this.args[argument] = value;
                 if (!isValid) {
@@ -259,7 +273,7 @@
         },
         created() {
             let token = window.localStorage.getItem('token');
-
+            let self = this
             axios({
                 method: 'get',
                 url: 'http://127.0.0.1:5000/invoiceuser',
@@ -271,6 +285,16 @@
             }).catch((error => {
                 console.log(error)
             }))
+
+          axios({
+            method: 'get',
+            url: 'http://127.0.0.1:5000/getbalance',
+            headers: { 'authorization': `Bare ${token}` },
+          }).then((response)=>{
+              self.balance = response.data.balance
+          }).catch((error => {
+            console.log(error)
+          }))
         }
     }
 </script>

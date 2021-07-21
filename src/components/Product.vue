@@ -48,13 +48,18 @@
             return {
                 proSelNumber: 1,
                 buyingMessage: ""
-
+                buyingMessage:"",
+                finalPrice:this.product.price,
+                merror:false
             }
         },
         methods: {
             submiting() {
                 let ref = this.$refs.modalName;
                 ref.openModal();
+            },
+            showPrice(){
+                this.finalPrice = this.proSelNumber * this.product.price
             },
             submit_buy() {
                 let self = this;
@@ -71,11 +76,12 @@
                 }).then(function (response) {
                     console.log(response);
                     self.buyingMessage = response.data.message
-
+                    self.merror = false
                 })
                     .catch((error => {
                         console.log(error);
                         self.buyingMessage = error.response.data.message
+                        self.merror = true
                     }))
 
             },
@@ -200,16 +206,24 @@
 
     }
 
-    input {
+    input{
         margin-bottom: 30px;
+        border-radius: 24px;
     }
+
 
     p {
         margin-bottom: 30px;
     }
+    .error{
+      color: red;
+    }
+    .safe{
+      color: green;
+    }
 
     .modalLabel {
-        margin-top: 10px;
-        margin-bottom: 30px;
+      margin-top: 10px;
+      margin-bottom: 30px;
     }
 </style>
