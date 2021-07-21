@@ -138,6 +138,8 @@
                     }
                 }).then(function (response) {
                     console.log(response);
+                    self.buyingMessage = response.data.message
+                    self.merror = false
                     self.$emit("updateProduct", self.data)
                 }).catch((error => {
                     console.log(error);

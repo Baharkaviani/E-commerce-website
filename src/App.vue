@@ -47,7 +47,7 @@
         data (){
             return{
                 our_page: "",
-                logv : false,
+                logv : true,
                 inps:[
                     {label:"نام",
                         placeholder:"نام خود را وارد کنید...",
