@@ -66,67 +66,107 @@
 
         <!--    Second tab contents    -->
         <div v-if="this.tab===1" class="table-div cats-div">
+            <!--    table of categories    -->
             <table v-if="this.tab===1" class='cats'>
+                <!--    header    -->
+                <thead>
                 <tr>
                     <th>نام دسته‌بندی</th>
                     <th class="col-center">عملیات</th>
                 </tr>
-                <tr class="tr-button">
-                    <td>دسته‌بندی</td>
+                </thead>
+
+                <!--    body    -->
+                <tbody>
+                <tr class="tr-button" v-for="(cat, index) in categories" :key="index">
+                    <td>{{ cat }}</td>
                     <td class="tab-btn">
-                        <button class="edit bttn">ویرایش دسته‌بندی</button>
-                        <button class="omit bttn">Xحذف دسته‌بندی</button>
+                        <!--    button for editing category's name    -->
+                        <button class="edit bttn" v-if="cat !== 'دسته بندی نشده'" @click="editingCategory(cat)">ویرایش دسته‌بندی</button>
+
+                        <!--    button for deleting a category    -->
+                        <button class="omit bttn" v-if="cat !== 'دسته بندی نشده'" @click="deletingCategory(cat)">Xحذف دسته‌بندی</button>
                     </td>
                 </tr>
-                <tr class="tr-button">
-                    <td>دسته‌بندی</td>
-                    <td class="tab-btn">
-                        <button class="edit bttn">ویرایش دسته‌بندی</button>
-                        <button class="omit bttn">Xحذف دسته‌بندی</button>
-                    </td>
-                </tr>
-                <tr class="tr-button">
-                    <td>دسته‌بندی</td>
-                    <td class="tab-btn">
-                        <button class="edit bttn">ویرایش دسته‌بندی</button>
-                        <button class="omit bttn">Xحذف دسته‌بندی</button>
-                    </td>
-                </tr>
-                <tr class="tr-button">
-                    <td>دسته‌بندی</td>
-                    <td class="tab-btn">
-                        <button class="edit bttn">ویرایش دسته‌بندی</button>
-                        <button class="omit bttn">Xحذف دسته‌بندی</button>
-                    </td>
-                </tr>
-                <tr class="tr-button">
-                    <td>دسته‌بندی</td>
-                    <td class="tab-btn">
-                        <button class="edit bttn">ویرایش دسته‌بندی</button>
-                        <button class="omit bttn">Xحذف دسته‌بندی</button>
-                    </td>
-                </tr>
-                <tr class="tr-button">
-                    <td>دسته‌بندی</td>
-                    <td class="tab-btn">
-                        <button class="edit bttn">ویرایش دسته‌بندی</button>
-                        <button class="omit bttn">Xحذف دسته‌بندی</button>
-                    </td>
-                </tr>
-                <tr class="tr-button">
-                    <td>دسته‌بندی</td>
-                    <td class="tab-btn">
-                        <button class="edit bttn">ویرایش دسته‌بندی</button>
-                        <button class="omit bttn">Xحذف دسته‌بندی</button>
-                    </td>
-                </tr>
+                </tbody>
+
+                <!--    modal for editing category's name    -->
+                <modal ref="editModal">
+                    <template v-slot:body>
+                        <label class="modalLabel"> ویرایش دسته بندی {{cat}}</label>
+                        <p>نام دسته بندی:</p>
+                        <input type="text" v-model="newCatName"/>
+
+                        <p :class="{error:merror, safe:!merror}">
+                            {{buyingMessage}}
+                        </p>
+                        <button class="inModal" @click="submit_edit(cat)">ثبت ویرایش</button>
+                    </template>
+                </modal>
 
             </table>
+<!--        </div>-->
+
+<!--        <div v-if="this.tab===1" class="table-div cats-div">-->
+<!--            <table v-if="this.tab===1" class='cats'>-->
+<!--                <tr>-->
+<!--                    <th>نام دسته‌بندی</th>-->
+<!--                    <th class="col-center">عملیات</th>-->
+<!--                </tr>-->
+<!--                <tr class="tr-button">-->
+<!--                    <td>دسته‌بندی</td>-->
+<!--                    <td class="tab-btn">-->
+<!--                        <button class="edit bttn">ویرایش دسته‌بندی</button>-->
+<!--                        <button class="omit bttn">Xحذف دسته‌بندی</button>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr class="tr-button">-->
+<!--                    <td>دسته‌بندی</td>-->
+<!--                    <td class="tab-btn">-->
+<!--                        <button class="edit bttn">ویرایش دسته‌بندی</button>-->
+<!--                        <button class="omit bttn">Xحذف دسته‌بندی</button>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr class="tr-button">-->
+<!--                    <td>دسته‌بندی</td>-->
+<!--                    <td class="tab-btn">-->
+<!--                        <button class="edit bttn">ویرایش دسته‌بندی</button>-->
+<!--                        <button class="omit bttn">Xحذف دسته‌بندی</button>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr class="tr-button">-->
+<!--                    <td>دسته‌بندی</td>-->
+<!--                    <td class="tab-btn">-->
+<!--                        <button class="edit bttn">ویرایش دسته‌بندی</button>-->
+<!--                        <button class="omit bttn">Xحذف دسته‌بندی</button>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr class="tr-button">-->
+<!--                    <td>دسته‌بندی</td>-->
+<!--                    <td class="tab-btn">-->
+<!--                        <button class="edit bttn">ویرایش دسته‌بندی</button>-->
+<!--                        <button class="omit bttn">Xحذف دسته‌بندی</button>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr class="tr-button">-->
+<!--                    <td>دسته‌بندی</td>-->
+<!--                    <td class="tab-btn">-->
+<!--                        <button class="edit bttn">ویرایش دسته‌بندی</button>-->
+<!--                        <button class="omit bttn">Xحذف دسته‌بندی</button>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                <tr class="tr-button">-->
+<!--                    <td>دسته‌بندی</td>-->
+<!--                    <td class="tab-btn">-->
+<!--                        <button class="edit bttn">ویرایش دسته‌بندی</button>-->
+<!--                        <button class="omit bttn">Xحذف دسته‌بندی</button>-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--            </table>-->
         </div>
 
         <!--    Third tab contents    -->
         <input_textfield v-if="this.tab===2" class="search" :attr="search" v-model="search.placeholder"/>
-<!--        <p>{{search.placeholder}}</p>-->
 
         <div v-if="this.tab===2" class="table-div invoice-div">
             <table v-if="this.tab===2" class='invoices'>
@@ -150,7 +190,7 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
+<!--        </div>-->
 
 <!--        <div v-if="this.tab===2" class="table-div invoice-div">-->
 <!--            <table v-if="this.tab===2" class='invoices'>-->
@@ -211,7 +251,7 @@
 <!--                    <td>تهران، تهران، امیرکبیر</td>-->
 <!--                </tr>-->
 <!--            </table>-->
-<!--        </div>-->
+        </div>
     </div>
 </template>
 
@@ -225,7 +265,7 @@
         components: {
             input_textfield,
             Product,
-          Modal
+            Modal
         },
         name: "admin_profile",
         data() {
@@ -283,35 +323,40 @@
                     // }
                 ],
                 receipt: [
-                    {
-                        id: 'SHOP102031',
-                        product: 'موس گیمینگ ۱',
-                        price: '۱۰/۰۰۰ تومان',
-                        name: 'بهار',
-                        address: 'تهران، تهران، امیرکبیر'
-                    },
-                    {
-                        id: 'SHOP102032',
-                        product: 'موس گیمینگ ۲',
-                        price: '۳۰/۰۰۰ تومان',
-                        name: 'تارا',
-                        address: 'تهران، تهران، شریف'
-                    },
-                ]
+                    // {
+                    //     id: 'SHOP102031',
+                    //     product: 'موس گیمینگ ۱',
+                    //     price: '۱۰/۰۰۰ تومان',
+                    //     name: 'بهار',
+                    //     address: 'تهران، تهران، امیرکبیر'
+                    // },
+                    // {
+                    //     id: 'SHOP102032',
+                    //     product: 'موس گیمینگ ۲',
+                    //     price: '۳۰/۰۰۰ تومان',
+                    //     name: 'تارا',
+                    //     address: 'تهران، تهران، شریف'
+                    // },
+                ],
+                categories: [],
+                cat: "",
+                newCatName: "",
+                buyingMessage: ""
             }
         },
         methods: {
             changeToProduct() {
-                this.tab = 0
+                this.tab = 0;
             },
           createProduct(ref){
               ref.openModal()
           },
             changeToCats() {
-                this.tab = 1
+                this.tab = 1;
+                this.getCategories();
             },
             changeToInvoice() {
-                this.tab = 2
+                this.tab = 2;
             },
             setPages () {
                 this.numberOfPages = Math.ceil(this.products.length / this.perPage);
@@ -392,6 +437,68 @@
                     console.log(error)
                 }))
             },
+            getCategories(){
+                axios({
+                    method: 'get',
+                    url: 'http://127.0.0.1:5000/categories',
+                }).then((response)=>{
+                    this.categories = [];
+                    for (const category of response.data){
+                        // console.log(JSON.stringify(product))
+                        this.categories.push(category);
+                    }
+                }).catch((error => {
+                    console.log(error);
+                }));
+            },
+            editingCategory(cat) {
+                let ref = this.$refs.editModal;
+                ref.openModal();
+                this.cat = cat;
+            },
+            submit_edit(cat) {
+                let self = this;
+                let token = window.localStorage.getItem('token');
+
+                axios({
+                    method: 'post',
+                    url: 'http://127.0.0.1:5000/editcategory',
+                    headers: { 'authorization': `Bare ${token}` },
+                    data: {
+                        category: cat,
+                        newName: this.newCatName,
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                    self.buyingMessage = response.data.message;
+                    self.merror = false;
+                    self.getProducts();
+                    self.getCategories();
+                }).catch((error => {
+                    console.log(error);
+                }))
+            },
+            deletingCategory(cat){
+                let self = this;
+                let token = window.localStorage.getItem('token');
+
+                axios({
+                    method: 'post',
+                    url: 'http://127.0.0.1:5000/deletecategory',
+                    headers: { 'authorization': `Bare ${token}` },
+                    data: {
+                        category: cat,
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                    self.buyingMessage = response.data.message;
+                    self.merror = false;
+                    self.getProducts();
+                    self.getCategories();
+                }).catch((error => {
+                    console.log(error);
+                }))
+            }
         },
         computed: {
             displayedProducts () {
@@ -401,6 +508,7 @@
         created() {
             this.getProducts();
             this.getReceipts();
+            this.getCategories();
         }
     }
 </script>

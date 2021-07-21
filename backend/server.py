@@ -378,7 +378,7 @@ def editCat():
         for product in products:
             product.category = newName
 
-        return jsonify({'message': 'category edited successfully'})
+        return jsonify({'message': 'ویرایش مورد نظر با موفقیت انجام شد'})
 
     else:
         return jsonify({'message': 'access denied'}), 403
@@ -400,7 +400,7 @@ def deleteCat():
         for product in products:
             product.category = 'دسته بندی نشده'
 
-        return jsonify({'message': 'category deleted successfully'})
+        return jsonify({'message': 'دسته بندی مورد نظر با موفقیت حذف شد'})
 
     else:
         return jsonify({'message': 'access denied'}), 403
