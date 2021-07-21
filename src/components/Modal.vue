@@ -74,10 +74,14 @@ export default {
     margin-left: auto;
     top :0%;
     transform: translate(0%,20%);
-    overflow-y: auto;
+    /*overflow-y: auto;*/
 
 
   }
+  input{
+    display: block;
+  }
+
   .modal-close {
     border-radius: 5px;
     width: 30px;

@@ -1,10 +1,6 @@
 <template>
     <div class="product">
-        <Modal ref="modalName">
-            <template v-slot:body>
-                <input type="number" v-model="proSelNumber"/>
-            </template>
-        </Modal>
+
 
         <div v-if="admin" class="sold">{{product.sold}}</div>
         <div class="upper-box">
@@ -17,7 +13,18 @@
         <div class="lower-box">
             <div class="price">{{product.price}} تومان</div>
             <div v-if="!admin" class="btn">
-                <button class="buy" @click="submit_buy($refs.modalName)">خرید محصول</button>
+              <modal ref="modalName">
+                <template v-slot:body>
+                  <label class="modalLabel">تعداد کالا</label>
+                  <input type="number" v-model="proSelNumber"/>
+                  <p>
+                    {{buyingMessage}}
+                  </p>
+                  <button class="inModal" @click="submit_buy">خرید</button>
+                </template>
+              </modal>
+
+                <button class="buy" @click="submiting()">خرید محصول</button>
             </div>
             <div v-else class="btn">
                 <button class="buy">ویرایش محصول</button>
@@ -32,7 +39,8 @@
 
     export default {
         name: "product",
-        component: {
+      components: {Modal},
+      component: {
             Modal
         },
         props:{
@@ -41,15 +49,18 @@
         },
         data() {
             return {
-                proSelNumber: 1
+                proSelNumber: 1,
+              buyingMessage:""
+
             }
         },
         methods: {
-            submit_buy(ref) {
-                console.log(ref);
-                console.log("Product submit -> add product:" + this.valid);
-
-                ref.openModal();
+          submiting() {
+            let ref = this.$refs.modalName
+            ref.openModal();
+          },
+          submit_buy() {
+                let self = this
 
                 let token = window.localStorage.getItem('token');
 
@@ -59,21 +70,18 @@
                     headers: { 'authorization': `Bare ${token}` },
                     data: {
                         product: this.product.title,
-                        // number: this.,
+                        number: this.proSelNumber,
                     }
                 }).then(function (response) {
                     console.log(response);
-                    // this.submitted = true
-                    if (response.status === 200) {
-                        this.modalProp = response.data.message
-                    } else {
-                        this.modalProp = "ثبت نام نا موفق"
-                    }
-                    // $refs.modalName.openModal();
+                    self.buyingMessage = response.data.message
+
                 })
                     .catch((error => {
                         console.log(error);
+                       self.buyingMessage = error.response.data.message
                     }))
+
             },
         }
     }
@@ -180,5 +188,28 @@
         position: absolute;
         transform: translate(-50%,-50%);
         /*z-index: 2;*/
+    }
+    .inModal{
+      display: block;
+      text-align: center;
+      padding: 8px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 24px;
+      background-color:#009eff;
+      position: relative;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      color:white;
+
+    }
+    input{
+      margin-bottom: 30px;
+    }
+    p{
+      margin-bottom: 30px;
+    }
+    .modalLabel{
+      margin-top: 10px;
+      margin-bottom: 30px;
     }
 </style>

@@ -286,8 +286,8 @@
         flex-direction: row;
         position: relative;
         margin: 10px;
-        gap: 10px;
         width: 1260px;
+        gap: 10px;
     }
 
     .products {
