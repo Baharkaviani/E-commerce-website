@@ -26,7 +26,6 @@
                 <tr>
                     <th>نام دسته‌بندی</th>
                     <th class="col-center">عملیات</th>
-
                 </tr>
                 <tr class="tr-button">
                     <td>دسته‌بندی</td>

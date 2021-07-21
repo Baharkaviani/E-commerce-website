@@ -63,7 +63,7 @@ db.generate_mapping(create_tables=True)
 
 with db_session:
     if User.select().first() is None:
-        User(email = 'admin@gmail.com', password= 'admin', admin=True)
+        User(email = 'admin@gmail.com', password= 'adminadmin1', admin=True, name='admin')
     if Category.select().first() is None:
         Category(name= 'دسته بندی نشده')
         Category(name='دسته بندی ۱')

@@ -1,6 +1,6 @@
 <template>
     <div class="product-container">
-        <div style="width: 75%;">
+        <div>
             <section class="products" >
                 <Product v-for="product in displayedProducts"
                          :key="product.title"
@@ -24,7 +24,7 @@
             </nav>
         </div>
 
-        <categories :cats="cats" class="categories" style="width: 25%;"/>
+        <categories :cats="cats" class="categories"/>
     </div>
 </template>
 
@@ -286,15 +286,19 @@
         flex-direction: row;
         position: relative;
         margin: 10px;
+        gap: 10px;
+        width: 1260px;
     }
 
     .products {
         display: flex;
         align-items: center;
-        justify-content: center;
+        /*justify-content: center;*/
         flex-direction: row-reverse;
         flex-wrap: wrap;
+        direction: ltr;
         gap: 10px;
+        min-width: 960px;
     }
 
     .pagination {
