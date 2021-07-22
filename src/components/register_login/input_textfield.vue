@@ -3,12 +3,14 @@
     <label :class="{naddrl: attr.class,  addrl:!attr.class, searchlabel:attr.search}" :for="attr.label">{{attr.label}}</label>
     <input  v-if="attr.label=='ایمیل'"  type="email" :class="{wsize: attr.wsize,  nwsize:!attr.wsize, valid: this.error===1, invalid: this.error===2}" :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
             v-model="inputValue" v-on:keyup="emitToParent" v-on:focusin="emitToParent" v-on:focusout="changeError">
-    <input  v-else-if="attr.label=='رمز عبور'" type="password" :class="{wsize: attr.wsize,  nwsize:!attr.wsize , valid: this.error===1, invalid: this.error===2}" :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
+    <input  v-else-if="attr.label=='رمز عبور'" type="password" :class="{wsize: attr.wsize,  nwsize:!attr.wsize , valid: this.error===1, invalid: this.error===2}" :id="attr.label" :name="attr.argument"  :placeholder="attr.placeholder"
             v-model="inputValue" v-on:keyup="emitToParent" v-on:focusin="emitToParent" v-on:focusout="changeError">
     <input  v-else-if="attr.class" type="text" :class="{search:attr.search, wsize: attr.wsize,  nwsize:!attr.wsize, valid: this.error===1, invalid: this.error===2}"  :id="attr.label" :name="attr.argument" :minlength="attr.minl" :placeholder="attr.placeholder"
             v-model="inputValue" v-on:keyup="emitToParent" v-on:focusin="emitToParent" v-on:focusout="changeError" v-on:keyup.enter="searching">
     <textarea  v-else-if="!attr.class" :name="attr.argument" v-on:focusout="changeError"  :class="{valid: this.error===1, invalid: this.error===2}" :placeholder="attr.placeholder" v-model="inputValue"
                v-on:keyup="emitToParent" v-on:focusin="emitToParent"  ></textarea>
+
+<!--    :minlength="attr.minl"-->
   </div>
 </template>
 

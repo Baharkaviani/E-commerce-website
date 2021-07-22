@@ -166,7 +166,7 @@
         </div>
 
         <!--    Third tab contents    -->
-        <input_textfield v-if="this.tab===2" class="search" :attr="search" v-on:searchingEvent="searchCode"/>
+        <input_textfield v-if="this.tab===2" class="search" :attr="search" v-on:searchingEvent="searchCode" v-on:childToParent="emptySearchHandler"/>
 
         <div v-if="this.tab===2" class="table-div invoice-div">
             <table v-if="this.tab===2" class='invoices'>
@@ -289,6 +289,7 @@
                     class: true,
                     wsize: true,
                     search: true,
+                  argument:"search",
                     minl: 0,
                     maxl: 255
                 },
@@ -522,6 +523,13 @@
                   console.log(error);
                 }));
               }
+          },
+          // eslint-disable-next-line no-unused-vars
+          emptySearchHandler(inputVal,argument,valid,message){
+
+              if (argument === "search" && inputVal =="")
+                this.getReceipts()
+
           }
         },
         computed: {

@@ -129,8 +129,12 @@
 
 <!--            </table>-->
         </div>
-
-        <form v-if="this.profile" id="edit-form">
+      <modal ref="modalName">
+        <template v-slot:body>
+          <p  class="modal" :class="{merror:merror, safe:!merror}">{{modalProp}}</p>
+        </template>
+      </modal>
+        <form v-if="this.profile" id="edit-form" @submit.prevent=editProfile($refs.modalName) >
             <input_textfield v-if="this.profile" class="name" v-on:childToParent="onChildClick" v-on:focusedOut="clear"
                              :attr="name"/>
             <input_textfield v-if="this.profile" class="sname" v-on:childToParent="onChildClick" v-on:focusedOut="clear"
@@ -155,17 +159,21 @@
 <script>
     import input_textfield from "@/components/register_login/input_textfield";
     import axios from "axios";
+    import Modal from "@/components/Modal";
 
     export default {
         name: "user_profile",
         components: {
-            input_textfield
+            input_textfield,
+          Modal
         },
         data() {
             return {
                 userName: window.localStorage.getItem('name'),
                 profile: true,
                 balance:0,
+                modalProp:'',
+              merror:false,
                 args: {
                     name: '',
                     sname: '',
@@ -269,7 +277,50 @@
             clear(argument) {
                 this.error[argument] = '';
                 this.valid[argument] = true;
-            }
+            },
+          getInfoFromServer(){
+            let token = window.localStorage.getItem('token');
+            axios({
+              method: 'get',
+              url: 'http://127.0.0.1:5000/getuserinfo',
+              headers: { 'authorization': `Bare ${token}` },
+            }).then((response)=>{
+              this.name.placeholder = response.data.name
+              this.sname.placeholder = response.data.sname
+              this.address.placeholder = response.data.address
+            }).catch((error => {
+              console.log(error)
+            }))
+          },
+          editProfile(ref){
+            let token = window.localStorage.getItem('token');
+            let self = this
+            axios({
+              method: 'post',
+              url: 'http://127.0.0.1:5000/editprofile',
+              headers: { 'authorization': `Bare ${token}` },
+              data:{
+                name: this.args.name,
+                sname: this.args.sname,
+                password: this.args.pass,
+                address:this.args.address
+              }
+            }).then((response)=>{
+              self.modalProp = response.data.message
+              self.merror = false
+              if (self.args.name.trim()!="") {
+                window.localStorage.setItem('name', self.args.name)
+                self.userName = window.localStorage.getItem('name')
+                self.$emit("updateNavName", self.args.name)
+              }
+              self.getInfoFromServer()
+            }).catch((error => {
+              self.modalProp = error.response.data.message
+              self.merror = true
+              console.log(error)
+            }))
+            ref.openModal()
+          }
         },
         created() {
             let token = window.localStorage.getItem('token');
@@ -295,6 +346,8 @@
           }).catch((error => {
             console.log(error)
           }))
+          this.getInfoFromServer()
+
         }
     }
 </script>
@@ -515,4 +568,17 @@
         background-color: #ddd;
     }
 
+    modal{
+      margin-bottom: 30px;
+    }
+    .merror{
+      color: red;
+    }
+    .safe{
+      color: green;
+    }
+    .modalLabel{
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
 </style>

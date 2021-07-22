@@ -7,7 +7,7 @@
         <website v-if="page==='website'" class="website"/>
 
         <!--    admin's page    -->
-        <user_profile v-if="page==='profile' & our_page==='user_profile'" class="test"></user_profile>
+        <user_profile v-if="page==='profile' & our_page==='user_profile'" class="test" v-on:updateNavName="changeName($refs.navMenu)"></user_profile>
         <admin_profile v-if="page==='profile' & our_page==='admin_profile'"></admin_profile>
 
         <!--    login and register section    -->
