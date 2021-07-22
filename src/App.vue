@@ -12,7 +12,7 @@
 
         <!--    login and register section    -->
         <div class="loginRegister" v-if="page==='logreg'">
-            <login_register class="main" :login="logv" v-on:signin="changeName($refs.navMenu)"/>
+            <login_register class="main" :login="logv" v-on:signin="changeName($refs.navMenu)" v-on:goToRegister="setLogv"/>
         </div>
 
         <!--    footer of the website    -->
@@ -79,6 +79,9 @@
             },
             changeName(ref) {
                 ref.setUserName();
+            },
+            setLogv(){
+                this.logv = false;
             }
         }
     }
