@@ -17,7 +17,7 @@
             </div>
         </div>
       <div v-if="!isIn" class="sign-in">
-        <a class="drop">ورود / ثبت نام</a>
+        <a class="drop" v-on:click="linkClicked($event)" id="logreg">ورود / ثبت نام</a>
       </div>
     </div>
 </template>
@@ -50,6 +50,7 @@
               window.localStorage.removeItem('token')
             this.userName = "ورود/ثبت نام";
             this.isIn = false
+            this.$emit('childToParent', "website")
           }
         },
         created (){

@@ -13,7 +13,7 @@
         name: "sorter",
       data () {
         return {
-          sorted :""
+          sorted :"sold"
         }
         },
         methods:{

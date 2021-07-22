@@ -40,7 +40,7 @@
         },
         props:{
             page : {
-                default:"logreg",
+                default:"website",
                 type: String
             }
         },
