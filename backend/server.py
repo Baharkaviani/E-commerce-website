@@ -446,7 +446,7 @@ def editProduct():
     else:
         return jsonify({'message': 'access denied'}), 403
 
-@app.route('/addCat', methods=['POST'])
+@app.route('/addcat', methods=['POST'])
 @authentication
 @db_session
 def addCat():
@@ -459,7 +459,7 @@ def addCat():
         name = body.get('name')
         Category(name=name)
 
-        return jsonify({'message': 'دسته یندی مورد نظر با موفقیت اضافه شد'})
+        return jsonify({'message': 'دسته بندی مورد نظر با موفقیت اضافه شد'})
 
     else:
         return jsonify({'message': 'access denied'}), 403

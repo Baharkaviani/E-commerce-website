@@ -63,22 +63,24 @@
 <!--                />-->
 <!--            </section>-->
         </div>
+      <modal ref="newCatModal">
+        <template v-slot:body>
+          <label class="modalLabel">ایجاد دسته بندی جدید</label>
+          <p>نام دسته بندی:</p>
+          <input type="text" v-model="newCat.name"/>
 
+          <p :class="{error:merror, safe:!merror}">
+            {{creatingMessage}}
+          </p>
+          <button class="inModal" @click="createNewCat">ثبت دسته بندی</button>
+        </template>
+      </modal>
+      <div v-if="this.tab===1" class="btn">
+      <button v-if="this.tab===1" class="add" @click="createCat($refs.newCatModal)">+ ایجاد دسته بندی جدید</button>
+      </div>
         <!--    Second tab contents    -->
         <div v-if="this.tab===1" class="table-div cats-div">
-          <modal ref="newCatModal">
-            <template v-slot:body>
-              <label class="modalLabel">ایجاد دسته بندی جدید</label>
-              <p>نام دسته بندی:</p>
-              <input type="text" v-model="newProduct.name"/>
 
-              <p :class="{error:merror, safe:!merror}">
-                {{creatingMessage}}
-              </p>
-              <button class="inModal" @click="createNewPro">ثبت دسته بندی</button>
-            </template>
-          </modal>
-          <button class="add" @click="createProduct($refs.newProModal)">+ ایجاد محصول جدید</button>
 
           <!--    table of categories    -->
             <table v-if="this.tab===1" class='cats'>
@@ -297,6 +299,9 @@
                   available:0,
                   category:""
                 },
+              newCat:{
+                  name:""
+              },
                 search: {
                     label: "جستجوی کد پیگیری",
                     placeholder: "کد پیگیری را برای جستجو وارد کنید ...",
@@ -367,6 +372,10 @@
               this.creatingMessage =""
               ref.openModal()
           },
+          createCat(ref){
+            this.creatingMessage =""
+            ref.openModal()
+          },
             changeToCats() {
                 this.tab = 1;
                 this.getCategories();
@@ -414,6 +423,27 @@
                     console.log(error)
                 }));
             },
+          createNewCat(){
+            let token = window.localStorage.getItem('token');
+            let self = this
+            axios({
+              method: 'post',
+              url: 'http://127.0.0.1:5000/addcat',
+              headers: { 'authorization': `Bare ${token}` },
+              data:{
+                name :self.newCat.name
+              }
+            }).then((response)=>{
+              self.creatingMessage = response.data.message
+              self.merror = false
+              self.getProducts()
+              self.getCategories()
+            }).catch((error => {
+              self.creatingMessage = error.response.data.message
+              self.merror = true
+              console.log(error)
+            }))
+          },
            createNewPro(){
              let token = window.localStorage.getItem('token');
              let self = this
@@ -790,5 +820,8 @@
     .modalLabel{
       margin-top: 10px;
       margin-bottom: 30px;
+    }
+    .newCatDiv{
+      align-content: center;
     }
 </style>
