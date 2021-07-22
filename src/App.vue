@@ -1,10 +1,10 @@
 <template>
     <div class="app">
         <!--    nav menu of the website    -->
-        <nav_menu class="menu" v-on:childToParent="onChildClick" ref="navMenu"/>
+        <nav_menu class="menu" v-on:childToParent="onChildClick" v-on:emitProd="prodEmitted" ref="navMenu"/>
 
         <!--    website component contains the main part of site!    -->
-        <website v-if="page==='website'" class="website"/>
+        <website v-if="page==='website'" class="website" ref="websitePage"/>
 
         <!--    admin's page    -->
         <user_profile v-if="page==='profile' & our_page==='user_profile'" class="test" v-on:updateNavName="changeName($refs.navMenu)"></user_profile>
@@ -76,6 +76,9 @@
                         console.log("user_profile");
                     }
                 }
+            },
+            prodEmitted(){
+              this.page = "website"
             },
             changeName(ref) {
                 ref.setUserName();

@@ -5,7 +5,7 @@
             <div class="menu-item"><a href="#">صفحه اول</a></div>
             <div class="menu-item"><a href="#">تماس با ما</a></div>
             <div class="menu-item"><a href="#">پشتیبانی</a></div>
-            <div class="menu-item"><a href="#">محصولات</a></div>
+            <div class="menu-item"><a v-on:click="emitProd($event)" href="#">محصولات</a></div>
         </nav>
 
         <div v-if="isIn" class="sign-in">
@@ -13,7 +13,7 @@
             <i class="arrow"></i>
             <div class="dropdown-content">
                 <a  class="first" v-on:click="linkClicked($event)" id="profile" href="#">پروفایل</a>
-                <a  class="second" v-on:click="logout($event)" href="#">خروج از حساب</a>
+                <a  class="second"  v-on:click="logout($event)" href="#">خروج از حساب</a>
             </div>
         </div>
       <div v-if="!isIn" class="sign-in">
@@ -51,6 +51,9 @@
             this.userName = "ورود/ثبت نام";
             this.isIn = false
             this.$emit('childToParent', "website")
+          },
+          emitProd(){
+            this.$emit('emitProd')
           }
         },
         created (){
