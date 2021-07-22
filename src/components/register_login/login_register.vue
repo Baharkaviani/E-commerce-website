@@ -6,7 +6,7 @@
 
         <modal ref="modalName">
             <template v-slot:body>
-                <p v-if="submitted" class="modal">{{modalProp}}</p>
+                <p  class="modal">{{modalProp}}</p>
             </template>
         </modal>
 
@@ -203,6 +203,8 @@
                         this.$emit('signin')
                     }).catch((error => {
                             console.log(error)
+                      self.setModalProp(error.response.data.message, false);
+                      ref.openModal();
                     }))
                 }
             },
@@ -228,7 +230,8 @@
                     })
                         .catch((error => {
                             console.log(error)
-
+                          self.setModalProp(error.response.data.message, false);
+                          ref.openModal();
                         }))
                 }
             }
