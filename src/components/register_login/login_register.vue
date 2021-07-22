@@ -6,7 +6,7 @@
 
         <modal ref="modalName">
             <template v-slot:body>
-                <p  class="modal">{{modalProp}}</p>
+                <p :class="{error:!submitted, safe:submitted}" class="modal">{{modalProp}}</p>
             </template>
         </modal>
 
@@ -374,4 +374,11 @@
         margin-top: 15px;
         /*border: 1px solid blue;*/
     }
+    .error{
+      color: red;
+    }
+    .safe{
+      color: green;
+    }
+
 </style>

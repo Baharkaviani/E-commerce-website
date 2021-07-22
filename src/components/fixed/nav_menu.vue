@@ -8,14 +8,17 @@
             <div class="menu-item"><a href="#">محصولات</a></div>
         </nav>
 
-        <div class="sign-in">
+        <div v-if="isIn" class="sign-in">
             <a class="drop">{{ userName }}</a>
             <i class="arrow"></i>
             <div class="dropdown-content">
-                <a class="first" v-on:click="linkClicked($event)" id="profile" href="#">پروفایل</a>
-                <a class="second" href="#">خروج از حساب</a>
+                <a  class="first" v-on:click="linkClicked($event)" id="profile" href="#">پروفایل</a>
+                <a  class="second" v-on:click="logout($event)" href="#">خروج از حساب</a>
             </div>
         </div>
+      <div v-if="!isIn" class="sign-in">
+        <a class="drop">ورود / ثبت نام</a>
+      </div>
     </div>
 </template>
 
@@ -24,7 +27,8 @@
         name: "nav_menu",
         data() {
             return {
-                userName: ""
+                userName: "",
+                isIn :false
             }
         },
         methods: {
@@ -32,8 +36,21 @@
                 this.$emit('childToParent', event.currentTarget.id)
             },
             setUserName() {
+              if (window.localStorage.getItem('name')) {
                 this.userName = window.localStorage.getItem('name');
-            }
+                this.isIn = true
+              }
+              else {
+                this.userName = "ورود/ثبت نام";
+                this.isIn = false
+              }
+            },
+          logout(){
+              window.localStorage.removeItem('name')
+              window.localStorage.removeItem('token')
+            this.userName = "ورود/ثبت نام";
+            this.isIn = false
+          }
         },
         created (){
             this.setUserName();

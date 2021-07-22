@@ -66,7 +66,21 @@
 
         <!--    Second tab contents    -->
         <div v-if="this.tab===1" class="table-div cats-div">
-            <!--    table of categories    -->
+          <modal ref="newCatModal">
+            <template v-slot:body>
+              <label class="modalLabel">ایجاد دسته بندی جدید</label>
+              <p>نام دسته بندی:</p>
+              <input type="text" v-model="newProduct.name"/>
+
+              <p :class="{error:merror, safe:!merror}">
+                {{creatingMessage}}
+              </p>
+              <button class="inModal" @click="createNewPro">ثبت دسته بندی</button>
+            </template>
+          </modal>
+          <button class="add" @click="createProduct($refs.newProModal)">+ ایجاد محصول جدید</button>
+
+          <!--    table of categories    -->
             <table v-if="this.tab===1" class='cats'>
                 <!--    header    -->
                 <thead>
@@ -350,6 +364,7 @@
                 this.tab = 0;
             },
           createProduct(ref){
+              this.creatingMessage =""
               ref.openModal()
           },
             changeToCats() {
@@ -455,6 +470,7 @@
             },
             editingCategory(cat) {
                 let ref = this.$refs.editModal;
+                this.buyingMessage =""
                 ref.openModal();
                 this.cat = cat;
             },

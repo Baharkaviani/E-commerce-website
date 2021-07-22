@@ -87,6 +87,7 @@
         methods: {
             submiting() {
                 let ref = this.$refs.modalName;
+                this.buyingMessage = ""
                 ref.openModal();
             },
             showPrice(){
@@ -118,6 +119,7 @@
 
             },
             editingProduct (){
+              this.buyingMessage = ""
                 let ref = this.$refs.editModal;
                 ref.openModal();
             },
