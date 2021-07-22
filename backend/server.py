@@ -40,7 +40,7 @@ def authentication(function):
             if authorized:
                 return function(*args, **kwargs)
             else:
-                return jsonify({'authorization': 'Failed', 'message': 'Invalid token'}), 401
+                return jsonify({'authorization': 'Failed', 'message': 'لطفا وارد حساب کاربری خود شوید'}), 401
 
     return token_and_login
 
@@ -60,12 +60,12 @@ def login():
                 created_token = create_token(email, user.admin)
                 return jsonify({'token': created_token, 'name': user.name, 'message': 'ورود با موفقیت انجام شد'})
             else:
-                return jsonify({'authorization': 'Failed', 'message': 'wrong password'}), 403
+                return jsonify({'authorization': 'Failed', 'message': 'رمز عبور اشتباه است'}), 403
 
         else:
-            return jsonify({'authorization': 'Failed', 'message': 'user does not exist'}), 403
+            return jsonify({'authorization': 'Failed', 'message': 'ایمیل وارد شده وجود ندارد، لطفا ثبت نام نمایید'}), 403
     else:
-        return jsonify({'authorization': 'Failed', 'message': 'Malformed email'}), 403
+        return jsonify({'authorization': 'Failed', 'message': 'ایمیل نادرست است'}), 403
 
 
 @app.route('/signup', methods=['POST'])
@@ -77,20 +77,20 @@ def signup():
     emailregex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     passwordregex = '(?!^[0-9]*$)(?!^[a-zA-Z]*$)^([a-zA-Z0-9]{8,255})$'
     if email == None and password == None:
-        return jsonify({'message': 'email and password not provided'}), 400
+        return jsonify({'message': 'ایمیل و رمز عبور وارد نشده‌اند'}), 400
 
     elif password == None and email != None:
-        return jsonify({'message': 'password was not provided'}), 400
+        return jsonify({'message': 'رمز عبور وارد نشده است'}), 400
 
     elif password != None and email == None:
-        return jsonify({'message': 'email was not provided'}), 400
+        return jsonify({'message': 'ایمیل وارد نشده است'}), 400
 
     else:
         if re.match(emailregex, email):
             if re.match(passwordregex, password):
                 user = select(user for user in User if user.email == email)[:]
                 if len(user) != 0:
-                    return jsonify({'message': 'user already exists'}), 400
+                    return jsonify({'message': 'ایمیل تکراریست'}), 400
                 else:
                     address = body.get('address')
                     name = body.get('name')
@@ -112,10 +112,10 @@ def signup():
 
             else:
                 return jsonify({
-                    'message': 'the password must contain both letters and numbers and be at least 8 characters long'}), 400
+                    'message': 'رمز عبور باید شامل عدد و حروف باشد و حداقل ۸ کاراکتر داشته باشد'}), 400
 
         else:
-            return jsonify({'message': 'invalid email address'}), 400
+            return jsonify({'message': 'ایمیل معتبر نیست'}), 400
 
 
 @app.route('/products', methods=['GET'])
@@ -218,7 +218,7 @@ def buy():
             user.balance -= invoicePrice
             product.available -= num
             product.sold += num
-            newInvoice = Invoice(product=product, number=num, customerName=user.name, customerSName=user.sname,
+            newInvoice = Invoice(product=product, number=num, productName=product.name, customerName=user.name, customerSName=user.sname,
                                  address=user.address,
                                  price=invoicePrice, date=datetime.datetime.utcnow(), user=user)
             # test it later
@@ -265,7 +265,7 @@ def invoiceUser():
     invoices = select(inv for inv in Invoice if inv.user == user)
     invs = []
     for invoice in invoices:
-        invs.append({'product': invoice.product.name, 'date': invoice.date, 'price': invoice.price, 'id': invoice.id,
+        invs.append({'product': invoice.productName, 'date': invoice.date, 'price': invoice.price, 'id': invoice.id,
                      'address': invoice.address})
 
     return jsonify(invs)
@@ -284,7 +284,7 @@ def invoiceAdmin():
         invs = []
         for invoice in invoices:
             invs.append(
-                {'product': invoice.product.name, 'date': invoice.date, 'price': invoice.price, 'id': invoice.id,
+                {'product': invoice.productName, 'date': invoice.date, 'price': invoice.price, 'id': invoice.id,
                  'address': invoice.address,
                  'name': invoice.customerName + ' ' + invoice.customerSName})
 
@@ -310,13 +310,23 @@ def idFilter():
         if len(invoice) != 0:
             invoice = select(inv for inv in Invoice if inv.id == id)[:][0]
             invs.append(
-                {'product': invoice.product.name, 'date': invoice.date, 'price': invoice.price, 'id': invoice.id,
+                {'product': invoice.productName, 'date': invoice.date, 'price': invoice.price, 'id': invoice.id,
                  'address': invoice.address,
                  'name': invoice.customerName + ' ' + invoice.customerSName})
         return jsonify(invs)
     else:
         return jsonify({'message': 'access denied'}), 403
 
+@app.route('/getuserinfo', methods=['GET'])
+@authentication
+@db_session
+def getProfileInfo():
+    headers = request.headers
+    authorizarion_header = headers.get('Authorization')
+    email = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get('email')
+    user = select(user for user in User if user.email == email)[:][0]
+
+    return jsonify({'name': user.name, 'sname':user.sname, 'address': user.address})
 
 @app.route('/editprofile', methods=['POST'])
 @authentication
@@ -334,28 +344,28 @@ def editProfile():
             user.name = body.get('name')
 
         else:
-            return jsonify({'message': 'name too long'}), 400
+            return jsonify({'message': 'نام باید کمتر از ۲۵۰ کاراکتر باشد'}), 400
 
     if body.get('sname'):
         if len(body.get('sname')) <= 250:
             user.sname = body.get('sname')
         else:
-            return jsonify({'message': 'surname too long'}), 400
+            return jsonify({'message': 'نام  خانوادگی باید کمتر از ۲۵۰ کاراکتر باشد'}), 400
     if body.get('address'):
         if len(body.get('address')) < 1001:
             user.address = body.get('address')
             # return jsonify({'message': user.sname, 'd': user.address})
         else:
-            return jsonify({'message': 'address too long'}), 400
+            return jsonify({'message': 'آدرس باید کمتر از ۱۰۰۰ کاراکتر باشد'}), 400
 
     if body.get('password'):
         if len(body.get('password')) <= 250 and re.match(passwordregex, body.get('password')):
             user.password = body.get('password')
             # return jsonify({'message': user.sname, 'd': user.password})
         else:
-            return jsonify({'message': 'Invalid new password'}), 400
+            return jsonify({'message': 'رمز عبور باید شامل عدد و حروف باشد و حداقل ۸ کاراکتر داشته باشد'}), 400
 
-    return jsonify({'message': 'profile edited successfully'})
+    return jsonify({'message': 'عملیات ویرایش با موفقیت انجام شد'})
 
 
 @app.route('/editcategory', methods=['POST'])
@@ -436,6 +446,23 @@ def editProduct():
     else:
         return jsonify({'message': 'access denied'}), 403
 
+@app.route('/addCat', methods=['POST'])
+@authentication
+@db_session
+def addCat():
+    headers = request.headers
+    authorizarion_header = headers.get('Authorization')
+    access = jwt.decode(authorizarion_header.split(' ')[1], app.config['SECRET_KEY'], algorithms=["HS256"]).get(
+        'access')
+    if access:
+        body = request.get_json()
+        name = body.get('name')
+        Category(name=name)
+
+        return jsonify({'message': 'دسته یندی مورد نظر با موفقیت اضافه شد'})
+
+    else:
+        return jsonify({'message': 'access denied'}), 403
 
 @app.route('/addproduct', methods=['POST'])
 @authentication

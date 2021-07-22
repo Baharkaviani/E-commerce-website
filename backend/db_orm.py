@@ -27,6 +27,7 @@ class Category(db.Entity):
 class Invoice(db.Entity):
     id = PrimaryKey(int, auto=True)
     product = Required('Product')
+    productName = Optional(str,255)
     number = Required(int)
     customerName = Required(str,255)
     customerSName = Required(str,255)
@@ -50,9 +51,9 @@ class Product(db.Entity):
     id = PrimaryKey(int, auto=True)
     name = Required(str,255)
     price = Required(int)
-    available = Required(int)
+    available = Required(int, default=0)
     category = Required(str,255,default='دسته بندی نشده')
-    sold= Required(int)
+    sold= Required(int, default=0)
     invoices = Set(Invoice)
     date= Required(datetime.datetime)
 
